@@ -1,3 +1,3 @@
-import db from "$db/mongo";
+// import db from "$db/mongo";
 
-export const events = db.collection("events");
+// export const events = db.collection("events");
