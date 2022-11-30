@@ -2,12 +2,11 @@
 	export let data;
 
 	$: ({ events } = data);
-	$: console.log(events);
 </script>
 
-<ul>
+<ul class="p-10">
 	{#each events as event}
-		<li>
+		<li class="p-4 my-2 border border-2">
 			<p>
 				{event.title}
 			</p>

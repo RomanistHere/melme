@@ -10,7 +10,6 @@ export const load = async function () {
 		}
 	).toArray();
 
-	console.log(data)
 	return {
 		events: data,
 	}
