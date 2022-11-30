@@ -15,10 +15,7 @@
 	class="block p-4 my-2 border border-2 hover:border-emerald-600"
 	href={slug}
 >
-	<img
-		src={imgSrc}
-		alt="Picture of event preview."
-	>
+	<img src={imgSrc} alt="Picture of event preview." />
 	<h2 class="font-bold text-2xl">
 		{title}
 	</h2>

@@ -26,5 +26,5 @@ export const load = async function () {
 
 	return {
 		events: data,
-	}
-}
+	};
+};
