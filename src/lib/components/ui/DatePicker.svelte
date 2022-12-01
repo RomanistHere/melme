@@ -11,8 +11,10 @@
 	const getCurrentDay = () => {
 		const yourDate = new Date();
 		const offset = yourDate.getTimezoneOffset();
-		const adjustedDate = new Date(yourDate.getTime() - (offset*60*1000));
-		return adjustedDate.toISOString().split('T')[0];
+		const adjustedDate = new Date(
+			yourDate.getTime() - offset * 60 * 1000
+		);
+		return adjustedDate.toISOString().split("T")[0];
 	};
 
 	const curDay = getCurrentDay();
@@ -24,11 +26,8 @@
 	};
 </script>
 
-<div class="{customClass}">
-	<label
-		class="lowercase text-sm"
-		for={id}
-	>
+<div class={customClass}>
+	<label class="lowercase text-sm" for={id}>
 		{title}
 	</label>
 
@@ -48,9 +47,7 @@
 		/>
 
 		{#if !isSingleDay}
-			<div class="bg-amber-500 text-4xl">
-				-
-			</div>
+			<div class="bg-amber-500 text-4xl">-</div>
 			<input
 				type="date"
 				class="bg-amber-500 px-2"

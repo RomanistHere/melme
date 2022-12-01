@@ -16,8 +16,7 @@
 	let hasTypingStarted = false;
 	let ref;
 
-	export const focus = () =>
-		ref?.focus();
+	export const focus = () => ref?.focus();
 
 	const onBlur = e => {
 		isInputActive = false;
@@ -31,15 +30,21 @@
 		value = e.currentTarget.value;
 	};
 
-	$: isError = (!isInputValid && !isInputActive && value !== "") || externalError;
-	$: isValid = isInputValid && hasTypingStarted && !isInputActive && !externalError;
+	$: isError =
+		(!isInputValid && !isInputActive && value !== "") ||
+		externalError;
+	$: isValid =
+		isInputValid &&
+		hasTypingStarted &&
+		!isInputActive &&
+		!externalError;
 </script>
 
 <div class="mt-2 {customClass}">
 	<label
-			class="lowercase text-sm"
-			class:text-txt_danger={isError}
-			for={id}
+		class="lowercase text-sm"
+		class:text-txt_danger={isError}
+		for={id}
 	>
 		{#if externalError}
 			{externalError}
@@ -56,15 +61,15 @@
 			class:hover:border-txt_danger={isError}
 			class:pr-12={type === "password"}
 			autocomplete={id}
-			{ id }
-			{ autofocus }
-			{ maxlength }
-			{ placeholder }
-			{ type }
+			{id}
+			{autofocus}
+			{maxlength}
+			{placeholder}
+			{type}
 			on:blur={onBlur}
 			on:input={onInput}
 			bind:this={ref}
-		>
+		/>
 	</div>
 </div>
 

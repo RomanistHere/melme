@@ -6,10 +6,7 @@
 	import TogglerLink from "./TogglerLink.svelte";
 </script>
 
-<form
-	action=""
-	class="max-w-2xl mx-auto py-12"
->
+<form action="" class="max-w-2xl mx-auto py-12">
 	<Input
 		title="Name of the event"
 		id="event-title"
@@ -48,10 +45,7 @@
 		class="mb-4"
 	/>
 
-	<TimePicker
-		title="Pick a time"
-		class="mb-4"
-	/>
+	<TimePicker title="Pick a time" class="mb-4" />
 
 	<Textarea
 		title="Provide specific requirements if there are any"
@@ -68,9 +62,7 @@
 		optionTwoText="No"
 	/>
 
-	<p
-		class="lowercase text-sm mb-2"
-	>
+	<p class="lowercase text-sm mb-2">
 		Pick a category for this event (not ready)
 	</p>
 </form>

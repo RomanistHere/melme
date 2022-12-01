@@ -17,10 +17,8 @@
 	};
 </script>
 
-<div class="{customClass}">
-	<p
-		class="lowercase text-sm mb-2"
-	>
+<div class={customClass}>
+	<p class="lowercase text-sm mb-2">
 		{title}
 	</p>
 

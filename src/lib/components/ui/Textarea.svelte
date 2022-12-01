@@ -1,5 +1,3 @@
-
-
 <script>
 	import { createEventDispatcher } from "svelte";
 
@@ -13,7 +11,8 @@
 
 	let ref;
 	let remainingCommentLength = maxlength;
-	$: isRemainingCharsWarning = remainingCommentLength / maxlength < .05;
+	$: isRemainingCharsWarning =
+		remainingCommentLength / maxlength < 0.05;
 
 	const dispatch = createEventDispatcher();
 
@@ -28,20 +27,17 @@
 	};
 </script>
 
-<div class="{customClass}">
+<div class={customClass}>
 	<div class="relative">
-		<label
-			class="lowercase text-sm"
-			for={id}
-		>
+		<label class="lowercase text-sm" for={id}>
 			{title}
 		</label>
 
 		<textarea
 			class="w-full h-40 p-2 mt-2 rounded-md text-base border-2 border-active focus:outline-0"
-			{ placeholder }
-			{ maxlength }
-			{ id }
+			{placeholder}
+			{maxlength}
+			{id}
 			on:input={handleInput}
 			bind:this={ref}
 		></textarea>

@@ -7,16 +7,13 @@
 	export let checked = true;
 </script>
 
-<label
-	class="relative flex mr-4 {customClass}"
-	on:click
->
+<label class="relative flex mr-4 {customClass}" on:click>
 	<input
 		type="checkbox"
 		class="opacity-0 w-0 h-0"
 		{checked}
 		bind:this={toggleInputRef}
-	>
+	/>
 	<span class="block p-2 text-white">
 		{optionOneText}
 	</span>
@@ -32,12 +29,12 @@
 	}
 
 	input:checked + span + span {
-		opacity: .2;
+		opacity: 0.2;
 		background-color: gray;
 	}
 
 	input + span {
-		opacity: .2;
+		opacity: 0.2;
 		background-color: gray;
 	}
 
