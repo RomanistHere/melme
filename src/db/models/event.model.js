@@ -15,8 +15,10 @@ const schema = new Schema(
 			type: String,
 			required: true,
 		},
-		linkToEvent: String,
-		registrationLink: String,
+		linkToEvent: {
+			type: String,
+			required: true,
+		},
 		address: {
 			type: String,
 			required: true,
@@ -33,18 +35,18 @@ const schema = new Schema(
 			type: String,
 			default: "",
 		},
+		price: String,
+		registrationLink: String,
+		requirements: String,
 		imgSrc: [String],
-		tags: [String],
-		location: {
-			type: {
-				type: String,
-				enum: ["Point"],
-				default: "Point",
-			},
-			coordinates: {
-				type: [Number],
-				required: true,
-			},
+		categories: [String],
+		isFree: {
+			type: Boolean,
+			required: true,
+		},
+		isRegistrationNeeded: {
+			type: Boolean,
+			required: true,
 		},
 		isApproved: {
 			type: Boolean,
@@ -58,6 +60,17 @@ const schema = new Schema(
 			type: Number,
 			default: 0,
 		},
+		// location: {
+		// 	type: {
+		// 		type: String,
+		// 		enum: ["Point"],
+		// 		default: "Point",
+		// 	},
+		// 	coordinates: {
+		// 		type: [Number],
+		// 		required: true,
+		// 	},
+		// },
 	},
 	{
 		timestamps: true,

@@ -32,6 +32,10 @@
 	];
 </script>
 
+<svelte:head>
+	<title>Submit an event.</title>
+</svelte:head>
+
 <section class="max-w-2xl mx-auto py-12 px-4">
 	<h1 class="mb-8 text-2xl">
 		To submit an event, please, fill all the necessary

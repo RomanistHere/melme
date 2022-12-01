@@ -9,6 +9,10 @@
 	$: ({ events } = data);
 </script>
 
+<svelte:head>
+	<title>melme - More Events for Less Money</title>
+</svelte:head>
+
 <ul class="p-10">
 	{#each events as event}
 		<li>
