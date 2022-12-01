@@ -34,17 +34,12 @@
 	$: isError =
 		(!isInputValid && !isInputActive && value !== "") ||
 		externalError;
-	$: isValid =
-		isInputValid &&
-		hasTypingStarted &&
-		!isInputActive &&
-		!externalError;
 </script>
 
 <div class="mt-2 {customClass}">
 	<label
 		class="lowercase text-sm"
-		class:text-txt_danger={isError}
+		class:text-red-500={externalError}
 		for={id}
 	>
 		{#if externalError}
@@ -58,8 +53,8 @@
 		<!-- svelte-ignore a11y-autofocus -->
 		<input
 			class="px-6 w-full input-border"
-			class:border-txt_danger={isError}
-			class:hover:border-txt_danger={isError}
+			class:border-red-500={externalError}
+			class:hover:border-red-500={externalError}
 			class:pr-12={type === "password"}
 			autocomplete={id}
 			{name}
@@ -74,9 +69,3 @@
 		/>
 	</div>
 </div>
-
-<style>
-	.border-bg_gray:focus {
-		border-color: var(--main);
-	}
-</style>

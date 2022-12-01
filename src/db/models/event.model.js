@@ -38,6 +38,7 @@ const schema = new Schema(
 		price: String,
 		registrationLink: String,
 		requirements: String,
+		hostName: String,
 		imgSrc: [String],
 		categories: [String],
 		isFree: {

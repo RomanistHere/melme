@@ -1,3 +1,5 @@
+import { invalid } from "@sveltejs/kit";
+
 import { Event } from "$db/models/event.model";
 
 export const actions = {
@@ -8,6 +10,12 @@ export const actions = {
 		console.log(data);
 
 		// todo: check required fields
+		if (data.title.length === 0)
+			return invalid(400, { missingTitle: true });
+		else if (data.description.length < 20)
+			return invalid(400, { shortDescription: true });
+		else if (data.linkToEvent.length === 0)
+			return invalid(400, { missingLink: true });
 
 		const eventDB = new Event({
 			...data,
@@ -20,11 +28,13 @@ export const actions = {
 
 		console.log(eventDB);
 
-		try {
-			const savedEvent = await eventDB.save();
-			console.log(savedEvent);
-		} catch (e) {
-			console.log(e);
-		}
+		// try {
+		// 	const savedEvent = await eventDB.save();
+		// 	console.log(savedEvent);
+		// } catch (e) {
+		// 	console.log(e);
+		// }
+
+		return { success: true };
 	},
 };

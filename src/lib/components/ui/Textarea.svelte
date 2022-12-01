@@ -9,6 +9,7 @@
 	export let name;
 	export let maxlength = 512;
 	export let placeholder = "";
+	export let externalError = false;
 
 	let ref;
 	let remainingCommentLength = maxlength;
@@ -32,13 +33,20 @@
 	<div class="relative">
 		<label
 			class="lowercase text-sm"
+			class:text-red-500={externalError}
 			for={id}
 		>
-			{title}
+			{#if externalError}
+				{externalError}
+			{:else}
+				{title}
+			{/if}
 		</label>
 
 		<textarea
 			class="w-full h-40 mt-2 text-base input-border"
+			class:border-red-500={externalError}
+			class:hover:border-red-500={externalError}
 			{placeholder}
 			{maxlength}
 			{id}
