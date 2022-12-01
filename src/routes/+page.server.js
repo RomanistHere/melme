@@ -18,7 +18,7 @@
 // _____________
 // mongoose
 
-import { Event } from "../db/models/event.model";
+import { Event } from "$db/models/event.model";
 
 export const load = async function () {
 	const data = await Event.find({}, "-_id").lean();

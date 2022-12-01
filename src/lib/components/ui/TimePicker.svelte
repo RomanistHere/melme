@@ -3,6 +3,7 @@
 	export { customClass as class };
 	export let title;
 	export let id = "event-time";
+	export let name;
 </script>
 
 <div class={customClass}>
@@ -11,6 +12,6 @@
 	</label>
 
 	<div class="mt-2 flex">
-		<input type="time" class="input-border" {id} />
+		<input type="time" class="input-border" {id} {name} />
 	</div>
 </div>

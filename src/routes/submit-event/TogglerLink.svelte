@@ -10,12 +10,15 @@
 	export let optionTwoText;
 	export let inputId;
 	export let inputPlaceholder;
+	export let name;
+	export let inputName;
+	export let isInputChecked = false;
 
 	let toggleInputRef = null;
-	let isNeedToRegister = false;
+	let isInputChangedChecked = isInputChecked;
 
 	const handleToggleClick = () => {
-		isNeedToRegister = toggleInputRef.checked;
+		isInputChangedChecked = toggleInputRef.checked;
 	};
 </script>
 
@@ -29,14 +32,16 @@
 		bind:toggleInputRef
 		{optionOneText}
 		{optionTwoText}
-		checked={false}
+		{name}
+		checked={isInputChecked}
 		class="mb-4"
 	/>
 
-	{#if isNeedToRegister}
+	{#if (isInputChecked && !isInputChangedChecked) || (!isInputChecked && isInputChangedChecked)}
 		<Input
 			title={secondTitle}
 			id={inputId}
+			name={inputName}
 			maxlength={128}
 			placeholder={inputPlaceholder}
 			class="mb-4"

@@ -6,6 +6,7 @@
 
 	export let title;
 	export let id = "";
+	export let name;
 	export let maxlength = 512;
 	export let placeholder = "";
 
@@ -38,9 +39,9 @@
 			{placeholder}
 			{maxlength}
 			{id}
+			{name}
 			on:input={handleInput}
-			bind:this={ref}
-		/>
+			bind:this={ref}></textarea>
 	</div>
 	<p class:text-orange-400={isRemainingCharsWarning}>
 		{remainingCommentLength}

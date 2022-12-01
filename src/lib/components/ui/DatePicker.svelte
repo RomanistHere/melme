@@ -4,8 +4,9 @@
 	let customClass = "";
 	export { customClass as class };
 	export let title;
+	export let name;
 	export let id = "event-date-1";
-	export let secondId = "event-date-2";
+	// export let secondId = "event-date-2";
 	export let isLimitedByToday = true;
 
 	const getCurrentDay = () => {
@@ -19,7 +20,7 @@
 
 	const curDay = getCurrentDay();
 	// let toggleInputRef = null;
-	let isSingleDay = true;
+	// let isSingleDay = true;
 
 	// const handleToggleClick = () => {
 	// 	isSingleDay = toggleInputRef.checked;
@@ -43,17 +44,18 @@
 			type="date"
 			class="input-border"
 			{id}
+			{name}
 			min={isLimitedByToday ? curDay : undefined}
 		/>
 
-		{#if !isSingleDay}
-			<div class="bg-amber-500 text-4xl">-</div>
-			<input
-				type="date"
-				class="bg-amber-500 px-2"
-				id={secondId}
-				min={isLimitedByToday ? curDay : undefined}
-			/>
-		{/if}
+		<!--{#if !isSingleDay}-->
+		<!--	<div class="bg-amber-500 text-4xl">-</div>-->
+		<!--	<input-->
+		<!--		type="date"-->
+		<!--		class="bg-amber-500 px-2"-->
+		<!--		id={secondId}-->
+		<!--		min={isLimitedByToday ? curDay : undefined}-->
+		<!--	/>-->
+		<!--{/if}-->
 	</div>
 </div>

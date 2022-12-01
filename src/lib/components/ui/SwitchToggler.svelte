@@ -4,6 +4,7 @@
 	export let toggleInputRef;
 	export let optionOneText;
 	export let optionTwoText;
+	export let name;
 	export let checked = true;
 </script>
 
@@ -11,6 +12,7 @@
 	<input
 		type="checkbox"
 		class="opacity-0 w-0 h-0"
+		{name}
 		{checked}
 		bind:this={toggleInputRef}
 	/>

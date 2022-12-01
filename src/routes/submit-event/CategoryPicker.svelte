@@ -1,8 +1,7 @@
 <script>
 	export let title;
 	export let list = [];
-
-	let pickedList = [];
+	export let pickedList = [];
 
 	const handelCategoryUpdate = item => {
 		if (pickedList.includes(item))

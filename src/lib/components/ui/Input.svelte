@@ -5,6 +5,7 @@
 	export let title;
 	export let type = "text";
 	export let id = "";
+	export let name;
 	export let autofocus = false;
 	export let maxlength = null;
 	export let placeholder = null;
@@ -61,6 +62,7 @@
 			class:hover:border-txt_danger={isError}
 			class:pr-12={type === "password"}
 			autocomplete={id}
+			{name}
 			{id}
 			{autofocus}
 			{maxlength}

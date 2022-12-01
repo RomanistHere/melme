@@ -5,6 +5,7 @@
 	"printWidth": 60,
 	"arrowParens": "avoid",
 	"bracketSpacing": true,
+	"singleAttributePerLine": true,
 	"bracketSameLine": false,
 	"svelteBracketNewLine": true,
 	"htmlWhitespaceSensitivity": "ignore",
