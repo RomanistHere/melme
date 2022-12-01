@@ -31,13 +31,16 @@ export const actions = {
 			isFree: data.isEventFree === "on",
 			isRegistrationNeeded:
 				data.isRegistrationNeeded !== "on",
-			slug: `${data.title.split(" ").join("-")}-${generateRandomString()}`,
+			slug: `${data.title
+				.split(" ")
+				.join("-")}-${generateRandomString()}`,
 		});
 
 		try {
-			const savedEvent = await eventDB.save();
-		} catch (e) {
-			console.log(e);
+			await eventDB.save();
+		} catch (error) {
+			console.log(error);
+			return { success: false, error };
 		}
 
 		return { success: true };
