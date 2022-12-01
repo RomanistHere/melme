@@ -4,28 +4,47 @@
 	export let description;
 	export let address;
 	export let imgSrc;
-	export let tags;
+	export let upvotes;
+	export let date;
+	export let time;
+	export let categories;
 	export let location;
 	export let isApproved;
+	export let isFree;
 	export let upVotes;
 	export let downVotes;
 </script>
 
 <a
-	class="block p-4 my-2 border border-2 hover:border-emerald-600"
+	class="block my-6 bg-white rounded-2xl overflow-hidden"
 	href={slug}
 >
 	<img
 		src={imgSrc}
 		alt="Picture of event preview."
 	/>
-	<h2 class="font-bold text-2xl">
-		{title}
-	</h2>
-	<p>
-		{description}
-	</p>
-	<p class="opacity-30">
-		{address}
-	</p>
+	<div class="p-5">
+		<h2 class="font-bold text-2xl">
+			{title}
+		</h2>
+		<p class="opacity-30">
+			<svg
+				class="inline-block"
+				width="9"
+				height="13"
+				viewBox="0 0 9 13"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path
+					d="M4.5 0.875C3.31428 0.874941 2.17646 1.34286 1.33382 2.17707C0.491192 3.01128 0.0118572 4.14434 0 5.33C0 8.4125 3.96563 11.8438 4.13438 11.99C4.23626 12.0771 4.36593 12.125 4.5 12.125C4.63407 12.125 4.76374 12.0771 4.86562 11.99C5.0625 11.8438 9 8.4125 9 5.33C8.98814 4.14434 8.50881 3.01128 7.66618 2.17707C6.82354 1.34286 5.68572 0.874941 4.5 0.875ZM4.5 7.0625C4.11062 7.0625 3.72998 6.94703 3.40622 6.73071C3.08246 6.51438 2.83012 6.2069 2.68111 5.84716C2.5321 5.48742 2.49311 5.09157 2.56908 4.70967C2.64504 4.32777 2.83255 3.97697 3.10788 3.70163C3.38322 3.4263 3.73402 3.23879 4.11592 3.16283C4.49782 3.08686 4.89367 3.12585 5.25341 3.27486C5.61315 3.42387 5.92063 3.67621 6.13696 3.99997C6.35328 4.32373 6.46875 4.70437 6.46875 5.09375C6.46875 5.61589 6.26133 6.11665 5.89212 6.48587C5.5229 6.85508 5.02214 7.0625 4.5 7.0625Z"
+					fill="#686868"
+				/>
+			</svg>
+			{address}
+		</p>
+		<p>
+			{description}
+		</p>
+	</div>
 </a>

@@ -1,7 +1,7 @@
 <script>
 	import Card from "$lib/components/Card.svelte";
 
-	// data comes from export in +page.server.js
+	// `data` comes from export in +page.server.js
 	export let data;
 
 	// this is a Svelte way to destructure property and keep it reactive
@@ -13,10 +13,12 @@
 	<title>melme - More Events for Less Money</title>
 </svelte:head>
 
-<ul class="p-10">
-	{#each events as event}
-		<li>
-			<Card {...event} />
-		</li>
-	{/each}
-</ul>
+<section class="bg-gray-200">
+	<ul class="p-10 max-w-lg mx-auto">
+		{#each events as event}
+			<li>
+				<Card {...event} />
+			</li>
+		{/each}
+	</ul>
+</section>
