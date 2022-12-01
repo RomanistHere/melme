@@ -25,6 +25,7 @@
 	const categoryList = [
 		"food",
 		"music",
+		"movie",
 		"tech",
 		"sports",
 		"national",
@@ -116,18 +117,27 @@
 				maxlength={128}
 				placeholder="Please, type 'not specified' in case the address is unknown."
 				class="mb-4"
+				externalError={form &&
+					form.missingAddress &&
+					"The address is missing"}
 			/>
 
 			<DatePicker
 				title="*Pick a date or a set of dates"
 				class="mb-4"
 				name="date"
+				externalError={form &&
+					form.missingDate &&
+					"The date is missing"}
 			/>
 
 			<TimePicker
 				title="*Pick a time when it starts"
 				class="mb-4"
 				name="time"
+				externalError={form &&
+					form.missingTime &&
+					"The time is missing"}
 			/>
 
 			<RadioButtons
