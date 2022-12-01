@@ -28,7 +28,10 @@
 </script>
 
 <div class={customClass}>
-	<label class="lowercase text-sm" for={id}>
+	<label
+		class="lowercase text-sm"
+		for={id}
+	>
 		{title}
 	</label>
 

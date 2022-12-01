@@ -34,7 +34,7 @@
 		>
 			<span
 				class="w-5 h-5 inline-block rounded-md border border-text transition-colors shrink-0 mr-3"
-			></span>
+			/>
 			{option}
 		</label>
 	{/each}

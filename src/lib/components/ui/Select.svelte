@@ -7,11 +7,17 @@
 </script>
 
 <div class={customClass}>
-	<label class="lowercase text-sm block mb-2" for={id}>
+	<label
+		class="lowercase text-sm block mb-2"
+		for={id}
+	>
 		{title}
 	</label>
 
-	<select id="" class="p-2">
+	<select
+		id=""
+		class="p-2"
+	>
 		{#each options as value}
 			<option {value}>{value}</option>
 		{/each}

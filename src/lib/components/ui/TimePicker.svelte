@@ -7,11 +7,19 @@
 </script>
 
 <div class={customClass}>
-	<label class="lowercase text-sm" for={id}>
+	<label
+		class="lowercase text-sm"
+		for={id}
+	>
 		{title}
 	</label>
 
 	<div class="mt-2 flex">
-		<input type="time" class="input-border" {id} {name} />
+		<input
+			type="time"
+			class="input-border"
+			{id}
+			{name}
+		/>
 	</div>
 </div>

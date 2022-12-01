@@ -1,5 +1,5 @@
 <script>
-	import { enhance } from '$app/forms';
+	import { enhance } from "$app/forms";
 
 	import Input from "$lib/components/ui/Input.svelte";
 	import Textarea from "$lib/components/ui/Textarea.svelte";
@@ -50,7 +50,10 @@
 		fields marked with *
 	</h1>
 
-	<form method="POST" use:enhance={enhanceCallback}>
+	<form
+		method="POST"
+		use:enhance={enhanceCallback}
+	>
 		<Input
 			title="*Name of the event"
 			id="event-title"

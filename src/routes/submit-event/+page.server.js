@@ -1,7 +1,7 @@
 import { Event } from "$db/models/event.model";
 
 export const actions = {
-	default: async (event) => {
+	default: async event => {
 		// console.log(event);
 		const formData = await event.request.formData();
 		const data = Object.fromEntries(formData);
@@ -13,11 +13,12 @@ export const actions = {
 			...data,
 			categories: JSON.parse(data.categories),
 			isFree: data.isEventFree === "on",
-			isRegistrationNeeded: data.isRegistrationNeeded !== "on",
+			isRegistrationNeeded:
+				data.isRegistrationNeeded !== "on",
 			slug: data.title.split(" ").join("-"),
 		});
 
-		console.log(eventDB)
+		console.log(eventDB);
 
 		try {
 			const savedEvent = await eventDB.save();
@@ -25,5 +26,5 @@ export const actions = {
 		} catch (e) {
 			console.log(e);
 		}
-	}
+	},
 };

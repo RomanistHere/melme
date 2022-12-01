@@ -30,7 +30,10 @@
 
 <div class={customClass}>
 	<div class="relative">
-		<label class="lowercase text-sm" for={id}>
+		<label
+			class="lowercase text-sm"
+			for={id}
+		>
 			{title}
 		</label>
 
@@ -41,7 +44,8 @@
 			{id}
 			{name}
 			on:input={handleInput}
-			bind:this={ref}></textarea>
+			bind:this={ref}
+		/>
 	</div>
 	<p class:text-orange-400={isRemainingCharsWarning}>
 		{remainingCommentLength}

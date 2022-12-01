@@ -8,7 +8,10 @@
 	export let checked = true;
 </script>
 
-<label class="relative flex mr-4 {customClass}" on:click>
+<label
+	class="relative flex mr-4 {customClass}"
+	on:click
+>
 	<input
 		type="checkbox"
 		class="opacity-0 w-0 h-0"
