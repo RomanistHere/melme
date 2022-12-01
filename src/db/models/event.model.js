@@ -15,7 +15,17 @@ const schema = new Schema(
 			type: String,
 			required: true,
 		},
+		linkToEvent: String,
+		registrationLink: String,
 		address: {
+			type: String,
+			required: true,
+		},
+		date: {
+			type: String,
+			required: true,
+		},
+		time: {
 			type: String,
 			required: true,
 		},
