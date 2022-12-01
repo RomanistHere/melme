@@ -56,7 +56,7 @@
 	<div class="relative mt-2">
 		<!-- svelte-ignore a11y-autofocus -->
 		<input
-			class="bg-bg_gray border-bg_gray border rounded-lg p-3 px-6 w-full focus:outline-0 transition-colors hover:border-stroke focus:border-main focus:bg-white"
+			class="px-6 w-full input-border"
 			class:border-txt_danger={isError}
 			class:hover:border-txt_danger={isError}
 			class:pr-12={type === "password"}

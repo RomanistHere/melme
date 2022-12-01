@@ -8,6 +8,8 @@
 	export let secondTitle;
 	export let optionOneText;
 	export let optionTwoText;
+	export let inputId;
+	export let inputPlaceholder;
 
 	let toggleInputRef = null;
 	let isNeedToRegister = false;
@@ -34,9 +36,9 @@
 	{#if isNeedToRegister}
 		<Input
 			title={secondTitle}
-			id="event-registration-link"
+			id={inputId}
 			maxlength={128}
-			placeholder="Paste a link to the registration form"
+			placeholder={inputPlaceholder}
 			class="mb-4"
 		/>
 	{/if}

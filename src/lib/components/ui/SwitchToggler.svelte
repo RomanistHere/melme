@@ -29,12 +29,12 @@
 	}
 
 	input:checked + span + span {
-		opacity: 0.2;
+		opacity: 0.4;
 		background-color: gray;
 	}
 
 	input + span {
-		opacity: 0.2;
+		opacity: 0.4;
 		background-color: gray;
 	}
 

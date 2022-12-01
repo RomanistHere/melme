@@ -34,13 +34,13 @@
 		</label>
 
 		<textarea
-			class="w-full h-40 p-2 mt-2 rounded-md text-base border-2 border-active focus:outline-0"
+			class="w-full h-40 mt-2 text-base input-border"
 			{placeholder}
 			{maxlength}
 			{id}
 			on:input={handleInput}
 			bind:this={ref}
-		></textarea>
+		/>
 	</div>
 	<p class:text-orange-400={isRemainingCharsWarning}>
 		{remainingCommentLength}

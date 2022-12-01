@@ -1,5 +1,5 @@
 <script>
-	import SwitchToggler from "./SwitchToggler.svelte";
+	// import SwitchToggler from "./SwitchToggler.svelte";
 
 	let customClass = "";
 	export { customClass as class };
@@ -18,12 +18,12 @@
 	};
 
 	const curDay = getCurrentDay();
-	let toggleInputRef = null;
+	// let toggleInputRef = null;
 	let isSingleDay = true;
 
-	const handleToggleClick = () => {
-		isSingleDay = toggleInputRef.checked;
-	};
+	// const handleToggleClick = () => {
+	// 	isSingleDay = toggleInputRef.checked;
+	// };
 </script>
 
 <div class={customClass}>
@@ -32,16 +32,16 @@
 	</label>
 
 	<div class="mt-2 flex">
-		<SwitchToggler
-			on:click={handleToggleClick}
-			bind:toggleInputRef
-			optionOneText="Single day"
-			optionTwoText="Range of days"
-		/>
+		<!--		<SwitchToggler-->
+		<!--			on:click={handleToggleClick}-->
+		<!--			bind:toggleInputRef-->
+		<!--			optionOneText="Single day"-->
+		<!--			optionTwoText="Range of days"-->
+		<!--		/>-->
 
 		<input
 			type="date"
-			class="bg-amber-500 px-2"
+			class="input-border"
 			{id}
 			min={isLimitedByToday ? curDay : undefined}
 		/>

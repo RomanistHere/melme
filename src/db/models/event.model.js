@@ -29,6 +29,10 @@ const schema = new Schema(
 			type: String,
 			required: true,
 		},
+		duration: {
+			type: String,
+			default: "",
+		},
 		imgSrc: [String],
 		tags: [String],
 		location: {

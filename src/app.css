@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+	.input-border {
+		@apply border-gray-300 border rounded-lg p-3 focus:outline-0 transition-colors hover:border-gray-400 focus:border-gray-800;
+	}
+}

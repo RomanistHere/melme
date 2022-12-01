@@ -11,6 +11,6 @@
 	</label>
 
 	<div class="mt-2 flex">
-		<input type="time" class="bg-amber-500 p-2" {id} />
+		<input type="time" class="input-border" {id} />
 	</div>
 </div>
