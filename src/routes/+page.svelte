@@ -14,7 +14,7 @@
 </svelte:head>
 
 <section class="bg-gray-200">
-	<ul class="p-10 max-w-lg mx-auto">
+	<ul class="p-4 max-w-lg mx-auto">
 		{#each events as event}
 			<li>
 				<Card {...event} />

@@ -1,50 +1,167 @@
 <script>
+	import LikeButton from "$lib/components/ui/LikeButton.svelte";
+	import GeoPin from "$lib/components/icons/GeoPin.svelte";
+	import Star from "$lib/components/icons/Star.svelte";
+
+	import { truncateString } from "$lib/utils/index.js";
+	import { userState } from "$lib/stores/index.js";
+
 	export let slug;
 	export let title;
 	export let description;
 	export let address;
 	export let imgSrc;
-	export let upvotes;
+	export let price;
 	export let date;
 	export let time;
 	export let categories;
-	export let location;
+	// export let location;
 	export let isApproved;
 	export let isFree;
 	export let upVotes;
 	export let downVotes;
+	export let hostName;
+	export let linkToEvent;
+	export let duration;
+	export let registrationLink;
+	export let requirements;
+	export let isRegistrationNeeded;
+
+	let isLiked = $userState?.likedEvents?.includes(slug);
+
+	const hostRating = "0.0";
+
+	const handleLikeClickButton = e => {
+		e.preventDefault();
+		isLiked = !isLiked;
+		userState.update(currentState => {
+			if (!currentState) return { likedEvents: [slug] };
+			const { likedEvents } = currentState;
+			if (!likedEvents || likedEvents.length === 0)
+				return { ...currentState, likedEvents: [slug] };
+			else if (likedEvents.includes(slug))
+				return {
+					...currentState,
+					likedEvents: likedEvents.filter(i => i !== slug),
+				};
+			else
+				return {
+					...currentState,
+					likedEvents: [...likedEvents, slug],
+				};
+		});
+	};
+
+	const getDateHumanFormat = dateStr => {
+		const date = new Date(dateStr);
+		const options = {
+			month: "short",
+			day: "numeric",
+		};
+
+		return date.toLocaleDateString("en-UK", options);
+	};
 </script>
 
-<a
+<div
 	class="block my-6 bg-white rounded-2xl overflow-hidden"
-	href={slug}
 >
-	<img
-		src={imgSrc}
-		alt="Picture of event preview."
-	/>
-	<div class="p-5">
-		<h2 class="font-bold text-2xl">
+	<div
+		class="relative h-64 bg-center bg-cover"
+		style="background-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url('{imgSrc}')"
+	>
+		<div
+			class="absolute text-white text-xs font-bold top-3 left-3 flex items-center"
+		>
+			<span
+				class="w-7 h-7 rounded-full bg-white block mr-2"
+			/>
+			<div>
+				<p class="text-shadow">
+					{truncateString(hostName, 20)}
+				</p>
+				<p class="flex">
+					<Star />
+					<span class="block ml-1 -mt-px text-shadow">
+						{hostRating}
+					</span>
+				</p>
+			</div>
+		</div>
+		<LikeButton
+			class="top-1 right-1 p-2"
+			on:click={handleLikeClickButton}
+			isActive={isLiked}
+		/>
+		<span
+			class="absolute text-sm py-0.5 px-2 rounded-xl bottom-3 left-3 bg-white"
+		>
+			{#if isFree}
+				Free
+			{:else}
+				{price}
+			{/if}
+		</span>
+	</div>
+	<div class="p-6">
+		<h2 class="font-medium text-xl">
 			{title}
 		</h2>
-		<p class="opacity-30">
+		<p class="opacity-30 flex items-center mb-4 text-sm">
+			<GeoPin />
+			<span class="mx-1">
+				{truncateString(address, 11)}
+			</span>
 			<svg
-				class="inline-block"
-				width="9"
-				height="13"
-				viewBox="0 0 9 13"
+				width="4"
+				height="3"
+				viewBox="0 0 4 3"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
 			>
-				<path
-					d="M4.5 0.875C3.31428 0.874941 2.17646 1.34286 1.33382 2.17707C0.491192 3.01128 0.0118572 4.14434 0 5.33C0 8.4125 3.96563 11.8438 4.13438 11.99C4.23626 12.0771 4.36593 12.125 4.5 12.125C4.63407 12.125 4.76374 12.0771 4.86562 11.99C5.0625 11.8438 9 8.4125 9 5.33C8.98814 4.14434 8.50881 3.01128 7.66618 2.17707C6.82354 1.34286 5.68572 0.874941 4.5 0.875ZM4.5 7.0625C4.11062 7.0625 3.72998 6.94703 3.40622 6.73071C3.08246 6.51438 2.83012 6.2069 2.68111 5.84716C2.5321 5.48742 2.49311 5.09157 2.56908 4.70967C2.64504 4.32777 2.83255 3.97697 3.10788 3.70163C3.38322 3.4263 3.73402 3.23879 4.11592 3.16283C4.49782 3.08686 4.89367 3.12585 5.25341 3.27486C5.61315 3.42387 5.92063 3.67621 6.13696 3.99997C6.35328 4.32373 6.46875 4.70437 6.46875 5.09375C6.46875 5.61589 6.26133 6.11665 5.89212 6.48587C5.5229 6.85508 5.02214 7.0625 4.5 7.0625Z"
+				<circle
+					cx="2"
+					cy="1.5"
+					r="1.5"
 					fill="#686868"
 				/>
 			</svg>
-			{address}
+			<span class="mx-1">{getDateHumanFormat(date)}</span>
+			<svg
+				width="4"
+				height="3"
+				viewBox="0 0 4 3"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<circle
+					cx="2"
+					cy="1.5"
+					r="1.5"
+					fill="#686868"
+				/>
+			</svg>
+			<span class="mx-1">{time}</span>
 		</p>
-		<p>
-			{description}
+		<p class="mb-4">
+			{truncateString(description, 80)}
 		</p>
+		<div class="flex justify-between">
+			{#if upVotes !== 0}
+				<p class="font-medium text-stone-500">
+					{#if upVotes === 1}
+						{upVotes} is going
+					{:else}
+						{upVotes} are going
+					{/if}
+				</p>
+			{/if}
+			<a
+				class="font-medium text-cyan-400"
+				href={slug}
+			>
+				Learn more ->
+			</a>
+		</div>
 	</div>
-</a>
+</div>

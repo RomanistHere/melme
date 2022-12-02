@@ -2,8 +2,7 @@ import { invalid } from "@sveltejs/kit";
 
 import { Event } from "$db/models/event.model";
 
-const generateRandomString = () =>
-	Math.random().toString(16).slice(2);
+import { generateRandomString } from "$lib/utils/index.js";
 
 export const actions = {
 	default: async event => {
@@ -32,6 +31,7 @@ export const actions = {
 			isRegistrationNeeded:
 				data.isRegistrationNeeded !== "on",
 			slug: `${data.title
+				.replace(/[^A-Za-z0-9-\s]/g, "")
 				.split(" ")
 				.join("-")}-${generateRandomString()}`,
 		});

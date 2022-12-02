@@ -14,9 +14,9 @@
 </script>
 
 <div class={customClass}>
-	<label class="lowercase text-sm block mb-2">
+	<p class="lowercase text-sm block mb-2">
 		{title}
-	</label>
+	</p>
 
 	{#each options as option}
 		<input

@@ -6,4 +6,14 @@
 	.input-border {
 		@apply border-gray-300 border rounded-lg p-3 focus:outline-0 transition-colors hover:border-gray-400 focus:border-gray-800;
 	}
+
+	.text-shadow {
+		text-shadow: 0 1px 0 #000;
+	}
+}
+
+@layer base {
+	html {
+		-webkit-tap-highlight-color: transparent;
+	}
 }

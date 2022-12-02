@@ -1,27 +1,12 @@
-// import { events } from "$db/events.js";
-
-// export const load = async function () {
-// 	const data = await events.find(
-// 		{ },
-// 		{
-// 			projection: {
-// 				_id: 0
-// 			}
-// 		}
-// 	).toArray();
-//
-// 	return {
-// 		events: data,
-// 	}
-// }
-
-// _____________
-// mongoose
-
 import { Event } from "$db/models/event.model";
 
 export const load = async function () {
-	const data = await Event.find({}, "-_id").lean();
+	const data = await Event.find(
+		{
+			isApproved: true,
+		},
+		"-_id -createdAt -updatedAt -__v"
+	).lean();
 	console.log(data);
 
 	return {

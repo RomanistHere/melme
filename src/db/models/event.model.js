@@ -53,6 +53,10 @@ const schema = new Schema(
 			type: Boolean,
 			default: false,
 		},
+		isBlocked: {
+			type: Boolean,
+			default: false,
+		},
 		upVotes: {
 			type: Number,
 			default: 0,
