@@ -13,7 +13,7 @@
 	// export let data;
 
 	const timeOptions = [
-		"I don't know",
+		"unknown",
 		"less than 30 minutes",
 		"between 30 minutes and 1 hour",
 		"between 1 hour and 2 hours",
@@ -123,7 +123,7 @@
 			/>
 
 			<DatePicker
-				title="*Pick a date or a set of dates"
+				title="*Pick a date"
 				class="mb-4"
 				name="date"
 				externalError={form &&

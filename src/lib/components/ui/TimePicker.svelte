@@ -23,3 +23,9 @@
 		/>
 	</div>
 </div>
+
+<style>
+	input {
+		-webkit-appearance: none;
+	}
+</style>

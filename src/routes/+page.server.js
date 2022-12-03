@@ -7,7 +7,6 @@ export const load = async function () {
 		},
 		"-_id -createdAt -updatedAt -__v"
 	).lean();
-	console.log(data);
 
 	return {
 		events: data,

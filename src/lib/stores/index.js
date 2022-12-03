@@ -1,5 +1,3 @@
-import { writable } from "./localStorage";
+import { writable } from "svelte/store";
 
-export const userState = writable({
-	likedEvents: [],
-});
+export const eventsState = writable([]);

@@ -2,9 +2,12 @@
 	import LikeButton from "$lib/components/ui/LikeButton.svelte";
 	import GeoPin from "$lib/components/icons/GeoPin.svelte";
 	import Star from "$lib/components/icons/Star.svelte";
+	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
+	import Separator from "$lib/components/icons/Separator.svelte";
 
 	import { truncateString } from "$lib/utils/index.js";
-	import { userState } from "$lib/stores/index.js";
+	import { userState } from "$lib/stores/localStorage.js";
+	import PeopleComing from "$lib/components/ui/PeopleComing.svelte";
 
 	export let slug;
 	export let title;
@@ -63,9 +66,7 @@
 	};
 </script>
 
-<div
-	class="block my-6 bg-white rounded-2xl overflow-hidden"
->
+<div class="my-6 bg-white rounded-2xl overflow-hidden">
 	<div
 		class="relative h-64 bg-center bg-cover"
 		style="background-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url('{imgSrc}')"
@@ -109,58 +110,46 @@
 		</h2>
 		<p class="opacity-30 flex items-center mb-4 text-sm">
 			<GeoPin />
-			<span class="mx-1">
+			<span>
 				{truncateString(address, 11)}
 			</span>
-			<svg
-				width="4"
-				height="3"
-				viewBox="0 0 4 3"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<circle
-					cx="2"
-					cy="1.5"
-					r="1.5"
-					fill="#686868"
-				/>
-			</svg>
-			<span class="mx-1">{getDateHumanFormat(date)}</span>
-			<svg
-				width="4"
-				height="3"
-				viewBox="0 0 4 3"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<circle
-					cx="2"
-					cy="1.5"
-					r="1.5"
-					fill="#686868"
-				/>
-			</svg>
-			<span class="mx-1">{time}</span>
+			<Separator />
+			<span>{getDateHumanFormat(date)}</span>
+			<Separator />
+			<span>{time}</span>
 		</p>
-		<p class="mb-4">
+		<p class="mb-2">
 			{truncateString(description, 80)}
 		</p>
-		<div class="flex justify-between">
-			{#if upVotes !== 0}
-				<p class="font-medium text-stone-500">
-					{#if upVotes === 1}
-						{upVotes} is going
-					{:else}
-						{upVotes} are going
-					{/if}
-				</p>
+		<ul class="-mx-1 mb-4">
+			{#each categories as category}
+				<li
+					class="text-xs bg-gray-100 inline-block rounded-2xl py-1 px-2 m-1 text-stone-500 capitalize"
+				>
+					{category}
+				</li>
+			{/each}
+			{#if isRegistrationNeeded}
+				<li
+					class="text-xs bg-gray-100 inline-block rounded-2xl py-1 px-2 m-1 text-stone-500 capitalize"
+				>
+					Registration needed
+				</li>
 			{/if}
+		</ul>
+		<div class="flex justify-between">
+			<PeopleComing number={upVotes} />
 			<a
-				class="font-medium text-cyan-400"
-				href={slug}
+				class="font-medium text-indigo-600 flex items-center"
+				href="events/{slug}"
 			>
-				Learn more ->
+				<span class="mr-1">Learn more</span>
+				<div class="rotate-180 scale-90">
+					<ArrowLeft
+						fill={null}
+						class="fill-indigo-600"
+					/>
+				</div>
 			</a>
 		</div>
 	</div>

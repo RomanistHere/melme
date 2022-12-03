@@ -1,7 +1,7 @@
 import { writable as internal, get } from "svelte/store";
 import { browser } from "$app/environment";
 
-export function writable(key, initialValue) {
+function writable(key, initialValue) {
 	const store = internal(initialValue);
 	const { subscribe, set } = store;
 	// check if in client
@@ -27,3 +27,7 @@ export function writable(key, initialValue) {
 		subscribe,
 	};
 }
+
+export const userState = writable({
+	likedEvents: [],
+});
