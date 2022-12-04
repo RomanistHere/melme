@@ -144,30 +144,32 @@
 	</div>
 	<div class="p-6">
 		<div class="relative h-14 w-full -mt-2 mb-2">
-			<div
-				class="absolute text-white text-xs font-bold top-3 left-0 flex items-center"
-			>
-				<span
-					class="w-7 h-7 rounded-full bg-stone-500 block mr-2"
-				/>
-				<div>
-					<p class="text-stone-500">
-						{truncateString(hostName, 40)}
-					</p>
-					<p class="flex">
-						<Star
-							class="fill-stone-500"
-							fill={null}
-						/>
-						<span class="block ml-1 -mt-px text-stone-500">
+			{#if hostName}
+				<div
+					class="absolute text-white text-xs font-bold top-3 left-0 flex items-center"
+				>
+					<span
+						class="w-7 h-7 rounded-full bg-stone-500 block mr-2"
+					/>
+					<div>
+						<p class="text-stone-500">
+							{truncateString(hostName, 40)}
+						</p>
+						<p class="flex">
+							<Star
+								class="fill-stone-500"
+								fill={null}
+							/>
+							<span class="block ml-1 -mt-px text-stone-500">
 							{hostRating}
-							<span class="text-xs text-black font-light">
+								<span class="text-xs text-black font-light">
 								[in development]
 							</span>
 						</span>
-					</p>
+						</p>
+					</div>
 				</div>
-			</div>
+			{/if}
 			<LikeButton
 				class="top-1 right-0 p-2"
 				on:click={handleLikeClickButton}
@@ -242,7 +244,7 @@
 				{requirements}
 			</p>
 		{/if}
-		{#if isRegistrationNeeded}
+		{#if isRegistrationNeeded && registrationLink}
 			Link to registration: <a
 				href={registrationLink}
 				class="underline"

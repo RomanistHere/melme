@@ -9,7 +9,6 @@ export const actions = {
 		// console.log(event);
 		const formData = await event.request.formData();
 		const data = Object.fromEntries(formData);
-		console.log(data);
 
 		if (data.title.length === 0)
 			return invalid(400, { missingTitle: true });
@@ -29,7 +28,7 @@ export const actions = {
 			categories: JSON.parse(data.categories),
 			isFree: data.isEventFree === "on",
 			isRegistrationNeeded:
-				data.isRegistrationNeeded !== "on",
+				data.isRegistrationNeeded === "on",
 			slug: `${data.title
 				.replace(/[^A-Za-z0-9-\s]/g, "")
 				.split(" ")

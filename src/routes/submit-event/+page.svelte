@@ -52,7 +52,6 @@
 
 	let pickedList = [];
 	$: imgPreview = null;
-	$: console.log(imgPreview);
 </script>
 
 <svelte:head>
@@ -63,7 +62,12 @@
 	{#if form?.success}
 		<p>
 			The event was successfully sent! You can review it in
-			our submission queue.
+			<a
+				href="/moderation-queue"
+				class="underline"
+			>
+				the submission queue.
+			</a>
 		</p>
 		<p class="text-2xl mt-2">Thank you!</p>
 	{:else}
