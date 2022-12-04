@@ -160,12 +160,14 @@
 								class="fill-stone-500"
 								fill={null}
 							/>
-							<span class="block ml-1 -mt-px text-stone-500">
-							{hostRating}
+							<span
+								class="block ml-1 -mt-px text-stone-500"
+							>
+								{hostRating}
 								<span class="text-xs text-black font-light">
-								[in development]
+									[in development]
+								</span>
 							</span>
-						</span>
 						</p>
 					</div>
 				</div>
