@@ -8,16 +8,17 @@
 	$: listOfActiveCategories = [];
 
 	const toggleCategory = category => {
-		if (listOfActiveCategories.includes(category))
+		if (listOfActiveCategories.includes(category)) {
 			listOfActiveCategories =
 				listOfActiveCategories.filter(
 					item => item !== category
 				);
-		else
+		} else {
 			listOfActiveCategories = [
 				...listOfActiveCategories,
 				category,
 			];
+		}
 
 		if (listOfActiveCategories.length > 0) {
 			$page.url.searchParams.set(

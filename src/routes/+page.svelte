@@ -36,13 +36,19 @@
 
 <Categories />
 
-<ul>
-	{#each sortedByDateEvents as event}
-		<li>
-			<Card {...event} />
-		</li>
-	{/each}
-</ul>
+{#if sortedByDateEvents.length === 0}
+	<p class="text-center my-14">
+		We didn't find any results for you. Pick another category or submit your event.
+	</p>
+{:else}
+	<ul>
+		{#each sortedByDateEvents as event}
+			<li>
+				<Card {...event} />
+			</li>
+		{/each}
+	</ul>
+{/if}
 
 <PrimaryButton
 	title="Submit event"
