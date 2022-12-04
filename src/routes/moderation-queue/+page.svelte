@@ -36,9 +36,9 @@
 
 <div class="text-center pb-8">
 	or <a
-		href="/moderation-queue"
+		href="/"
 		class="underline"
 	>
-		discover not yet approved by moderation events
+		see approved events
 	</a>
 </div>

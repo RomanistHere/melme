@@ -7,6 +7,7 @@
 	import TimePicker from "$lib/components/ui/TimePicker.svelte";
 	import RadioButtons from "$lib/components/ui/RadioButtons.svelte";
 	import PrimaryButton from "$lib/components/ui/PrimaryButton.svelte";
+	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
 	import TogglerLink from "./TogglerLink.svelte";
 	import CategoryPicker from "./CategoryPicker.svelte";
 
@@ -65,6 +66,13 @@
 		</p>
 		<p class="text-2xl mt-2">Thank you!</p>
 	{:else}
+		<a
+			href="/"
+			class="p-3 block -ml-3 mb-2"
+		>
+			<ArrowLeft />
+		</a>
+
 		<h1 class="mb-8 text-2xl">
 			To submit an event, please, fill all the necessary
 			fields marked with *
