@@ -1,3 +1,5 @@
+import { goto } from "$app/navigation";
+
 export const truncateString = (string, limit) => {
 	if (!string) return string;
 	if (string.length > limit) {
@@ -9,3 +11,7 @@ export const truncateString = (string, limit) => {
 
 export const generateRandomString = () =>
 	Math.random().toString(16).slice(2);
+
+export const handleClickBack = () => {
+	goto("/");
+};

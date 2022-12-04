@@ -9,7 +9,7 @@
 	import PeopleComing from "$lib/components/ui/PeopleComing.svelte";
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
 
-	import { truncateString } from "$lib/utils/index.js";
+	import { truncateString, handleClickBack } from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
 
 	export let data;
@@ -124,6 +124,7 @@
 <div class="-m-4 bg-white">
 	<a
 		href="/"
+		on:click|preventDefault={handleClickBack}
 		class="p-3 block"
 	>
 		<ArrowLeft />

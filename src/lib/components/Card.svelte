@@ -79,7 +79,7 @@
 			/>
 			<div>
 				<p class="text-shadow">
-					{truncateString(hostName, 20)}
+					{truncateString(hostName || "unknown", 20)}
 				</p>
 				<p class="flex">
 					<Star />
@@ -110,7 +110,7 @@
 		</h2>
 		<p class="opacity-30 flex items-center mb-4 text-sm">
 			<GeoPin />
-			<span>
+			<span class="ml-1">
 				{truncateString(address, 11)}
 			</span>
 			<Separator />

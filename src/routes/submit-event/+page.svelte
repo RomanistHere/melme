@@ -11,6 +11,8 @@
 	import TogglerLink from "./TogglerLink.svelte";
 	import CategoryPicker from "./CategoryPicker.svelte";
 
+	import { handleClickBack } from "$lib/utils/index.js";
+
 	export let form;
 
 	const timeOptions = [
@@ -73,6 +75,7 @@
 	{:else}
 		<a
 			href="/"
+			on:click|preventDefault={handleClickBack}
 			class="p-3 block -ml-3 mb-2"
 		>
 			<ArrowLeft />
