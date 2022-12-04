@@ -101,7 +101,7 @@
 				placeholder="Provide the description here, you can paste the original one or describe in your own words."
 				id="event-description"
 				name="description"
-				maxlength={512}
+				maxlength={2048}
 				class="mb-4"
 				externalError={form &&
 					form.shortDescription &&
