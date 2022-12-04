@@ -1,4 +1,6 @@
 <script>
+	import { enhance } from "$app/forms";
+
 	import LikeButton from "$lib/components/ui/LikeButton.svelte";
 	import PrimaryButton from "$lib/components/ui/PrimaryButton.svelte";
 	import GeoPin from "$lib/components/icons/GeoPin.svelte";
@@ -33,12 +35,42 @@
 		isRegistrationNeeded,
 	} = data);
 
-	let isLiked = $userState?.likedEvents?.includes(slug);
+	$: isLiked = $userState?.likedEvents?.includes(slug);
+	$: isComing = $userState?.comingEvents?.includes(slug);
 	let areYouGoingText = true;
 
 	const hostRating = "0.0";
 
 	const handlePrimaryButtonClick = () => {
+		if (isComing) {
+			return false;
+		}
+
+		userState.update(currentState => {
+			if (!currentState) {
+				return {
+					comingEvents: [slug],
+				};
+			}
+
+			const { comingEvents } = currentState;
+
+			if (!comingEvents || comingEvents.length === 0) {
+				return {
+					...currentState,
+					comingEvents: [slug],
+				};
+			} else if (
+				comingEvents.length > 0 &&
+				!comingEvents.includes(slug)
+			) {
+				return {
+					...currentState,
+					comingEvents: [...comingEvents, slug],
+				};
+			}
+		});
+
 		upVotes = upVotes + 1;
 		areYouGoingText = false;
 	};
@@ -47,20 +79,30 @@
 		e.preventDefault();
 		isLiked = !isLiked;
 		userState.update(currentState => {
-			if (!currentState) return { likedEvents: [slug] };
+			if (!currentState) {
+				return {
+					likedEvents: [slug],
+				};
+			}
+
 			const { likedEvents } = currentState;
-			if (!likedEvents || likedEvents.length === 0)
-				return { ...currentState, likedEvents: [slug] };
-			else if (likedEvents.includes(slug))
+
+			if (!likedEvents || likedEvents.length === 0) {
+				return {
+					...currentState,
+					likedEvents: [slug],
+				};
+			} else if (likedEvents.includes(slug)) {
 				return {
 					...currentState,
 					likedEvents: likedEvents.filter(i => i !== slug),
 				};
-			else
+			} else {
 				return {
 					...currentState,
 					likedEvents: [...likedEvents, slug],
 				};
+			}
 		});
 	};
 
@@ -138,7 +180,7 @@
 		<p class="opacity-30 flex items-center text-sm">
 			<GeoPin />
 			<a
-				class="mx-1 underline"
+				class="mx-1 underline truncate"
 				href="https://maps.google.com/?q={address}"
 				target="_blank"
 				rel="noreferrer"
@@ -171,18 +213,19 @@
 		</ul>
 		<PeopleComing
 			number={upVotes}
-			isAdditionalText={areYouGoingText}
+			isAdditionalText={isComing ? null : areYouGoingText}
 		/>
-<!--		<form-->
-<!--			action="?/increaseUpvote"-->
-<!--			method="POST"-->
-<!--		>-->
+		<form
+			action="?/increaseUpvote"
+			method="POST"
+			use:enhance={handlePrimaryButtonClick}
+		>
 			<PrimaryButton
-				title="I'm going"
+				title={isComing ? "You are going 🎉" : "I'm going"}
 				class="mb-8 mt-2"
-				on:click={handlePrimaryButtonClick}
+				disabled={isComing}
 			/>
-<!--		</form>-->
+		</form>
 		<p class="my-4">
 			Website: <a
 				href={linkToEvent}

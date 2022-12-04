@@ -17,13 +17,16 @@ export const load = async function ({ params }) {
 export const actions = {
 	increaseUpvote: async event => {
 		try {
-			await Event.updateOne({
-				slug: event.params.slug,
-			}, {
-				$inc: {
-					upVotes: 1
+			await Event.updateOne(
+				{
+					slug: event.params.slug,
+				},
+				{
+					$inc: {
+						upVotes: 1,
+					},
 				}
-			});
+			);
 			return { success: true };
 		} catch (error) {
 			console.log(error);

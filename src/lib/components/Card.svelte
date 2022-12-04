@@ -30,7 +30,7 @@
 	export let requirements;
 	export let isRegistrationNeeded;
 
-	let isLiked = $userState?.likedEvents?.includes(slug);
+	$: isLiked = $userState?.likedEvents?.includes(slug);
 
 	const hostRating = "0.0";
 

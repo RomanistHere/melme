@@ -30,4 +30,5 @@ function writable(key, initialValue) {
 
 export const userState = writable({
 	likedEvents: [],
+	comingEvents: [],
 });
