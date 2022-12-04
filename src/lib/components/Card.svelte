@@ -119,7 +119,7 @@
 			<span>{time}</span>
 		</p>
 		<p class="mb-2">
-			{truncateString(description, 80)}
+			{truncateString(description, 74)}
 		</p>
 		<ul class="-mx-1 mb-4">
 			{#each categories as category}

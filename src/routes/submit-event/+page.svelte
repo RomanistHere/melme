@@ -12,7 +12,6 @@
 	import CategoryPicker from "./CategoryPicker.svelte";
 
 	export let form;
-	// export let data;
 
 	const timeOptions = [
 		"unknown",
@@ -52,6 +51,8 @@
 	$: updateView(form);
 
 	let pickedList = [];
+	$: imgPreview = null;
+	$: console.log(imgPreview);
 </script>
 
 <svelte:head>
@@ -196,7 +197,18 @@
 				maxlength={256}
 				placeholder="Please, type 'not specified' in case the address is unknown."
 				class="mb-4"
+				bind:value={imgPreview}
 			/>
+
+			{#if imgPreview}
+				<p class="lowercase text-sm mb-2">Image preview</p>
+
+				<img
+					src={imgPreview}
+					alt="Preview of a picture from external site"
+					class="mb-4"
+				/>
+			{/if}
 
 			<Input
 				title="Who is hosting this event?"
