@@ -12,6 +12,7 @@
 	import CategoryPicker from "./CategoryPicker.svelte";
 
 	import { handleClickBack } from "$lib/utils/index.js";
+	import { categoryList } from "$lib/config.js";
 
 	export let form;
 
@@ -23,21 +24,6 @@
 		"between 2 hours and 4 hours",
 		"more than 4 hours",
 		"whole day",
-	];
-
-	const categoryList = [
-		"food",
-		"music",
-		"movie",
-		"tech",
-		"sports",
-		"national",
-		"learning",
-		"science",
-		"cars",
-		"nature",
-		"with kids",
-		"with pets",
 	];
 
 	const enhanceCallback = ({ data }) => {
@@ -149,7 +135,7 @@
 			/>
 
 			<TimePicker
-				title="*Pick a time when it starts"
+				title="*Pick a local time when it starts"
 				class="mb-4"
 				name="time"
 				externalError={form &&

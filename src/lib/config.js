@@ -1,0 +1,15 @@
+export const categoryList = [
+	"food",
+	"music",
+	"movie",
+	"tech",
+	"sports",
+	"national",
+	"performance",
+	"learning",
+	"science",
+	"cars",
+	"nature",
+	"with kids",
+	"with pets",
+];
