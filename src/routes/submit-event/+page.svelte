@@ -6,6 +6,7 @@
 	import DatePicker from "$lib/components/ui/DatePicker.svelte";
 	import TimePicker from "$lib/components/ui/TimePicker.svelte";
 	import RadioButtons from "$lib/components/ui/RadioButtons.svelte";
+	import PrimaryButton from "$lib/components/ui/PrimaryButton.svelte";
 	import TogglerLink from "./TogglerLink.svelte";
 	import CategoryPicker from "./CategoryPicker.svelte";
 
@@ -204,9 +205,10 @@
 				bind:pickedList
 			/>
 
-			<button class="input-border mt-16 w-full">
-				Submit
-			</button>
+			<PrimaryButton
+				title="Submit"
+				class="mt-8"
+			/>
 		</form>
 	{/if}
 </section>

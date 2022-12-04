@@ -21,17 +21,15 @@
 	<title>melme - More Events for Less Money</title>
 </svelte:head>
 
-<section class="bg-gray-200 p-4">
-	<ul class="max-w-lg mx-auto">
-		{#each events as event}
-			<li>
-				<Card {...event} />
-			</li>
-		{/each}
-	</ul>
+<ul>
+	{#each events as event}
+		<li>
+			<Card {...event} />
+		</li>
+	{/each}
+</ul>
 
-	<PrimaryButton
-		title="Submit event"
-		on:click={openSubmitEventPage}
-	/>
-</section>
+<PrimaryButton
+	title="Submit event"
+	on:click={openSubmitEventPage}
+/>

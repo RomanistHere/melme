@@ -76,6 +76,10 @@
 	};
 </script>
 
+<svelte:head>
+	<title>melme: {title}</title>
+</svelte:head>
+
 <div class="my-6 bg-white">
 	<a
 		href="/"
@@ -134,9 +138,14 @@
 		</h2>
 		<p class="opacity-30 flex items-center text-sm">
 			<GeoPin />
-			<span class="mx-1 underline">
+			<a
+				class="mx-1 underline"
+				href="https://maps.google.com/?q={address}"
+				target="_blank"
+				rel="noreferrer"
+			>
 				{address}
-			</span>
+			</a>
 		</p>
 		<p class="opacity-30 flex items-center mb-4 text-sm">
 			<span>{getDateHumanFormat(date)}</span>

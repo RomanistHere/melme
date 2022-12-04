@@ -30,10 +30,10 @@
 		/>
 		<label
 			for="{id}_{option}"
-			class="flex items-center cursor-pointer my-1"
+			class="flex items-center cursor-pointer my-1 text-stone-700"
 		>
 			<span
-				class="w-5 h-5 inline-block rounded-md border border-text transition-colors shrink-0 mr-3"
+				class="w-5 h-5 inline-block rounded-md border border-stone-500 border-text transition-colors shrink-0 mr-3"
 			/>
 			{option}
 		</label>
@@ -42,10 +42,10 @@
 
 <style>
 	input[type="radio"]:checked + label span {
-		background-color: mediumvioletred;
+		background-color: #4338ca;
 		box-shadow: 0px 0px 0px 2px white inset;
 	}
 	input[type="radio"]:checked + label {
-		color: mediumvioletred;
+		color: #4338ca;
 	}
 </style>

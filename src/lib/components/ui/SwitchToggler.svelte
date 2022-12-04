@@ -9,27 +9,27 @@
 </script>
 
 <label
-	class="relative flex mr-4 {customClass}"
+	class="relative inline-flex rounded-xl overflow-hidden cursor-pointer {customClass}"
 	on:click
 >
 	<input
 		type="checkbox"
-		class="opacity-0 w-0 h-0"
+		class="opacity-0 w-0 h-0 absolute"
 		{name}
 		{checked}
 		bind:this={toggleInputRef}
 	/>
-	<span class="block p-2 text-white">
+	<span class="block p-2 px-3 text-white transition-colors">
 		{optionOneText}
 	</span>
-	<span class="block p-2 text-white">
+	<span class="block p-2 px-3 text-white transition-colors">
 		{optionTwoText}
 	</span>
 </label>
 
 <style>
 	input:checked + span {
-		background-color: mediumvioletred;
+		background-color: #4338ca;
 		opacity: 1;
 	}
 
@@ -44,7 +44,7 @@
 	}
 
 	input + span + span {
-		background-color: mediumvioletred;
+		background-color: #4338ca;
 		opacity: 1;
 	}
 </style>
