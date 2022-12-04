@@ -38,8 +38,7 @@
 
 	const hostRating = "0.0";
 
-	const handlePrimaryButtonClick = e => {
-		e.preventDefault();
+	const handlePrimaryButtonClick = () => {
 		upVotes = upVotes + 1;
 		areYouGoingText = false;
 	};
@@ -80,7 +79,7 @@
 	<title>melme: {title}</title>
 </svelte:head>
 
-<div class="my-6 bg-white">
+<div class="-m-4 bg-white">
 	<a
 		href="/"
 		class="p-3 block"
@@ -174,11 +173,16 @@
 			number={upVotes}
 			isAdditionalText={areYouGoingText}
 		/>
-		<PrimaryButton
-			title="I'm going"
-			class="mb-8 mt-2"
-			on:click={handlePrimaryButtonClick}
-		/>
+<!--		<form-->
+<!--			action="?/increaseUpvote"-->
+<!--			method="POST"-->
+<!--		>-->
+			<PrimaryButton
+				title="I'm going"
+				class="mb-8 mt-2"
+				on:click={handlePrimaryButtonClick}
+			/>
+<!--		</form>-->
 		<p class="my-4">
 			Website: <a
 				href={linkToEvent}

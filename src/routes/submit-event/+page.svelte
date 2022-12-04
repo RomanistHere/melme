@@ -58,7 +58,7 @@
 	<title>Submit an event.</title>
 </svelte:head>
 
-<section class="max-w-2xl mx-auto py-12 px-4">
+<section class="max-w-2xl mx-auto py-8">
 	{#if form?.success}
 		<p>
 			The event was successfully sent! You can review it in
