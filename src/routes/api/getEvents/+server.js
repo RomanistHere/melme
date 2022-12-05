@@ -28,10 +28,32 @@ export async function POST({ url }) {
 				? { categories: { $in: [...categories] } }
 				: {}),
 		},
-		"title description linkToEvent -_id"
+		"title description slug linkToEvent -_id"
 	).lean();
 
+	const preparedResponse = data.map(
+		({ title, description, slug, linkToEvent }) => ({
+			choiceId: slug,
+			choiceText: title,
+			value: {
+				title: title,
+				description: description,
+				linkToEvent: linkToEvent,
+			},
+		})
+	);
+
+	// return json({
+	// 	events: data,
+	// });
+
 	return json({
-		events: data,
+		unresolvedVariables: [],
+		resolvedVariables: [
+			{
+				variableId: "Activity",
+				values: preparedResponse,
+			},
+		],
 	});
 }
