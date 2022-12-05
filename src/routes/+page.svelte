@@ -38,7 +38,8 @@
 
 {#if sortedByDateEvents.length === 0}
 	<p class="text-center my-14">
-		We didn't find any results for you. Pick another category or submit your event.
+		We didn't find any results for you. Pick another
+		category or submit your event.
 	</p>
 {:else}
 	<ul>
