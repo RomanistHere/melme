@@ -9,7 +9,10 @@
 	import PeopleComing from "$lib/components/ui/PeopleComing.svelte";
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
 
-	import { truncateString, handleClickBack } from "$lib/utils/index.js";
+	import {
+		truncateString,
+		handleClickBack,
+	} from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
 
 	export let data;
