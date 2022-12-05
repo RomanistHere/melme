@@ -29,14 +29,17 @@ export async function POST({ request }) {
 			},
 		})
 	);
+	console.log(preparedResponse);
 
-	return json({
-		unresolvedVariables: [],
-		resolvedVariables: [
-			{
-				variableId: "Activity",
-				values: preparedResponse,
-			},
-		],
-	});
+	return json(parsedRequest?.variables);
+
+	// return json({
+	// 	unresolvedVariables: [],
+	// 	resolvedVariables: [
+	// 		{
+	// 			variableId: "Activity",
+	// 			values: preparedResponse,
+	// 		},
+	// 	],
+	// });
 }
