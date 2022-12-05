@@ -15,7 +15,13 @@ const getCategoryFromParams = searchParams => {
 		: arrayOfParams;
 };
 
-export async function POST({ url }) {
+export async function POST({ request }) {
+	return request;
+}
+
+export async function POSTed({ url }) {
+	// const parsedRequest = await request.json();
+
 	const { searchParams, search } = url;
 	const categories = search
 		? getCategoryFromParams(searchParams)
