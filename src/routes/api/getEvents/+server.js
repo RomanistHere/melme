@@ -12,7 +12,7 @@ export async function POST({ request }) {
 		{
 			isApproved: true,
 			...(category
-				? { categories: { $in: [...category] } }
+				? { categories: category }
 				: {}),
 		},
 		"title description slug linkToEvent -_id"
@@ -38,6 +38,5 @@ export async function POST({ request }) {
 				values: preparedResponse,
 			},
 		],
-		path: parsedRequest?.variables[0].payload,
 	});
 }
