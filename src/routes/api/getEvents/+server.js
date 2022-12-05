@@ -16,8 +16,9 @@ import { json } from "@sveltejs/kit";
 // };
 
 export async function POST({ request }) {
-	console.log(request);
-	return json(request);
+	const parsedRequest = await request.json();
+	console.log(parsedRequest);
+	return json(parsedRequest);
 }
 
 // export async function POST({ url }) {
