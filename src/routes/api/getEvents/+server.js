@@ -12,3 +12,15 @@ export async function POST() {
 		events: data,
 	};
 }
+export async function GET() {
+	const data = await Event.find(
+		{
+			isApproved: true,
+		},
+		"-_id -createdAt -updatedAt -__v"
+	).lean();
+
+	return {
+		events: data,
+	};
+}
