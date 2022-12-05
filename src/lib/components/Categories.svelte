@@ -4,8 +4,16 @@
 	import { goto } from "$app/navigation";
 
 	import { categoryList } from "$lib/config.js";
+	import { userState } from "$lib/stores/localStorage.js";
+
+	export let externalFilters;
 
 	$: listOfActiveCategories = [];
+	$: isLikesNotEmpty =
+		$userState?.likedEvents &&
+		$userState.likedEvents.length !== 0;
+
+	let isLikedActive = false;
 
 	const toggleCategory = category => {
 		if (listOfActiveCategories.includes(category)) {
@@ -35,6 +43,16 @@
 		});
 	};
 
+	const toggleLikedDisplay = () => {
+		isLikedActive = !isLikedActive;
+		if (isLikedActive)
+			externalFilters = [...externalFilters, "likes"];
+		else
+			externalFilters = externalFilters.filter(
+				i => i !== "likes"
+			);
+	};
+
 	onMount(() => {
 		listOfActiveCategories =
 			$page.url.searchParams
@@ -47,6 +65,18 @@
 	<ul
 		class="-mx-1 text-sm pb-3 whitespace-nowrap overflow-y-scroll"
 	>
+		{#if isLikesNotEmpty}
+			<li
+				class="mx-1 bg-gray-100 inline-block rounded-2xl py-1 px-2 m-1 text-stone-500"
+				class:bg-indigo-700={isLikedActive}
+				class:text-white={isLikedActive}
+				class:text-stone-500={!isLikedActive}
+			>
+				<button on:click={toggleLikedDisplay}>
+					your likes
+				</button>
+			</li>
+		{/if}
 		{#each categoryList as category}
 			{@const isActive =
 				listOfActiveCategories.includes(category)}
