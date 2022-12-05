@@ -6,7 +6,7 @@ export async function POST({ request }) {
 	const parsedRequest = await request.json();
 
 	const category =
-		parsedRequest?.variables[0]?.payload["activityType"];
+		parsedRequest?.variables[0]?.payload.activityType;
 
 	const data = await Event.find(
 		{
@@ -29,17 +29,15 @@ export async function POST({ request }) {
 			},
 		})
 	);
-	console.log(preparedResponse);
 
-	return json(parsedRequest?.variables);
-
-	// return json({
-	// 	unresolvedVariables: [],
-	// 	resolvedVariables: [
-	// 		{
-	// 			variableId: "Activity",
-	// 			values: preparedResponse,
-	// 		},
-	// 	],
-	// });
+	return json({
+		unresolvedVariables: [],
+		resolvedVariables: [
+			{
+				variableId: "Activity",
+				values: preparedResponse,
+			},
+		],
+		path: parsedRequest?.variables[0].payload,
+	});
 }
