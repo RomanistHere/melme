@@ -1,3 +1,5 @@
+import { json } from "@sveltejs/kit"
+
 import { Event } from "$db/models/event.model";
 
 export async function POST() {
@@ -8,9 +10,9 @@ export async function POST() {
 		"-_id -createdAt -updatedAt -__v"
 	).lean();
 
-	return {
+	return json({
 		events: data,
-	};
+	});
 }
 export async function GET() {
 	const data = await Event.find(
@@ -20,7 +22,7 @@ export async function GET() {
 		"-_id -createdAt -updatedAt -__v"
 	).lean();
 
-	return {
+	return json({
 		events: data,
-	};
+	});
 }
