@@ -1,7 +1,7 @@
 import { invalid } from "@sveltejs/kit";
 
 import { Event } from "$db/models/event.model";
-import { UserRateLimit } from "$db/models/UserRateLimit.model.js";
+import { UserRateLimit } from "$db/models/userRateLimit.model.js";
 
 import { generateRandomString } from "$lib/utils/index.js";
 
