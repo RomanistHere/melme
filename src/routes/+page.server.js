@@ -15,6 +15,7 @@ const getCategoryFromParams = searchParams => {
 
 export const load = async function ({ url }) {
 	const { searchParams, search } = url;
+	const today = new Date().toISOString().split("T")[0];
 	const categories = search
 		? getCategoryFromParams(searchParams)
 		: null;
@@ -22,6 +23,7 @@ export const load = async function ({ url }) {
 	const data = await Event.find(
 		{
 			isApproved: true,
+			date: { $gte: today },
 			...(categories
 				? { categories: { $in: [...categories] } }
 				: {}),

@@ -7,6 +7,7 @@
 	import Categories from "$lib/components/Categories.svelte";
 
 	import { userState } from "$lib/stores/localStorage.js";
+	import { sortByDateAndTime } from "$lib/utils/index.js";
 
 	// `data` comes from export in +page.server.js
 	export let data;
@@ -14,21 +15,9 @@
 	// this is a Svelte way to destructure property and keep it reactive
 	// basically it's equals to `const { events } = data`, where `events` will be updated when `data` is
 	$: ({ events } = data);
-	$: sortedByDateEvents = sortByDate(events);
+	$: sortedByDateEvents = sortByDateAndTime(events);
 	$: frontendFilers = [];
 	$: updateFrontendFilters(frontendFilers);
-
-	const sortByDate = array => {
-		return array.sort((objA, objB) => {
-			if (objA.date < objB.date) return -1;
-			else if (objA.date > objB.date) return 1;
-			else if (objA.date === objB.date) {
-				if (objA.time < objB.time) return -1;
-				else if (objA.time > objB.time) return 1;
-				else return 0;
-			}
-		});
-	};
 
 	const updateFrontendFilters = listOfFilters => {
 		if (listOfFilters.includes("likes")) {
@@ -36,7 +25,7 @@
 				$userState.likedEvents.includes(item.slug)
 			);
 		} else {
-			sortedByDateEvents = sortByDate(events);
+			sortedByDateEvents = sortByDateAndTime(events);
 		}
 	};
 
@@ -54,6 +43,11 @@
 
 <Categories bind:externalFilters={frontendFilers} />
 
+<PrimaryButton
+	title="Submit event"
+	on:click={openSubmitEventPage}
+/>
+
 {#if sortedByDateEvents.length === 0}
 	<p class="text-center my-14">
 		We didn't find any results for you. Pick another
@@ -69,16 +63,11 @@
 	</ul>
 {/if}
 
-<PrimaryButton
-	title="Submit event"
-	on:click={openSubmitEventPage}
-/>
-
 <div class="text-center pb-8">
-	or <a
+	Didn't find anything interesting? <a
 		href="/moderation-queue"
 		class="underline"
 	>
-		discover not yet approved by moderation events
+		Discover not yet approved by moderation events
 	</a>
 </div>

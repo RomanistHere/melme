@@ -1,5 +1,6 @@
 <script>
 	import LikeButton from "$lib/components/ui/LikeButton.svelte";
+	import TimeRelatedBadge from "$lib/components/ui/TimeRelatedBadge.svelte";
 	import GeoPin from "$lib/components/icons/GeoPin.svelte";
 	import Star from "$lib/components/icons/Star.svelte";
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
@@ -93,6 +94,12 @@
 			class="top-1 right-1 p-2"
 			on:click={handleLikeClickButton}
 			isActive={isLiked}
+		/>
+		<TimeRelatedBadge
+			{time}
+			{date}
+			{duration}
+			class="absolute left-3 bottom-10"
 		/>
 		<span
 			class="absolute text-sm py-0.5 px-2 rounded-xl bottom-3 left-3 bg-white"

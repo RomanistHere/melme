@@ -15,3 +15,15 @@ export const generateRandomString = () =>
 export const handleClickBack = () => {
 	goto("/");
 };
+
+export const sortByDateAndTime = array => {
+	return array.sort((objA, objB) => {
+		if (objA.date < objB.date) return -1;
+		else if (objA.date > objB.date) return 1;
+		else if (objA.date === objB.date) {
+			if (objA.time < objB.time) return -1;
+			else if (objA.time > objB.time) return 1;
+			else return 0;
+		}
+	});
+};

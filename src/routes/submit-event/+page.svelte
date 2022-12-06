@@ -12,19 +12,12 @@
 	import CategoryPicker from "./CategoryPicker.svelte";
 
 	import { handleClickBack } from "$lib/utils/index.js";
-	import { categoryList } from "$lib/config.js";
+	import {
+		categoryList,
+		timeOptions,
+	} from "$lib/config.js";
 
 	export let form;
-
-	const timeOptions = [
-		"unknown",
-		"less than 30 minutes",
-		"between 30 minutes and 1 hour",
-		"between 1 hour and 2 hours",
-		"between 2 hours and 4 hours",
-		"more than 4 hours",
-		"whole day",
-	];
 
 	const enhanceCallback = ({ data }) => {
 		data.append("categories", JSON.stringify(pickedList));
@@ -48,7 +41,8 @@
 
 <section class="max-w-2xl mx-auto py-8">
 	{#if form?.success}
-		<p>
+		<p class="text-2xl mb-2 text-center">Thank you!</p>
+		<p class="text-center">
 			The event was successfully sent! You can review it in
 			<a
 				href="/moderation-queue"
@@ -56,8 +50,14 @@
 			>
 				the submission queue.
 			</a>
+			or
+			<a
+				href="/submit-event"
+				class="underline"
+			>
+				submit another one
+			</a>
 		</p>
-		<p class="text-2xl mt-2">Thank you!</p>
 	{:else}
 		<a
 			href="/"

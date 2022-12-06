@@ -4,12 +4,13 @@
 	import Card from "$lib/components/Card.svelte";
 	import PrimaryButton from "$lib/components/ui/PrimaryButton.svelte";
 
+	import { sortByDateAndTime } from "$lib/utils/index.js";
+
 	// `data` comes from export in +page.server.js
 	export let data;
 
-	// this is a Svelte way to destructure property and keep it reactive
-	// basically it's equals to `const { events } = data`, where `events` will be updated when `data` is
 	$: ({ events } = data);
+	$: sortedByDateEvents = sortByDateAndTime(events);
 
 	const openSubmitEventPage = e => {
 		e.preventDefault();
@@ -22,7 +23,7 @@
 </svelte:head>
 
 <ul>
-	{#each events as event}
+	{#each sortedByDateEvents as event}
 		<li>
 			<Card {...event} />
 		</li>
