@@ -5,40 +5,53 @@ import { UserRateLimit } from "$db/models/UserRateLimit.model.js";
 
 import { generateRandomString } from "$lib/utils/index.js";
 
-const rateLimitCheck = (usageTimesLimitation) => {
-	return async (req) => {
-		console.log('heh');
+const rateLimitCheck = usageTimesLimitation => {
+	return async ip => {
 		try {
-			// based on: https://stackoverflow.com/questions/52026610/get-client-ip-address-of-a-request-instead-of-cloudflares-ip-address/52026771#52026771
-			const ip = req.headers['x-forwarded-for'] || req.connection?.remoteAddress;
-			console.log(ip)
-			const userRateLimit = await UserRateLimit.findOne({ ip });
-			console.log(userRateLimit);
+			const userRateLimit = await UserRateLimit.findOne({
+				ip,
+			});
 
-			const isOverLimit = userRateLimit?.uses >= usageTimesLimitation;
+			const isOverLimit =
+				userRateLimit?.uses >= usageTimesLimitation;
 			const uses = userRateLimit?.uses + 1 || 0;
 
 			if (userRateLimit)
 				UserRateLimit.findOne({ ip }).remove();
 
-			await new UserRateLimit({ ip, uses }).save();
+			await new UserRateLimit({
+				ip,
+				uses,
+				createdAt: new Date(),
+			}).save();
 
-			return { isError: false, isOverLimit };
+			return {
+				isError: false,
+				isOverLimit,
+				message: "updated",
+			};
 		} catch (error) {
-			console.log(error);
-			return { isError: true, message: error }
+			return { isError: true, message: error };
 		}
 	};
-}
+};
 
 const isUserRateLimited = rateLimitCheck(3);
 
 export const actions = {
 	default: async event => {
-		console.log(event.client);
-		const { isError, isOverLimit } = await isUserRateLimited(event.request);
-		console.log("isError: ", isError)
-		console.log(isOverLimit);
+		const { isError, isOverLimit, message } =
+			await isUserRateLimited(event.getClientAddress());
+
+		if (isError) return { success: false, error: message };
+
+		if (isOverLimit)
+			return {
+				success: false,
+				error:
+					"Spam protection. Too much attempts. Wait 20 minutes and try again.",
+			};
+
 		const formData = await event.request.formData();
 		const data = Object.fromEntries(formData);
 

@@ -11,9 +11,7 @@ export async function POST({ request }) {
 	const data = await Event.find(
 		{
 			isApproved: true,
-			...(category
-				? { categories: category }
-				: {}),
+			...(category ? { categories: category } : {}),
 		},
 		"title description slug linkToEvent -_id"
 	).lean();

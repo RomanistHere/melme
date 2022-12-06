@@ -1,17 +1,19 @@
 import { Schema, model } from "mongoose";
 
-const schema = new Schema(
+const schema = new Schema({
+	ip: String,
+	uses: {
+		type: Number,
+		default: 0,
+	},
+	createdAt: Date,
+}).index(
 	{
-		ip: String,
-		uses: {
-			type: Number,
-			default: 0,
-		},
+		createdAt: 1,
+	},
+	{
+		expireAfterSeconds: 20,
 	}
-).index({
-	ip: 1
-}, {
-	expireAfterSeconds: 60
-});
+);
 
 export const UserRateLimit = model("UserRateLimit", schema);

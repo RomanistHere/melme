@@ -222,6 +222,12 @@
 				title="Submit"
 				class="mt-8"
 			/>
+
+			{#if form?.error}
+				<p class="my-4 text-red-500 text-center">
+					{form.error}
+				</p>
+			{/if}
 		</form>
 	{/if}
 </section>
