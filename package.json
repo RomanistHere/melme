@@ -27,6 +27,7 @@
 	"type": "module",
 	"dependencies": {
 		"mongodb": "^4.12.1",
-		"mongoose": "^6.7.4"
+		"mongoose": "^6.7.4",
+		"sharp": "^0.31.2"
 	}
 }
