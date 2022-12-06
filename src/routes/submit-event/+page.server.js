@@ -5,35 +5,33 @@ import { UserRateLimit } from "$db/models/userRateLimit.model.js";
 
 import { generateRandomString } from "$lib/utils/index.js";
 
-const rateLimitCheck = usageTimesLimitation => {
-	return async ip => {
-		try {
-			const userRateLimit = await UserRateLimit.findOne({
-				ip,
-			});
+const rateLimitCheck = usageTimesLimitation => async ip => {
+	try {
+		const userRateLimit = await UserRateLimit.findOne({
+			ip,
+		});
 
-			const isOverLimit =
-				userRateLimit?.uses >= usageTimesLimitation;
-			const uses = userRateLimit?.uses + 1 || 0;
+		const isOverLimit =
+			userRateLimit?.uses >= usageTimesLimitation;
+		const uses = userRateLimit?.uses + 1 || 0;
 
-			if (userRateLimit)
-				await UserRateLimit.findOne({ ip }).remove();
+		if (userRateLimit)
+			await UserRateLimit.findOne({ ip }).remove();
 
-			await new UserRateLimit({
-				ip,
-				uses,
-				createdAt: new Date(),
-			}).save();
+		await new UserRateLimit({
+			ip,
+			uses,
+			createdAt: new Date(),
+		}).save();
 
-			return {
-				isError: false,
-				isOverLimit,
-				message: "updated",
-			};
-		} catch (error) {
-			return { isError: true, message: error };
-		}
-	};
+		return {
+			isError: false,
+			isOverLimit,
+			message: "updated",
+		};
+	} catch (error) {
+		return { isError: true, message: error };
+	}
 };
 
 const isUserRateLimited = rateLimitCheck(10);

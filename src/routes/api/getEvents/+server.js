@@ -21,9 +21,9 @@ export async function POST({ request }) {
 			choiceId: slug,
 			choiceText: title,
 			value: {
-				title: title,
-				description: description,
-				linkToEvent: linkToEvent,
+				title,
+				description,
+				linkToEvent,
 			},
 		})
 	);
