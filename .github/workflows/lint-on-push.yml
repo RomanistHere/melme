@@ -21,6 +21,6 @@ jobs:
       - name: Running Prettier
         run: npm run format
       - name: Running ESLint
-        run: npm run lint
+        run: npm run lint:fix
       - name: Build the app
         run: npm run build
