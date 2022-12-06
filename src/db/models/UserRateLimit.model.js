@@ -12,7 +12,7 @@ const schema = new Schema({
 		createdAt: 1,
 	},
 	{
-		expireAfterSeconds: 20,
+		expireAfterSeconds: 60,
 	}
 );
 

@@ -72,6 +72,12 @@
 			fields marked with *
 		</h1>
 
+		{#if form?.error}
+			<p class="my-4 text-red-500 text-center">
+				Error: {form.error}
+			</p>
+		{/if}
+
 		<form
 			method="POST"
 			use:enhance={enhanceCallback}
@@ -222,12 +228,6 @@
 				title="Submit"
 				class="mt-8"
 			/>
-
-			{#if form?.error}
-				<p class="my-4 text-red-500 text-center">
-					{form.error}
-				</p>
-			{/if}
 		</form>
 	{/if}
 </section>

@@ -17,7 +17,7 @@ const rateLimitCheck = usageTimesLimitation => {
 			const uses = userRateLimit?.uses + 1 || 0;
 
 			if (userRateLimit)
-				UserRateLimit.findOne({ ip }).remove();
+				await UserRateLimit.findOne({ ip }).remove();
 
 			await new UserRateLimit({
 				ip,
@@ -36,7 +36,7 @@ const rateLimitCheck = usageTimesLimitation => {
 	};
 };
 
-const isUserRateLimited = rateLimitCheck(3);
+const isUserRateLimited = rateLimitCheck(10);
 
 export const actions = {
 	default: async event => {
