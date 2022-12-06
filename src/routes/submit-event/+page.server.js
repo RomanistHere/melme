@@ -81,7 +81,6 @@ export const actions = {
 		try {
 			await eventDB.save();
 		} catch (error) {
-			console.log(error);
 			return { success: false, error };
 		}
 

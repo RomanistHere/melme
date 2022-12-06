@@ -28,9 +28,8 @@ export const actions = {
 				}
 			);
 			return { success: true };
-		} catch (error) {
-			console.log(error);
-			return { success: false, error };
+		} catch (err) {
+			return { success: false, error: err };
 		}
 	},
 };

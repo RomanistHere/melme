@@ -110,13 +110,16 @@
 	};
 
 	const getDateHumanFormat = dateStr => {
-		const date = new Date(dateStr);
+		const dateToConvert = new Date(dateStr);
 		const options = {
 			month: "short",
 			day: "numeric",
 		};
 
-		return date.toLocaleDateString("en-UK", options);
+		return dateToConvert.toLocaleDateString(
+			"en-UK",
+			options
+		);
 	};
 </script>
 

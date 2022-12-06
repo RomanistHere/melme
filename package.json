@@ -7,6 +7,7 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
+		"lint:fix": "prettier --plugin-search-dir . --check . && eslint . --fix",
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {

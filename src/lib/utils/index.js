@@ -24,5 +24,5 @@ export const sortByDateAndTime = array =>
 			if (objA.time < objB.time) return -1;
 			else if (objA.time > objB.time) return 1;
 			else return 0;
-		}
+		} else return 0;
 	});
