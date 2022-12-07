@@ -19,15 +19,11 @@
 
 	const toggleCategory = category => {
 		if (listOfActiveCategories.includes(category)) {
-			listOfActiveCategories =
-				listOfActiveCategories.filter(
-					item => item !== category
-				);
+			listOfActiveCategories = listOfActiveCategories.filter(
+				item => item !== category
+			);
 		} else {
-			listOfActiveCategories = [
-				...listOfActiveCategories,
-				category,
-			];
+			listOfActiveCategories = [...listOfActiveCategories, category];
 		}
 
 		if (listOfActiveCategories.length > 0) {
@@ -49,26 +45,18 @@
 
 	const toggleLikedDisplay = () => {
 		isLikedActive = !isLikedActive;
-		if (isLikedActive)
-			externalFilters = [...externalFilters, "likes"];
-		else
-			externalFilters = externalFilters.filter(
-				i => i !== "likes"
-			);
+		if (isLikedActive) externalFilters = [...externalFilters, "likes"];
+		else externalFilters = externalFilters.filter(i => i !== "likes");
 	};
 
 	onMount(() => {
 		listOfActiveCategories =
-			$page.url.searchParams
-				.get("categories")
-				?.split("-") || [];
+			$page.url.searchParams.get("categories")?.split("-") || [];
 	});
 </script>
 
 <nav class="w-full overflow-hidden">
-	<ul
-		class="-mx-1 text-sm pb-3 whitespace-nowrap overflow-y-scroll"
-	>
+	<ul class="-mx-1 text-sm pb-3 whitespace-nowrap overflow-y-scroll">
 		{#if isLikesNotEmpty}
 			<li
 				class="mx-1 bg-gray-100 inline-block rounded-2xl py-1 px-2 m-1 text-stone-500"
@@ -76,21 +64,17 @@
 				class:text-white={isLikedActive}
 				class:text-stone-500={!isLikedActive}
 			>
-				<button on:click={toggleLikedDisplay}>
-					your likes
-				</button>
+				<button on:click={toggleLikedDisplay}>your likes</button>
 			</li>
 		{/if}
 		{#each categoryList as category}
-			{@const isActive =
-				listOfActiveCategories.includes(category)}
-			<li
-				class="mx-1 bg-gray-100 inline-block rounded-2xl py-1 px-2 m-1 text-stone-500"
-				class:bg-indigo-700={isActive}
-				class:text-white={isActive}
-				class:text-stone-500={!isActive}
-			>
+			{@const isActive = listOfActiveCategories.includes(category)}
+			<li class="inline-block">
 				<button
+					class="mx-1 bg-gray-100 rounded-2xl py-1 px-2 m-1 text-stone-500"
+					class:bg-indigo-700={isActive}
+					class:text-white={isActive}
+					class:text-stone-500={!isActive}
 					on:click={() => {
 						toggleCategory(category);
 					}}

@@ -75,9 +75,7 @@
 		<div
 			class="absolute text-white text-xs font-bold top-3 left-3 flex items-center"
 		>
-			<span
-				class="w-7 h-7 rounded-full bg-white block mr-2"
-			/>
+			<span class="w-7 h-7 rounded-full bg-white block mr-2" />
 			<div>
 				<p class="text-shadow">
 					{truncateString(hostName || "unknown", 20)}

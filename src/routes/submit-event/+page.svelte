@@ -12,10 +12,7 @@
 	import CategoryPicker from "./CategoryPicker.svelte";
 
 	import { handleClickBack } from "$lib/utils/index.js";
-	import {
-		categoryList,
-		timeOptions,
-	} from "$lib/config.js";
+	import { categoryList, timeOptions } from "$lib/config.js";
 
 	export let form;
 
@@ -68,8 +65,7 @@
 		</a>
 
 		<h1 class="mb-8 text-2xl">
-			To submit an event, please, fill all the necessary
-			fields marked with *
+			To submit an event, please, fill all the necessary fields marked with *
 		</h1>
 
 		{#if form?.error}
@@ -90,9 +86,7 @@
 				maxlength={64}
 				placeholder="Type here title of the event, e.g. Rally cars showcase."
 				class="mb-4"
-				externalError={form &&
-					form.missingTitle &&
-					"The title is missing"}
+				externalError={form && form.missingTitle && "The title is missing"}
 			/>
 
 			<Textarea
@@ -114,9 +108,7 @@
 				maxlength={128}
 				placeholder="Find the trustworthy source. Where did you hear it from?"
 				class="mb-4"
-				externalError={form &&
-					form.missingLink &&
-					"The link is missing"}
+				externalError={form && form.missingLink && "The link is missing"}
 			/>
 
 			<Input
@@ -126,27 +118,21 @@
 				maxlength={128}
 				placeholder="Please, type 'not specified' in case the address is unknown."
 				class="mb-4"
-				externalError={form &&
-					form.missingAddress &&
-					"The address is missing"}
+				externalError={form && form.missingAddress && "The address is missing"}
 			/>
 
 			<DatePicker
 				title="*Pick a date"
 				class="mb-4"
 				name="date"
-				externalError={form &&
-					form.missingDate &&
-					"The date is missing"}
+				externalError={form && form.missingDate && "The date is missing"}
 			/>
 
 			<TimePicker
 				title="*Pick a local time when it starts"
 				class="mb-4"
 				name="time"
-				externalError={form &&
-					form.missingTime &&
-					"The time is missing"}
+				externalError={form && form.missingTime && "The time is missing"}
 			/>
 
 			<RadioButtons

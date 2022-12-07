@@ -12,9 +12,7 @@
 	const getCurrentDay = () => {
 		const yourDate = new Date();
 		const offset = yourDate.getTimezoneOffset();
-		const adjustedDate = new Date(
-			yourDate.getTime() - offset * 60 * 1000
-		);
+		const adjustedDate = new Date(yourDate.getTime() - offset * 60 * 1000);
 		return adjustedDate.toISOString().split("T")[0];
 	};
 

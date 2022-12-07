@@ -52,8 +52,7 @@
 
 	{#if sortedByDateEvents.length === 0}
 		<p class="text-center my-14">
-			We didn't find any results for you. Pick another
-			category or <TextLink
+			We didn't find any results for you. Pick another category or <TextLink
 				title="submit your event"
 				href="submit-event"
 			/>.
@@ -80,10 +79,9 @@
 	<div class="h-screen flex items-center text-center">
 		<div>
 			<p class="mb-8">
-				This page shows content, submitted by other users.
-				Since it doesn't require any sort of verification
-				before submitting the event, literally anyone could
-				have posted anything here. <span class="italic">
+				This page shows content, submitted by other users. Since it doesn't
+				require any sort of verification before submitting the event, literally
+				anyone could have posted anything here. <span class="italic">
 					Use it at your own risk.
 				</span>
 				Likely, though, it's not that bad.

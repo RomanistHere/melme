@@ -17,22 +17,19 @@
 
 	// todo: https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd
 	const today = new Date().toISOString().split("T")[0];
-	const currentTime24 = new Date().toLocaleTimeString(
-		"en-US",
-		{ hour: "numeric", hour12: false, minute: "numeric" }
-	);
-	const timeSubtraction =
-		strToMins(currentTime24) - strToMins(time);
+	const currentTime24 = new Date().toLocaleTimeString("en-US", {
+		hour: "numeric",
+		hour12: false,
+		minute: "numeric",
+	});
+	const timeSubtraction = strToMins(currentTime24) - strToMins(time);
 	const absTime = Math.abs(timeSubtraction);
 
 	const eventDuration = timeOptionsToMinutes[duration];
 	$: isEventToday = today === date;
-	$: isEnded =
-		isEventToday && timeSubtraction > eventDuration;
-	$: isLive =
-		isEventToday && timeSubtraction >= 0 && !isEnded;
-	$: isStartingSoon =
-		isEventToday && !isLive && absTime < 30;
+	$: isEnded = isEventToday && timeSubtraction > eventDuration;
+	$: isLive = isEventToday && timeSubtraction >= 0 && !isEnded;
+	$: isStartingSoon = isEventToday && !isLive && absTime < 30;
 	$: isBadge = isLive || isStartingSoon || isEnded;
 </script>
 

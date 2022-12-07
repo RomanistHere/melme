@@ -17,8 +17,7 @@
 <div class="-mx-1">
 	{#each list as item}
 		<button
-			on:click|preventDefault={() =>
-				handelCategoryUpdate(item)}
+			on:click|preventDefault={() => handelCategoryUpdate(item)}
 			class="m-1 p-2 rounded-lg input-border transition-colors"
 			class:bg-indigo-700={pickedList.includes(item)}
 			class:text-white={pickedList.includes(item)}

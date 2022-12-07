@@ -9,8 +9,7 @@ export const truncateString = (string, limit) => {
 	}
 };
 
-export const generateRandomString = () =>
-	Math.random().toString(16).slice(2);
+export const generateRandomString = () => Math.random().toString(16).slice(2);
 
 export const handleClickBack = () => {
 	goto("/");

@@ -32,8 +32,7 @@
 	};
 
 	$: isError =
-		(!isInputValid && !isInputActive && value !== "") ||
-		externalError;
+		(!isInputValid && !isInputActive && value !== "") || externalError;
 </script>
 
 <div class="mt-2 {customClass}">

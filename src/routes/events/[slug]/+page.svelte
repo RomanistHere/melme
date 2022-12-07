@@ -9,10 +9,7 @@
 	import PeopleComing from "$lib/components/ui/PeopleComing.svelte";
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
 
-	import {
-		truncateString,
-		handleClickBack,
-	} from "$lib/utils/index.js";
+	import { truncateString, handleClickBack } from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
 
 	export let data;
@@ -63,10 +60,7 @@
 					...currentState,
 					comingEvents: [slug],
 				};
-			} else if (
-				comingEvents.length > 0 &&
-				!comingEvents.includes(slug)
-			) {
+			} else if (comingEvents.length > 0 && !comingEvents.includes(slug)) {
 				return {
 					...currentState,
 					comingEvents: [...comingEvents, slug],
@@ -116,10 +110,7 @@
 			day: "numeric",
 		};
 
-		return dateToConvert.toLocaleDateString(
-			"en-UK",
-			options
-		);
+		return dateToConvert.toLocaleDateString("en-UK", options);
 	};
 </script>
 
@@ -155,9 +146,7 @@
 				<div
 					class="absolute text-white text-xs font-bold top-3 left-0 flex items-center"
 				>
-					<span
-						class="w-7 h-7 rounded-full bg-stone-500 block mr-2"
-					/>
+					<span class="w-7 h-7 rounded-full bg-stone-500 block mr-2" />
 					<div>
 						<p class="text-stone-500">
 							{truncateString(hostName, 40)}
@@ -167,9 +156,7 @@
 								class="fill-stone-500"
 								fill={null}
 							/>
-							<span
-								class="block ml-1 -mt-px text-stone-500"
-							>
+							<span class="block ml-1 -mt-px text-stone-500">
 								{hostRating}
 								<span class="text-xs text-black font-light">
 									[in development]

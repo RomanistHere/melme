@@ -10,10 +10,7 @@
 	import TextLink from "$lib/components/ui/TextLink.svelte";
 
 	import { userState } from "$lib/stores/localStorage.js";
-	import {
-		loadedEvents,
-		appState,
-	} from "$lib/stores/index.js";
+	import { loadedEvents, appState } from "$lib/stores/index.js";
 	import { sortByDateAndTime } from "$lib/utils/index.js";
 	import { appConfig } from "$lib/config.js";
 
@@ -28,7 +25,7 @@
 	$: sortedByDateEvents = events;
 	$: frontendFilers = [];
 	$: updateFrontendFilters(frontendFilers);
-	$: areAnyResultLeft = true;
+	$: areAnyResultLeft = events.length >= appConfig.firstResultsLimit;
 
 	const updateFrontendFilters = listOfFilters => {
 		if (listOfFilters.includes("likes")) {
@@ -46,7 +43,6 @@
 	};
 
 	const resetPaginationChanges = () => {
-		areAnyResultLeft = true;
 		appState.update(state => ({
 			...state,
 			loadMorePressedTimes: 0,
@@ -64,17 +60,13 @@
 			method: "POST",
 			body: JSON.stringify({
 				page: $appState.loadMorePressedTimes,
-				categories:
-					$page.url.searchParams.get("categories"),
+				categories: $page.url.searchParams.get("categories"),
 				isApproved: true,
 			}),
 		});
 
 		const parsedResp = await resp.json();
-		loadedEvents.update(curEvents => [
-			...curEvents,
-			...parsedResp.data,
-		]);
+		loadedEvents.update(curEvents => [...curEvents, ...parsedResp.data]);
 		sortedByDateEvents = $loadedEvents;
 
 		if (parsedResp.data.length < appConfig.moreResultsLimit)
@@ -102,8 +94,7 @@
 
 {#if sortedByDateEvents.length === 0}
 	<p class="text-center my-14">
-		We didn't find any results for you. Pick another
-		category or <TextLink
+		We didn't find any results for you. Pick another category or <TextLink
 			title="submit your event"
 			href="submit-event"
 		/>.
@@ -124,9 +115,7 @@
 		on:click={fetchMoreEvents}
 	/>
 {:else}
-	<p class="pt-3 pb-7 text-center">
-		Looks like we out of results...
-	</p>
+	<p class="pt-3 pb-7 text-center">Looks like we out of results...</p>
 {/if}
 
 <div class="text-center pb-8">

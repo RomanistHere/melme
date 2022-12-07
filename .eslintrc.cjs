@@ -2,9 +2,7 @@ module.exports = {
 	root: true,
 	extends: ["eslint:recommended", "prettier"],
 	plugins: ["svelte3"],
-	overrides: [
-		{ files: ["*.svelte"], processor: "svelte3/svelte3" },
-	],
+	overrides: [{ files: ["*.svelte"], processor: "svelte3/svelte3" }],
 	parserOptions: {
 		sourceType: "module",
 		ecmaVersion: 2021,
@@ -80,16 +78,10 @@ module.exports = {
 		quotes: [1, "double"],
 		"keyword-spacing": [2, { before: true, after: true }],
 		"max-depth": [1, 5],
-		"max-len": [
-			2,
-			{ code: 140, tabWidth: 4, ignoreUrls: true },
-		],
+		"max-len": [2, { code: 140, tabWidth: 4, ignoreUrls: true }],
 		"max-nested-callbacks": [2, 3],
 		"no-mixed-spaces-and-tabs": [2, "smart-tabs"],
-		"no-multiple-empty-lines": [
-			2,
-			{ max: 2, maxEOF: 1, maxBOF: 0 },
-		],
+		"no-multiple-empty-lines": [2, { max: 2, maxEOF: 1, maxBOF: 0 }],
 		"no-nested-ternary": 1,
 		"no-ternary": 0,
 		"no-trailing-spaces": [2, { skipBlankLines: true }],

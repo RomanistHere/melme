@@ -5,8 +5,7 @@ import { Event } from "$db/models/event.model";
 export async function POST({ request }) {
 	const parsedRequest = await request.json();
 
-	const category =
-		parsedRequest?.variables[0]?.payload.activityType;
+	const category = parsedRequest?.variables[0]?.payload.activityType;
 
 	const data = await Event.find(
 		{

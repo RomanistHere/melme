@@ -13,8 +13,7 @@
 
 	let ref;
 	let remainingCommentLength = maxlength;
-	$: isRemainingCharsWarning =
-		remainingCommentLength / maxlength < 0.05;
+	$: isRemainingCharsWarning = remainingCommentLength / maxlength < 0.05;
 
 	const dispatch = createEventDispatcher();
 

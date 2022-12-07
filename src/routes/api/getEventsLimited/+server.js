@@ -6,8 +6,7 @@ import { appConfig } from "$lib/config.js";
 
 export async function POST({ request }) {
 	try {
-		const { page, categories, isApproved } =
-			await request.json();
+		const { page, categories, isApproved } = await request.json();
 
 		const today = new Date().toISOString().split("T")[0];
 
@@ -30,8 +29,7 @@ export async function POST({ request }) {
 				time: 1,
 			})
 			.skip(
-				appConfig.firstResultsLimit +
-					appConfig.moreResultsLimit * (page - 1)
+				appConfig.firstResultsLimit + appConfig.moreResultsLimit * (page - 1)
 			)
 			.limit(appConfig.moreResultsLimit)
 			.lean();
