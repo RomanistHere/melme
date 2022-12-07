@@ -186,7 +186,7 @@
 				id="event-image"
 				name="imgSrc"
 				maxlength={256}
-				placeholder="Please, type 'not specified' in case the address is unknown."
+				placeholder="You can search for an image with this topic or use AI generated."
 				class="mb-4"
 				bind:value={imgPreview}
 			/>
