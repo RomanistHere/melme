@@ -5,6 +5,7 @@
 	import PrimaryButton from "$lib/components/ui/PrimaryButton.svelte";
 	import Header from "$lib/components/Header.svelte";
 	import Categories from "$lib/components/Categories.svelte";
+	import TextLink from "$lib/components/ui/TextLink.svelte";
 
 	import { userState } from "$lib/stores/localStorage.js";
 	import { sortByDateAndTime } from "$lib/utils/index.js";
@@ -51,7 +52,10 @@
 {#if sortedByDateEvents.length === 0}
 	<p class="text-center my-14">
 		We didn't find any results for you. Pick another
-		category or submit your event.
+		category or <TextLink
+			title="submit your event"
+			href="submit-event"
+		/>.
 	</p>
 {:else}
 	<ul>
@@ -64,10 +68,9 @@
 {/if}
 
 <div class="text-center pb-8">
-	Didn't find anything interesting? <a
+	Didn't find anything interesting?
+	<TextLink
 		href="/moderation-queue"
-		class="underline"
-	>
-		Discover not yet approved by moderation events
-	</a>
+		title="Discover not yet approved by moderation events"
+	/>
 </div>
