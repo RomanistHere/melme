@@ -46,7 +46,7 @@
 </svelte:head>
 
 {#if $userState && $userState.isModQueueVisited}
-	<Header note="(Submissions)" />
+	<Header note="(Discovery)" />
 
 	<Categories bind:externalFilters={frontendFilers} />
 

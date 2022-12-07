@@ -30,3 +30,8 @@ export const timeOptionsToMinutes = {
 	"between 2 hours and 4 hours": 240,
 	"more than 4 hours": 480,
 };
+
+export const appConfig = {
+	firstResultsLimit: 15,
+	moreResultsLimit: 10,
+};

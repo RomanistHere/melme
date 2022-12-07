@@ -4,14 +4,16 @@
 	import { goto } from "$app/navigation";
 
 	import { categoryList } from "$lib/config.js";
-	import { userState } from "$lib/stores/localStorage.js";
+	// import { userState } from "$lib/stores/localStorage.js";
 
 	export let externalFilters;
+	export let onCategoryChange = () => {};
 
 	$: listOfActiveCategories = [];
-	$: isLikesNotEmpty =
-		$userState?.likedEvents &&
-		$userState.likedEvents.length !== 0;
+	// $: isLikesNotEmpty =
+	// 	$userState?.likedEvents &&
+	// 	$userState.likedEvents.length !== 0;
+	$: isLikesNotEmpty = false;
 
 	let isLikedActive = false;
 
@@ -36,6 +38,8 @@
 		} else {
 			$page.url.searchParams.delete("categories");
 		}
+
+		onCategoryChange();
 
 		goto($page.url.href, {
 			replaceState: true,

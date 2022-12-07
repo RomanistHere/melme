@@ -1,16 +1,22 @@
 import { Event } from "$db/models/event.model";
 
-const getCategoryFromParams = searchParams => {
-	const arrayOfParams = searchParams
-		.get("categories")
-		.split("-");
+import { appConfig } from "$lib/config.js";
 
-	if (!arrayOfParams) return null;
-	// when we leave empty category in url, it will return "", so we check for it
-	return arrayOfParams.length === 1 &&
-		arrayOfParams[0] === ""
-		? null
-		: arrayOfParams;
+const getCategoryFromParams = searchParams => {
+	try {
+		const arrayOfParams = searchParams
+			.get("categories")
+			.split("-");
+
+		if (!arrayOfParams) return null;
+		// when we leave empty category in url, it will return "", so we check for it
+		return arrayOfParams.length === 1 &&
+			arrayOfParams[0] === ""
+			? null
+			: arrayOfParams;
+	} catch (err) {
+		return null;
+	}
 };
 
 export const load = async function ({ url }) {
@@ -29,7 +35,13 @@ export const load = async function ({ url }) {
 				: {}),
 		},
 		"-_id -createdAt -updatedAt -__v"
-	).lean();
+	)
+		.sort({
+			date: 1,
+			time: 1,
+		})
+		.limit(appConfig.firstResultsLimit)
+		.lean();
 
 	return {
 		events: data,
