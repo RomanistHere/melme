@@ -232,7 +232,7 @@
 				{truncateString(linkToEvent, 60)}
 			</a>
 		</p>
-		<p class="my-4">
+		<p class="my-4 whitespace-pre-wrap">
 			{description}
 		</p>
 		{#if requirements}

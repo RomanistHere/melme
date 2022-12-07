@@ -4,6 +4,7 @@ export const categoryList = [
 	"movie",
 	"tech",
 	"sports",
+	"well-being",
 	"national",
 	"performance",
 	"learning",

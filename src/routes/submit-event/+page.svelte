@@ -26,6 +26,11 @@
 		window.scrollTo({ top: 0, behavior: "smooth" });
 	};
 
+	const resetValues = () => {
+		pickedList = [];
+		imgPreview = null;
+	};
+
 	$: updateView(form);
 
 	let pickedList = [];
@@ -51,6 +56,7 @@
 			<a
 				href="/submit-event"
 				class="underline"
+				on:click={resetValues}
 			>
 				submit another one
 			</a>
