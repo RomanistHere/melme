@@ -13,6 +13,7 @@
 
 	import { handleClickBack } from "$lib/utils/index.js";
 	import { categoryList, timeOptions } from "$lib/config.js";
+	import Seo from "$lib/components/Seo.svelte";
 
 	export let form;
 
@@ -37,9 +38,7 @@
 	$: imgPreview = null;
 </script>
 
-<svelte:head>
-	<title>Submit an event.</title>
-</svelte:head>
+<Seo title="melme | submit event" />
 
 <section class="max-w-2xl mx-auto py-8">
 	{#if form?.success}

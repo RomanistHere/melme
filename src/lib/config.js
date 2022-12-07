@@ -1,3 +1,4 @@
+// don't use "-" in names or change implementing of filters
 export const categoryList = [
 	"food",
 	"music",

@@ -6,6 +6,7 @@
 	import Card from "$lib/components/Card.svelte";
 	import PrimaryButton from "$lib/components/ui/PrimaryButton.svelte";
 	import Header from "$lib/components/Header.svelte";
+	import Seo from "$lib/components/Seo.svelte";
 	import Categories from "$lib/components/Categories.svelte";
 	import TextLink from "$lib/components/ui/TextLink.svelte";
 
@@ -76,9 +77,7 @@
 	onMount(resetPaginationChanges);
 </script>
 
-<svelte:head>
-	<title>melme - More Events for Less Money</title>
-</svelte:head>
+<Seo />
 
 <Header />
 

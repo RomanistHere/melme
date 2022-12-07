@@ -3,6 +3,7 @@
 
 	import LikeButton from "$lib/components/ui/LikeButton.svelte";
 	import PrimaryButton from "$lib/components/ui/PrimaryButton.svelte";
+	import Seo from "$lib/components/Seo.svelte";
 	import GeoPin from "$lib/components/icons/GeoPin.svelte";
 	import Star from "$lib/components/icons/Star.svelte";
 	import Separator from "$lib/components/icons/Separator.svelte";
@@ -114,9 +115,11 @@
 	};
 </script>
 
-<svelte:head>
-	<title>melme: {title}</title>
-</svelte:head>
+<Seo
+	title={`melme | ${title}`}
+	{description}
+	image={imgSrc}
+/>
 
 <div class="-m-4 bg-white">
 	<a
