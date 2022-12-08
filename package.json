@@ -27,6 +27,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@nlxchat/core": "^1.0.0",
 		"mongodb": "^4.12.1",
 		"mongoose": "^6.7.4"
 	}
