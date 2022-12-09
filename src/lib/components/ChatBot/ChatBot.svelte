@@ -1,11 +1,10 @@
 <script>
 	import createConversation from "@nlxchat/core";
-	import { NLX_BOT_URL, NLX_API_KEY } from "$env/static/private";
 
 	const config = {
-		botUrl: NLX_BOT_URL, // obtain from NLX deployments page
+		botUrl: "https://bots.dev.studio.nlx.ai/c/NanerGz2hNti5DzfpnzaT/I4MkYHG7sSZC5-NuIxCFL", // obtain from NLX deployments page
 		headers: {
-			"nlx-api-key": NLX_API_KEY, // obtain from NLX deployments page
+			"nlx-api-key": "kIldM3AzpA4uwGYXVaQJXCdKMu6J=M5s", // obtain from NLX deployments page
 		},
 		userId: "abcd-1234", // optional property to identify the user
 		conversationId: "", // start with a specific conversation ID - useful if you want to resume a previous conversation
@@ -16,9 +15,7 @@
 
 	const convo = createConversation(config);
 
-	$: console.log(convo);
-	convo.subscribe((responses, newResponse) => {
-		console.log(responses);
-	});
+	$: console.log($convo);
+
 	convo.sendText("I dunno what to do");
 </script>
