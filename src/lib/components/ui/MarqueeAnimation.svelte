@@ -19,8 +19,16 @@
 		<Separator />
 		<span class="px-1">{text2}</span>
 		<Separator />
+		<span class="px-1">{text1}</span>
+		<Separator />
+		<span class="px-1">{text2}</span>
+		<Separator />
 	</div>
 	<div class="flex anim items-center whitespace-nowrap">
+		<span class="px-1">{text1}</span>
+		<Separator />
+		<span class="px-1">{text2}</span>
+		<Separator />
 		<span class="px-1">{text1}</span>
 		<Separator />
 		<span class="px-1">{text2}</span>
