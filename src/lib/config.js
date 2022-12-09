@@ -3,6 +3,7 @@ export const categoryList = [
 	"food",
 	"music",
 	"movie",
+	"art & culture",
 	"tech",
 	"sports",
 	"wellbeing",
