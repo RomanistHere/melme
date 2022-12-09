@@ -3,7 +3,7 @@
 	import { goto } from "$app/navigation";
 	import { page } from "$app/stores";
 
-	import Card from "$lib/components/Card.svelte";
+	import Card from "$lib/components/ui/Card/Card.svelte";
 	import PrimaryButton from "$lib/components/ui/PrimaryButton.svelte";
 	import Header from "$lib/components/Header.svelte";
 	import Seo from "$lib/components/Seo.svelte";
