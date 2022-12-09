@@ -42,7 +42,7 @@
 
 <style>
 	.anim {
-		animation: marquee 10s linear infinite;
+		animation: marquee 40s linear infinite;
 	}
 
 	@keyframes marquee {
