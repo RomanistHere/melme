@@ -14,6 +14,7 @@
 	import { handleClickBack } from "$lib/utils/index.js";
 	import { categoryList, timeOptions } from "$lib/config.js";
 	import Seo from "$lib/components/Seo.svelte";
+	import DateAndTimePicker from "./DateAndTimePicker.svelte";
 
 	export let form;
 
@@ -91,7 +92,7 @@
 				maxlength={64}
 				placeholder="Type here title of the event, e.g. Rally cars showcase."
 				class="mb-4"
-				externalError={form && form.missingTitle && "The title is missing"}
+				externalError={form?.missingTitle && "The title is missing"}
 			/>
 
 			<Textarea
@@ -101,8 +102,7 @@
 				name="description"
 				maxlength={2048}
 				class="mb-4"
-				externalError={form &&
-					form.shortDescription &&
+				externalError={form?.shortDescription &&
 					"The description is too short, minimum is 20 characters"}
 			/>
 
@@ -113,7 +113,7 @@
 				maxlength={128}
 				placeholder="Find the trustworthy source. Where did you hear it from?"
 				class="mb-4"
-				externalError={form && form.missingLink && "The link is missing"}
+				externalError={form?.missingLink && "The link is missing"}
 			/>
 
 			<Input
@@ -123,21 +123,12 @@
 				maxlength={128}
 				placeholder="Please, type 'not specified' in case the address is unknown."
 				class="mb-4"
-				externalError={form && form.missingAddress && "The address is missing"}
+				externalError={form?.missingAddress && "The address is missing"}
 			/>
 
-			<DatePicker
-				title="*Pick a date"
-				class="mb-4"
-				name="date"
-				externalError={form && form.missingDate && "The date is missing"}
-			/>
-
-			<TimePicker
-				title="*Pick a local time when it starts"
-				class="mb-4"
-				name="time"
-				externalError={form && form.missingTime && "The time is missing"}
+			<DateAndTimePicker
+				title="*Pick a date and a local time when it starts"
+				externalError={form?.missingDate && "The date is missing" || form?.missingTime && "The time is missing"}
 			/>
 
 			<RadioButtons
