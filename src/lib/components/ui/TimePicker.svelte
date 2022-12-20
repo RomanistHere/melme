@@ -20,6 +20,7 @@
 			class="input-border"
 			{id}
 			{name}
+			on:input
 		/>
 	</div>
 </div>

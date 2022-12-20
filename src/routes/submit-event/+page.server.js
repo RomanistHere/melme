@@ -3,7 +3,7 @@ import { invalid } from "@sveltejs/kit";
 import { Event } from "$db/models/event.model";
 import { UserRateLimit } from "$db/models/userRateLimit.model.js";
 
-import { generateRandomString } from "$lib/utils/index.js";
+import { generateRandomString, convertLocalDateToUTCIgnoringTimezone } from "$lib/utils/index.js";
 
 const rateLimitCheck = usageTimesLimitation => async ip => {
 	try {
@@ -69,15 +69,19 @@ export const actions = {
 				const date = data[prop];
 				const time = data[timeProp];
 
+				if (!data[timeProp]) {
+					delete data[prop];
+					delete data[timeProp];
+					return null;
+				}
+
+				const current = new Date(`${date}T${time}:00`);
+				const dateStr = convertLocalDateToUTCIgnoringTimezone(current);
+
 				delete data[prop];
 				delete data[timeProp];
 
-				if (!data[timeProp]) return null;
-
-				return {
-					date,
-					time,
-				};
+				return dateStr;
 			})
 			.filter(Boolean);
 
@@ -103,10 +107,9 @@ export const actions = {
 			return invalid(400, { shortDescription: true });
 		else if (data.linkToEvent.length === 0)
 			return invalid(400, { missingLink: true });
-		else if (data.addresses.length === 0)
+		else if (addresses.length === 0)
 			return invalid(400, { missingAddress: true });
-		else if (data.dates.length === 0 || data.times.length === 0)
-			return invalid(400, { missingDate: true });
+		else if (times.length === 0) return invalid(400, { missingDate: true });
 
 		const eventDB = new Event({
 			...data,

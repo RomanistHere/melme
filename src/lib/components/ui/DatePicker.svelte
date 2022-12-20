@@ -47,6 +47,7 @@
 			{id}
 			{name}
 			min={isLimitedByToday ? curDay : undefined}
+			on:input
 		/>
 
 		<!--{#if !isSingleDay}-->

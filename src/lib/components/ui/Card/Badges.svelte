@@ -2,8 +2,8 @@
 	import MarqueeAnimation from "$lib/components/ui/MarqueeAnimation.svelte";
 
 	import { timeOptionsToMinutes } from "$lib/config.js";
+	import { getToday, getTimeHumanFormat } from "$lib/utils/index.js";
 
-	export let time;
 	export let date;
 	export let duration;
 	export let isFree;
@@ -17,17 +17,14 @@
 	// const minsToStr = t =>
 	// 	Math.trunc(t / 60) + ":" + ("00" + (t % 60)).slice(-2);
 
-	// todo: https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd
-	const today = new Date().toISOString().split("T")[0];
-	const tomorrow = new Date(new Date().getTime() + 86400000)
-		.toISOString()
-		.split("T")[0];
-	const currentTime24 = new Date().toLocaleTimeString("en-US", {
-		hour: "numeric",
-		hour12: false,
-		minute: "numeric",
-	});
-	const timeSubtraction = strToMins(currentTime24) - strToMins(time);
+	const today = getToday();
+	const tomorrow = new Date(new Date().getTime() + 86400000).toLocaleDateString("en-CA");
+
+	$: console.log(date);
+	$: console.log(new Date());
+	$: console.log(timeSubtraction);
+
+	const timeSubtraction = strToMins(getTimeHumanFormat(new Date())) - strToMins(getTimeHumanFormat(date));
 	const absTime = Math.abs(timeSubtraction);
 	const eventDuration = timeOptionsToMinutes[duration];
 	const isEventTomorrow = tomorrow === date;

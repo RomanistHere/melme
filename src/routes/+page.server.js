@@ -24,14 +24,13 @@ export const load = async function ({ url }) {
 	const data = await Event.find(
 		{
 			isApproved: true,
-			date: { $gte: today },
+			times: { $gte: today },
 			...(categories ? { categories: { $in: [...categories] } } : {}),
 		},
 		"-_id -createdAt -updatedAt -__v"
 	)
 		.sort({
-			date: 1,
-			time: 1,
+			times: 1,
 		})
 		.limit(appConfig.firstResultsLimit)
 		.lean();

@@ -24,12 +24,7 @@ const schema = new Schema(
 			required: true,
 		},
 		times: {
-			type: [
-				{
-					time: String,
-					date: String,
-				},
-			],
+			type: [Date],
 			required: true,
 		},
 		duration: {
