@@ -90,7 +90,7 @@
 				name="title"
 				autofocus={true}
 				maxlength={64}
-				placeholder="Type here title of the event, e.g. Rally cars showcase."
+				placeholder="Title of the event, e.g. Rally cars showcase."
 				class="mb-4"
 				externalError={form?.missingTitle && "The title is missing"}
 			/>
@@ -111,7 +111,7 @@
 				id="event-link"
 				name="linkToEvent"
 				maxlength={128}
-				placeholder="Find the trustworthy source. Where did you hear it from?"
+				placeholder="Where did you hear it from?"
 				class="mb-4"
 				externalError={form?.missingLink && "The link is missing"}
 			/>
@@ -121,14 +121,14 @@
 				id="event-address"
 				name="address"
 				maxlength={128}
-				placeholder="Please, type 'not specified' in case the address is unknown."
+				placeholder="Type 'not specified' if it's unknown."
 				class="mb-4"
 				externalError={form?.missingAddress && "The address is missing"}
 			/>
 
 			<DateAndTimePicker
 				title="*Pick a date and a local time when it starts"
-				externalError={form?.missingDate && "The date is missing" || form?.missingTime && "The time is missing"}
+				externalError={form?.missingDate && "Something wrong with the dates"}
 			/>
 
 			<RadioButtons
@@ -176,7 +176,7 @@
 				id="event-image"
 				name="imgSrc"
 				maxlength={256}
-				placeholder="You can search for an image with this topic or use AI generated."
+				placeholder="Find some nice image."
 				class="mb-4"
 				bind:value={imgPreview}
 			/>
@@ -196,7 +196,7 @@
 				id="event-host"
 				name="hostName"
 				maxlength={32}
-				placeholder="The name will help our users to see quality of the events."
+				placeholder="Will be important in the future."
 				class="mb-4"
 			/>
 

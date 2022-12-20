@@ -52,21 +52,48 @@ export const actions = {
 		const formData = await event.request.formData();
 		const data = Object.fromEntries(formData);
 
-		if (data.title.length === 0)
-			return invalid(400, { missingTitle: true });
+		const datePropNames = Object.keys(data).filter(
+			name => name.indexOf("date_") === 0
+		);
+		const times = datePropNames
+			.map(prop => {
+				const key = prop.substring(prop.indexOf("date_") + 5);
+				const timeProp = `time_${key}`;
+
+				if (!data[prop]) {
+					delete data[prop];
+					delete data[timeProp];
+					return null;
+				}
+
+				const date = data[prop];
+				const time = data[timeProp];
+
+				delete data[prop];
+				delete data[timeProp];
+
+				if (!data[timeProp]) return null;
+
+				return {
+					date,
+					time,
+				};
+			})
+			.filter(Boolean);
+
+		if (data.title.length === 0) return invalid(400, { missingTitle: true });
 		else if (data.description.length < 20)
 			return invalid(400, { shortDescription: true });
 		else if (data.linkToEvent.length === 0)
 			return invalid(400, { missingLink: true });
 		else if (data.address.length === 0)
 			return invalid(400, { missingAddress: true });
-		else if (data.date1.length === 0)
+		else if (data.dates.length === 0 || data.times.length === 0)
 			return invalid(400, { missingDate: true });
-		else if (data.time1.length === 0)
-			return invalid(400, { missingTime: true });
 
 		const eventDB = new Event({
 			...data,
+			times,
 			categories: JSON.parse(data.categories),
 			isFree: data.isEventFree === "on",
 			isRegistrationNeeded: data.isRegistrationNeeded === "on",

@@ -23,12 +23,13 @@ const schema = new Schema(
 			type: String,
 			required: true,
 		},
-		date: {
-			type: String,
-			required: true,
-		},
-		time: {
-			type: String,
+		times: {
+			type: [
+				{
+					time: String,
+					date: String,
+				},
+			],
 			required: true,
 		},
 		duration: {
