@@ -3,8 +3,6 @@
 
 	import Input from "$lib/components/ui/Input.svelte";
 	import Textarea from "$lib/components/ui/Textarea.svelte";
-	import DatePicker from "$lib/components/ui/DatePicker.svelte";
-	import TimePicker from "$lib/components/ui/TimePicker.svelte";
 	import RadioButtons from "$lib/components/ui/RadioButtons.svelte";
 	import PrimaryButton from "$lib/components/ui/PrimaryButton.svelte";
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
@@ -15,6 +13,7 @@
 	import { categoryList, timeOptions } from "$lib/config.js";
 	import Seo from "$lib/components/Seo.svelte";
 	import DateAndTimePicker from "./DateAndTimePicker.svelte";
+	import AddressPicker from "./AddressPicker.svelte";
 
 	export let form;
 
@@ -116,13 +115,7 @@
 				externalError={form?.missingLink && "The link is missing"}
 			/>
 
-			<Input
-				title="*Address"
-				id="event-address"
-				name="address"
-				maxlength={128}
-				placeholder="Type 'not specified' if it's unknown."
-				class="mb-4"
+			<AddressPicker
 				externalError={form?.missingAddress && "The address is missing"}
 			/>
 

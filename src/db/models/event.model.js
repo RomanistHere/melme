@@ -19,8 +19,8 @@ const schema = new Schema(
 			type: String,
 			required: true,
 		},
-		address: {
-			type: String,
+		addresses: {
+			type: [String],
 			required: true,
 		},
 		times: {

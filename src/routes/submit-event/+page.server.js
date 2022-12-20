@@ -81,12 +81,29 @@ export const actions = {
 			})
 			.filter(Boolean);
 
+		const addressPropNames = Object.keys(data).filter(
+			name => name.indexOf("address_") === 0
+		);
+		const addresses = addressPropNames
+			.map(prop => {
+				if (!data[prop]) {
+					delete data[prop];
+					return null;
+				}
+
+				const address = data[prop];
+				delete data[prop];
+
+				return address;
+			})
+			.filter(Boolean);
+
 		if (data.title.length === 0) return invalid(400, { missingTitle: true });
 		else if (data.description.length < 20)
 			return invalid(400, { shortDescription: true });
 		else if (data.linkToEvent.length === 0)
 			return invalid(400, { missingLink: true });
-		else if (data.address.length === 0)
+		else if (data.addresses.length === 0)
 			return invalid(400, { missingAddress: true });
 		else if (data.dates.length === 0 || data.times.length === 0)
 			return invalid(400, { missingDate: true });
@@ -94,6 +111,7 @@ export const actions = {
 		const eventDB = new Event({
 			...data,
 			times,
+			addresses,
 			categories: JSON.parse(data.categories),
 			isFree: data.isEventFree === "on",
 			isRegistrationNeeded: data.isRegistrationNeeded === "on",
