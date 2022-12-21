@@ -12,7 +12,7 @@
 
 	import { userState } from "$lib/stores/localStorage.js";
 	import { loadedEvents, appState } from "$lib/stores/index.js";
-	import { convertTimesToUTC, sortByDateAndTime } from "$lib/utils/index.js";
+	import { sortByDateAndTime } from "$lib/utils/index.js";
 	import { appConfig } from "$lib/config.js";
 
 	// `data` comes from export in +page.server.js
