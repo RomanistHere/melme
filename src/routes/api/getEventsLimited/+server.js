@@ -7,13 +7,12 @@ import { appConfig } from "$lib/config.js";
 export async function POST({ request }) {
 	try {
 		const { page, categories, isApproved } = await request.json();
-
 		const today = new Date().toISOString().split("T")[0];
 
 		const data = await Event.find(
 			{
 				isApproved,
-				date: { $gte: today },
+				times: { $gte: today },
 				...(categories
 					? {
 							categories: {
@@ -25,8 +24,7 @@ export async function POST({ request }) {
 			"-_id -createdAt -updatedAt -__v"
 		)
 			.sort({
-				date: 1,
-				time: 1,
+				times: 1,
 			})
 			.skip(
 				appConfig.firstResultsLimit + appConfig.moreResultsLimit * (page - 1)

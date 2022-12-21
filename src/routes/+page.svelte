@@ -12,7 +12,7 @@
 
 	import { userState } from "$lib/stores/localStorage.js";
 	import { loadedEvents, appState } from "$lib/stores/index.js";
-	import { sortByDateAndTime } from "$lib/utils/index.js";
+	import { convertTimesToUTC, sortByDateAndTime } from "$lib/utils/index.js";
 	import { appConfig } from "$lib/config.js";
 
 	// `data` comes from export in +page.server.js
@@ -66,8 +66,17 @@
 		});
 
 		const parsedResp = await resp.json();
-		loadedEvents.update(curEvents => [...curEvents, ...parsedResp.data]);
-		sortedByDateEvents = $loadedEvents;
+		const fixTimes = parsedResp.data.map(item => {
+			const { times } = item;
+			const fixedTimes = times.map(timeStr => new Date(timeStr));
+
+			return {
+				...item,
+				times: fixedTimes,
+			};
+		});
+		loadedEvents.update(curEvents => [...curEvents, ...fixTimes]);
+		sortedByDateEvents = sortByDateAndTime($loadedEvents);
 
 		if (parsedResp.data.length < appConfig.moreResultsLimit)
 			areAnyResultLeft = false;
@@ -113,7 +122,7 @@
 		on:click={fetchMoreEvents}
 	/>
 {:else}
-	<p class="pt-3 pb-7 text-center">Looks like we out of results...</p>
+	<p class="pt-3 pb-7 text-center">Looks like we out of results for now...</p>
 {/if}
 
 <div class="text-center pb-8">
