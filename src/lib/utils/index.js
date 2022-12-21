@@ -74,7 +74,7 @@ export const sortDateByClosest = datesArray => {
 	});
 };
 
-const convertTimesToUTC = timesArr =>
+export const convertTimesToUTC = timesArr =>
 	timesArr.map(convertUTCToLocalDateIgnoringTimezone);
 
 export const sortByDateAndTime = objects => {

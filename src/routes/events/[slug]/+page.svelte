@@ -10,7 +10,14 @@
 	import PeopleComing from "$lib/components/ui/PeopleComing.svelte";
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
 
-	import { truncateString, handleClickBack } from "$lib/utils/index.js";
+	import {
+		truncateString,
+		handleClickBack,
+		getClosestDateToNow,
+		getTimeHumanFormat,
+		getDateHumanFormat,
+		convertTimesToUTC,
+	} from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
 
 	export let data;
@@ -19,11 +26,10 @@
 		slug,
 		title,
 		description,
-		address,
+		addresses,
 		imgSrc,
 		price,
-		date,
-		time,
+		times,
 		duration,
 		categories,
 		isFree,
@@ -38,6 +44,10 @@
 
 	$: isLiked = $userState?.likedEvents?.includes(slug);
 	$: isComing = $userState?.comingEvents?.includes(slug);
+	$: date = getClosestDateToNow(convertTimesToUTC(times));
+	$: humanDate = getDateHumanFormat(date);
+	$: humanTime = getTimeHumanFormat(date);
+
 	let areYouGoingText = true;
 
 	const hostRating = "0.0";
@@ -102,16 +112,6 @@
 				};
 			}
 		});
-	};
-
-	const getDateHumanFormat = dateStr => {
-		const dateToConvert = new Date(dateStr);
-		const options = {
-			month: "short",
-			day: "numeric",
-		};
-
-		return dateToConvert.toLocaleDateString("en-UK", options);
 	};
 </script>
 
@@ -178,21 +178,36 @@
 		<h2 class="font-medium text-xl mb-2">
 			{title}
 		</h2>
-		<p class="opacity-30 flex items-center text-sm">
+		<p class="opacity-50 flex flex-wrap items-center text-sm">
 			<GeoPin />
-			<a
-				class="mx-1 underline truncate"
-				href="https://maps.google.com/?q={address}"
-				target="_blank"
-				rel="noreferrer"
-			>
-				{address}
-			</a>
+			{#if addresses.length > 1}
+				{#each addresses as address}
+					{@const isLink = address.includes("https://") || address.includes("http://")}
+					<a
+						class="px-1 py-px underline"
+						href={isLink ? address : `https://maps.google.com/?q=${address}`}
+						target="_blank"
+						rel="noreferrer"
+					>
+						{truncateString(isLink ? "see on map" : address, 30)},
+					</a>
+				{/each}
+			{:else}
+				{@const isLink = addresses[0].includes("https://") || addresses[0].includes("http://")}
+				<a
+					class="px-1 underline truncate"
+					href={isLink ? addresses[0] : `https://maps.google.com/?q=${addresses[0]}`}
+					target="_blank"
+					rel="noreferrer"
+				>
+					{addresses[0]}
+				</a>
+			{/if}
 		</p>
 		<p class="opacity-30 flex items-center mb-4 text-sm">
-			<span>{getDateHumanFormat(date)}</span>
+			<span>{humanDate}</span>
 			<Separator />
-			<span>{time}</span>
+			<span>{humanTime}</span>
 			<Separator />
 			<span>{duration}</span>
 		</p>
