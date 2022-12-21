@@ -15,8 +15,7 @@ export const handleClickBack = () => {
 	goto("/");
 };
 
-export const getToday = () =>
-	new Date().toLocaleDateString("en-CA");
+export const getToday = () => new Date().toLocaleDateString("en-CA");
 
 export const convertLocalDateToUTCIgnoringTimezone = date => {
 	const timestamp = Date.UTC(
@@ -26,23 +25,21 @@ export const convertLocalDateToUTCIgnoringTimezone = date => {
 		date.getHours(),
 		date.getMinutes(),
 		date.getSeconds(),
-		date.getMilliseconds(),
+		date.getMilliseconds()
 	);
 
 	return new Date(timestamp);
 };
 
-export const convertUTCToLocalDateIgnoringTimezone = utcDate => {
-	return new Date(
+export const convertUTCToLocalDateIgnoringTimezone = utcDate => new Date(
 		utcDate.getUTCFullYear(),
 		utcDate.getUTCMonth(),
 		utcDate.getUTCDate(),
 		utcDate.getUTCHours(),
 		utcDate.getUTCMinutes(),
 		utcDate.getUTCSeconds(),
-		utcDate.getUTCMilliseconds(),
+		utcDate.getUTCMilliseconds()
 	);
-};
 
 export const getDateHumanFormat = dateStr => {
 	const dateObj = new Date(dateStr);
@@ -65,30 +62,25 @@ export const getTimeHumanFormat = dateStr => {
 	return dateObj.toLocaleTimeString("en-US", options);
 };
 
-export const getClosestDateToNow = datesArray => {
-	if (datesArray.length === 1)
-		return datesArray[0];
+export const sortDateByClosest = datesArray => {
+	if (datesArray.length === 1) return datesArray;
 
-	const today = convertUTCToLocalDateIgnoringTimezone(new Date(getToday()));
-	const sortedArr = datesArray.sort((a, b) => {
+	const today = new Date();
+	return datesArray.sort((a, b) => {
 		const distanceA = Math.abs(today - a);
 		const distanceB = Math.abs(today - b);
 		return distanceA - distanceB;
 	});
+};
+
+export const getClosestDateToNow = datesArray => {
+	if (datesArray.length === 1) return datesArray[0];
+
+	const today = convertUTCToLocalDateIgnoringTimezone(new Date(getToday()));
+	const sortedArr = sortDateByClosest(datesArray);
 
 	// const beforeDates = sortedArr.filter(d => d - today < 0);
 	const afterDates = sortedArr.filter(d => d - today > 0);
 
 	return afterDates[0];
 };
-
-export const sortByDateAndTime = array =>
-	array.sort((objA, objB) => {
-		if (objA.date < objB.date) return -1;
-		else if (objA.date > objB.date) return 1;
-		else if (objA.date === objB.date) {
-			if (objA.time < objB.time) return -1;
-			else if (objA.time > objB.time) return 1;
-			else return 0;
-		} else return 0;
-	});

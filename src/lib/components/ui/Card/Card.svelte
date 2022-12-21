@@ -7,7 +7,6 @@
 
 	import {
 		truncateString,
-		convertUTCToLocalDateIgnoringTimezone,
 		getDateHumanFormat,
 		getTimeHumanFormat,
 		getClosestDateToNow,
@@ -24,20 +23,16 @@
 	// export let location;
 	export let isApproved;
 	export let isFree;
+	export let isBlocked;
 	export let upVotes;
 	export let downVotes;
 	export let hostName;
 	export let linkToEvent;
 	export let duration;
-	export let registrationLink;
 	export let requirements;
 	export let isRegistrationNeeded;
 
-	const convertTimesToUTC = timesArr =>
-		timesArr.map(convertUTCToLocalDateIgnoringTimezone);
-
-	$: convertedTimes = convertTimesToUTC(times);
-	$: date = getClosestDateToNow(convertedTimes);
+	$: date = getClosestDateToNow(times);
 	$: humanDate = getDateHumanFormat(date);
 	$: humanTime = getTimeHumanFormat(date);
 </script>

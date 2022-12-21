@@ -3,7 +3,10 @@ import { invalid } from "@sveltejs/kit";
 import { Event } from "$db/models/event.model";
 import { UserRateLimit } from "$db/models/userRateLimit.model.js";
 
-import { generateRandomString, convertLocalDateToUTCIgnoringTimezone } from "$lib/utils/index.js";
+import {
+	generateRandomString,
+	convertLocalDateToUTCIgnoringTimezone,
+} from "$lib/utils/index.js";
 
 const rateLimitCheck = usageTimesLimitation => async ip => {
 	try {
