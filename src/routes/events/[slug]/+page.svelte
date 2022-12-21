@@ -19,6 +19,7 @@
 		convertTimesToUTC,
 	} from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
+	import SecondaryButton from "$lib/components/ui/SecondaryButton.svelte";
 
 	export let data;
 
@@ -44,9 +45,11 @@
 
 	$: isLiked = $userState?.likedEvents?.includes(slug);
 	$: isComing = $userState?.comingEvents?.includes(slug);
-	$: date = getClosestDateToNow(convertTimesToUTC(times));
+	$: availableTimes = convertTimesToUTC(times);
+	$: date = getClosestDateToNow(availableTimes);
 	$: humanDate = getDateHumanFormat(date);
 	$: humanTime = getTimeHumanFormat(date);
+	$: showTimes = false;
 
 	let areYouGoingText = true;
 
@@ -112,6 +115,11 @@
 				};
 			}
 		});
+	};
+
+	const showTimeSlots = e => {
+		e.preventDefault();
+		showTimes = !showTimes;
 	};
 </script>
 
@@ -182,7 +190,8 @@
 			<GeoPin />
 			{#if addresses.length > 1}
 				{#each addresses as address}
-					{@const isLink = address.includes("https://") || address.includes("http://")}
+					{@const isLink =
+						address.includes("https://") || address.includes("http://")}
 					<a
 						class="px-1 py-px underline"
 						href={isLink ? address : `https://maps.google.com/?q=${address}`}
@@ -193,10 +202,13 @@
 					</a>
 				{/each}
 			{:else}
-				{@const isLink = addresses[0].includes("https://") || addresses[0].includes("http://")}
+				{@const isLink =
+					addresses[0].includes("https://") || addresses[0].includes("http://")}
 				<a
 					class="px-1 underline truncate"
-					href={isLink ? addresses[0] : `https://maps.google.com/?q=${addresses[0]}`}
+					href={isLink
+						? addresses[0]
+						: `https://maps.google.com/?q=${addresses[0]}`}
 					target="_blank"
 					rel="noreferrer"
 				>
@@ -250,6 +262,22 @@
 				{truncateString(linkToEvent, 60)}
 			</a>
 		</p>
+
+		{#if availableTimes.length > 1}
+			<SecondaryButton
+				title="{showTimes ? 'Hide' : 'Show'} time slots"
+				on:click={showTimeSlots}
+			/>
+		{/if}
+
+		{#if showTimes}
+			<ul>
+				{#each availableTimes as time}
+					<li>{getDateHumanFormat(time)}, {getTimeHumanFormat(time)}</li>
+				{/each}
+			</ul>
+		{/if}
+
 		<p class="my-4 whitespace-pre-wrap">
 			{description}
 		</p>
