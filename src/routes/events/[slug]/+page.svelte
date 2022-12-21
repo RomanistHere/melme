@@ -10,8 +10,16 @@
 	import PeopleComing from "$lib/components/ui/PeopleComing.svelte";
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
 
-	import { truncateString, handleClickBack } from "$lib/utils/index.js";
+	import {
+		truncateString,
+		handleClickBack,
+		getClosestDateToNow,
+		getTimeHumanFormat,
+		getDateHumanFormat,
+		convertTimesToUTC,
+	} from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
+	import SecondaryButton from "$lib/components/ui/SecondaryButton.svelte";
 
 	export let data;
 
@@ -19,11 +27,10 @@
 		slug,
 		title,
 		description,
-		address,
+		addresses,
 		imgSrc,
 		price,
-		date,
-		time,
+		times,
 		duration,
 		categories,
 		isFree,
@@ -38,6 +45,12 @@
 
 	$: isLiked = $userState?.likedEvents?.includes(slug);
 	$: isComing = $userState?.comingEvents?.includes(slug);
+	$: availableTimes = convertTimesToUTC(times);
+	$: date = getClosestDateToNow(availableTimes);
+	$: humanDate = getDateHumanFormat(date);
+	$: humanTime = getTimeHumanFormat(date);
+	$: showTimes = false;
+
 	let areYouGoingText = true;
 
 	const hostRating = "0.0";
@@ -104,14 +117,9 @@
 		});
 	};
 
-	const getDateHumanFormat = dateStr => {
-		const dateToConvert = new Date(dateStr);
-		const options = {
-			month: "short",
-			day: "numeric",
-		};
-
-		return dateToConvert.toLocaleDateString("en-UK", options);
+	const showTimeSlots = e => {
+		e.preventDefault();
+		showTimes = !showTimes;
 	};
 </script>
 
@@ -178,21 +186,40 @@
 		<h2 class="font-medium text-xl mb-2">
 			{title}
 		</h2>
-		<p class="opacity-30 flex items-center text-sm">
+		<p class="opacity-50 flex flex-wrap items-center text-sm">
 			<GeoPin />
-			<a
-				class="mx-1 underline truncate"
-				href="https://maps.google.com/?q={address}"
-				target="_blank"
-				rel="noreferrer"
-			>
-				{address}
-			</a>
+			{#if addresses.length > 1}
+				{#each addresses as address}
+					{@const isLink =
+						address.includes("https://") || address.includes("http://")}
+					<a
+						class="px-1 py-px underline"
+						href={isLink ? address : `https://maps.google.com/?q=${address}`}
+						target="_blank"
+						rel="noreferrer"
+					>
+						{truncateString(isLink ? "see on map" : address, 30)},
+					</a>
+				{/each}
+			{:else}
+				{@const isLink =
+					addresses[0].includes("https://") || addresses[0].includes("http://")}
+				<a
+					class="px-1 underline truncate"
+					href={isLink
+						? addresses[0]
+						: `https://maps.google.com/?q=${addresses[0]}`}
+					target="_blank"
+					rel="noreferrer"
+				>
+					{addresses[0]}
+				</a>
+			{/if}
 		</p>
 		<p class="opacity-30 flex items-center mb-4 text-sm">
-			<span>{getDateHumanFormat(date)}</span>
+			<span>{humanDate}</span>
 			<Separator />
-			<span>{time}</span>
+			<span>{humanTime}</span>
 			<Separator />
 			<span>{duration}</span>
 		</p>
@@ -235,6 +262,22 @@
 				{truncateString(linkToEvent, 60)}
 			</a>
 		</p>
+
+		{#if availableTimes.length > 1}
+			<SecondaryButton
+				title="{showTimes ? 'Hide' : 'Show'} time slots"
+				on:click={showTimeSlots}
+			/>
+		{/if}
+
+		{#if showTimes}
+			<ul>
+				{#each availableTimes as time}
+					<li>{getDateHumanFormat(time)}, {getTimeHumanFormat(time)}</li>
+				{/each}
+			</ul>
+		{/if}
+
 		<p class="my-4 whitespace-pre-wrap">
 			{description}
 		</p>

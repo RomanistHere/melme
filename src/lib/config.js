@@ -10,11 +10,9 @@ export const categoryList = [
 	"national",
 	"performance",
 	"learning",
-	"science",
-	"cars",
-	"nature",
 	"with kids",
 	"with pets",
+	"volunteering",
 ];
 
 export const timeOptions = [

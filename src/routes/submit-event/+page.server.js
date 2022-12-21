@@ -3,7 +3,10 @@ import { invalid } from "@sveltejs/kit";
 import { Event } from "$db/models/event.model";
 import { UserRateLimit } from "$db/models/userRateLimit.model.js";
 
-import { generateRandomString } from "$lib/utils/index.js";
+import {
+	generateRandomString,
+	convertLocalDateToUTCIgnoringTimezone,
+} from "$lib/utils/index.js";
 
 const rateLimitCheck = usageTimesLimitation => async ip => {
 	try {
@@ -52,18 +55,69 @@ export const actions = {
 		const formData = await event.request.formData();
 		const data = Object.fromEntries(formData);
 
+		const datePropNames = Object.keys(data).filter(
+			name => name.indexOf("date_") === 0
+		);
+		const times = datePropNames
+			.map(prop => {
+				const key = prop.substring(prop.indexOf("date_") + 5);
+				const timeProp = `time_${key}`;
+
+				if (!data[prop]) {
+					delete data[prop];
+					delete data[timeProp];
+					return null;
+				}
+
+				const date = data[prop];
+				const time = data[timeProp];
+
+				if (!data[timeProp]) {
+					delete data[prop];
+					delete data[timeProp];
+					return null;
+				}
+
+				const current = new Date(`${date}T${time}:00`);
+				const dateStr = convertLocalDateToUTCIgnoringTimezone(current);
+
+				delete data[prop];
+				delete data[timeProp];
+
+				return dateStr;
+			})
+			.filter(Boolean);
+
+		const addressPropNames = Object.keys(data).filter(
+			name => name.indexOf("address_") === 0
+		);
+		const addresses = addressPropNames
+			.map(prop => {
+				if (!data[prop]) {
+					delete data[prop];
+					return null;
+				}
+
+				const address = data[prop];
+				delete data[prop];
+
+				return address;
+			})
+			.filter(Boolean);
+
 		if (data.title.length === 0) return invalid(400, { missingTitle: true });
 		else if (data.description.length < 20)
 			return invalid(400, { shortDescription: true });
 		else if (data.linkToEvent.length === 0)
 			return invalid(400, { missingLink: true });
-		else if (data.address.length === 0)
+		else if (addresses.length === 0)
 			return invalid(400, { missingAddress: true });
-		else if (data.date.length === 0) return invalid(400, { missingDate: true });
-		else if (data.time.length === 0) return invalid(400, { missingTime: true });
+		else if (times.length === 0) return invalid(400, { missingDate: true });
 
 		const eventDB = new Event({
 			...data,
+			times,
+			addresses,
 			categories: JSON.parse(data.categories),
 			isFree: data.isEventFree === "on",
 			isRegistrationNeeded: data.isRegistrationNeeded === "on",

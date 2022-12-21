@@ -22,8 +22,7 @@
 	// basically it's equals to `const { events } = data`, where `events` will be updated when `data` is
 	$: ({ events } = data);
 	$: loadedEvents.set(events);
-	// $: sortedByDateEvents = sortByDateAndTime(events);
-	$: sortedByDateEvents = events;
+	$: sortedByDateEvents = sortByDateAndTime(events);
 	$: frontendFilers = [];
 	$: updateFrontendFilters(frontendFilers);
 	$: areAnyResultLeft = events.length >= appConfig.firstResultsLimit;

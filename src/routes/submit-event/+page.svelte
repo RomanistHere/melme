@@ -3,8 +3,6 @@
 
 	import Input from "$lib/components/ui/Input.svelte";
 	import Textarea from "$lib/components/ui/Textarea.svelte";
-	import DatePicker from "$lib/components/ui/DatePicker.svelte";
-	import TimePicker from "$lib/components/ui/TimePicker.svelte";
 	import RadioButtons from "$lib/components/ui/RadioButtons.svelte";
 	import PrimaryButton from "$lib/components/ui/PrimaryButton.svelte";
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
@@ -14,6 +12,8 @@
 	import { handleClickBack } from "$lib/utils/index.js";
 	import { categoryList, timeOptions } from "$lib/config.js";
 	import Seo from "$lib/components/Seo.svelte";
+	import DateAndTimePicker from "./DateAndTimePicker.svelte";
+	import AddressPicker from "./AddressPicker.svelte";
 
 	export let form;
 
@@ -89,9 +89,9 @@
 				name="title"
 				autofocus={true}
 				maxlength={64}
-				placeholder="Type here title of the event, e.g. Rally cars showcase."
+				placeholder="Title of the event, e.g. Rally cars showcase."
 				class="mb-4"
-				externalError={form && form.missingTitle && "The title is missing"}
+				externalError={form?.missingTitle && "The title is missing"}
 			/>
 
 			<Textarea
@@ -101,8 +101,7 @@
 				name="description"
 				maxlength={2048}
 				class="mb-4"
-				externalError={form &&
-					form.shortDescription &&
+				externalError={form?.shortDescription &&
 					"The description is too short, minimum is 20 characters"}
 			/>
 
@@ -111,33 +110,18 @@
 				id="event-link"
 				name="linkToEvent"
 				maxlength={128}
-				placeholder="Find the trustworthy source. Where did you hear it from?"
+				placeholder="Where did you hear it from?"
 				class="mb-4"
-				externalError={form && form.missingLink && "The link is missing"}
+				externalError={form?.missingLink && "The link is missing"}
 			/>
 
-			<Input
-				title="*Address"
-				id="event-address"
-				name="address"
-				maxlength={128}
-				placeholder="Please, type 'not specified' in case the address is unknown."
-				class="mb-4"
-				externalError={form && form.missingAddress && "The address is missing"}
+			<AddressPicker
+				externalError={form?.missingAddress && "The address is missing"}
 			/>
 
-			<DatePicker
-				title="*Pick a date"
-				class="mb-4"
-				name="date"
-				externalError={form && form.missingDate && "The date is missing"}
-			/>
-
-			<TimePicker
-				title="*Pick a local time when it starts"
-				class="mb-4"
-				name="time"
-				externalError={form && form.missingTime && "The time is missing"}
+			<DateAndTimePicker
+				title="*Pick a date and a local time when it starts"
+				externalError={form?.missingDate && "Something wrong with the dates"}
 			/>
 
 			<RadioButtons
@@ -185,7 +169,7 @@
 				id="event-image"
 				name="imgSrc"
 				maxlength={256}
-				placeholder="You can search for an image with this topic or use AI generated."
+				placeholder="Find some nice image."
 				class="mb-4"
 				bind:value={imgPreview}
 			/>
@@ -205,7 +189,7 @@
 				id="event-host"
 				name="hostName"
 				maxlength={32}
-				placeholder="The name will help our users to see quality of the events."
+				placeholder="Will be important in the future."
 				class="mb-4"
 			/>
 

@@ -9,7 +9,6 @@
 	export let hostName;
 	export let imgSrc;
 	export let slug;
-	export let time;
 	export let date;
 	export let duration;
 	export let isFree;
@@ -67,7 +66,6 @@
 		isActive={isLiked}
 	/>
 	<Badges
-		{time}
 		{date}
 		{duration}
 		{isFree}

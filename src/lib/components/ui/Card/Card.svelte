@@ -5,38 +5,36 @@
 	import PeopleComing from "$lib/components/ui/PeopleComing.svelte";
 	import CardLayout from "$lib/components/ui/Card/CardLayout.svelte";
 
-	import { truncateString } from "$lib/utils/index.js";
+	import {
+		truncateString,
+		getDateHumanFormat,
+		getTimeHumanFormat,
+		getClosestDateToNow,
+	} from "$lib/utils/index.js";
 
 	export let slug;
 	export let title;
 	export let description;
-	export let address;
+	export let addresses;
 	export let imgSrc;
 	export let price;
-	export let date;
-	export let time;
+	export let times;
 	export let categories;
 	// export let location;
 	export let isApproved;
 	export let isFree;
+	export let isBlocked;
 	export let upVotes;
 	export let downVotes;
 	export let hostName;
 	export let linkToEvent;
 	export let duration;
-	export let registrationLink;
 	export let requirements;
 	export let isRegistrationNeeded;
 
-	const getDateHumanFormat = dateStr => {
-		const dateObj = new Date(dateStr);
-		const options = {
-			month: "short",
-			day: "numeric",
-		};
-
-		return dateObj.toLocaleDateString("en-UK", options);
-	};
+	$: date = getClosestDateToNow(times);
+	$: humanDate = getDateHumanFormat(date);
+	$: humanTime = getTimeHumanFormat(date);
 </script>
 
 <div class="my-6 bg-white rounded-2xl overflow-hidden">
@@ -44,11 +42,10 @@
 		{hostName}
 		{slug}
 		{imgSrc}
-		{time}
-		{date}
 		{duration}
 		{isFree}
 		{price}
+		{date}
 	/>
 
 	<div class="p-6">
@@ -58,12 +55,20 @@
 		<p class="opacity-30 flex items-center mb-4 text-sm">
 			<GeoPin />
 			<span class="ml-1">
-				{truncateString(address, 11)}
+				{#if addresses.length > 1}
+					Multiple locations
+				{:else}
+					{truncateString(addresses[0], 11)}
+				{/if}
 			</span>
 			<Separator />
-			<span>{getDateHumanFormat(date)}</span>
+			<span>
+				{humanDate}
+			</span>
 			<Separator />
-			<span>{time}</span>
+			<span>
+				{humanTime}
+			</span>
 		</p>
 		<p class="mb-2">
 			{truncateString(description, 74)}
