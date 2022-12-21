@@ -31,7 +31,7 @@
 
 <ul>
 	{#each number as i, count (i)}
-		<li class="flex -mb-2 items-end">
+		<li class="flex -my-2 items-end">
 			<Input
 				title=""
 				id="event-address"
