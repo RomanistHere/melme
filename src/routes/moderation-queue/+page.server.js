@@ -18,11 +18,15 @@ export const load = async function ({ url }) {
 	const data = await Event.find(
 		{
 			isApproved: false,
-			date: { $gte: today },
+			times: { $gte: today },
 			...(categories ? { categories: { $in: [...categories] } } : {}),
 		},
 		"-_id -createdAt -updatedAt -__v"
-	).lean();
+	)
+		.sort({
+			times: 1,
+		})
+		.lean();
 
 	return {
 		events: data,

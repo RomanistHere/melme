@@ -12,10 +12,7 @@
 
 	import { userState } from "$lib/stores/localStorage.js";
 	import { loadedEvents, appState } from "$lib/stores/index.js";
-	import {
-		convertUTCToLocalDateIgnoringTimezone,
-		sortDateByClosest,
-	} from "$lib/utils/index.js";
+	import { sortByDateAndTime } from "$lib/utils/index.js";
 	import { appConfig } from "$lib/config.js";
 
 	// `data` comes from export in +page.server.js
@@ -29,26 +26,6 @@
 	$: frontendFilers = [];
 	$: updateFrontendFilters(frontendFilers);
 	$: areAnyResultLeft = events.length >= appConfig.firstResultsLimit;
-
-	const convertTimesToUTC = timesArr =>
-		timesArr.map(convertUTCToLocalDateIgnoringTimezone);
-
-	const sortByDateAndTime = objects => {
-		const sortWithinObj = objects.map(item => ({
-			...item,
-			times: [...sortDateByClosest(convertTimesToUTC(item.times))],
-		}));
-
-		// todo: extend sorting to show live events first based on duration
-		// todo: also if the same event is repeated for example at 15:00 and 16:00
-		// todo: and duration is 45 min, at 15:30-15:45 it should still display "live" version
-		const today = new Date();
-		return sortWithinObj.sort((a, b) => {
-			const distanceA = Math.abs(today - a.times[0]);
-			const distanceB = Math.abs(today - b.times[0]);
-			return distanceA - distanceB;
-		});
-	};
 
 	const updateFrontendFilters = listOfFilters => {
 		if (listOfFilters.includes("likes")) {

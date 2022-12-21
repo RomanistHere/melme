@@ -31,7 +31,8 @@ export const convertLocalDateToUTCIgnoringTimezone = date => {
 	return new Date(timestamp);
 };
 
-export const convertUTCToLocalDateIgnoringTimezone = utcDate => new Date(
+export const convertUTCToLocalDateIgnoringTimezone = utcDate =>
+	new Date(
 		utcDate.getUTCFullYear(),
 		utcDate.getUTCMonth(),
 		utcDate.getUTCDate(),
@@ -69,6 +70,26 @@ export const sortDateByClosest = datesArray => {
 	return datesArray.sort((a, b) => {
 		const distanceA = Math.abs(today - a);
 		const distanceB = Math.abs(today - b);
+		return distanceA - distanceB;
+	});
+};
+
+const convertTimesToUTC = timesArr =>
+	timesArr.map(convertUTCToLocalDateIgnoringTimezone);
+
+export const sortByDateAndTime = objects => {
+	const sortWithinObj = objects.map(item => ({
+		...item,
+		times: [...sortDateByClosest(convertTimesToUTC(item.times))],
+	}));
+
+	// todo: extend sorting to show live events first based on duration
+	// todo: also if the same event is repeated for example at 15:00 and 16:00
+	// todo: and duration is 45 min, at 15:30-15:45 it should still display "live" version
+	const today = new Date();
+	return sortWithinObj.sort((a, b) => {
+		const distanceA = Math.abs(today - a.times[0]);
+		const distanceB = Math.abs(today - b.times[0]);
 		return distanceA - distanceB;
 	});
 };
