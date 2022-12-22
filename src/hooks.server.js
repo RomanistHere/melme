@@ -1,4 +1,5 @@
 import { startMongo } from "$db/mongo";
+import { setWebPushDetails } from "./server/webPush.js";
 
 startMongo()
 	.then(() => {
@@ -7,3 +8,5 @@ startMongo()
 	.catch(e => {
 		console.log(e);
 	});
+
+setWebPushDetails();

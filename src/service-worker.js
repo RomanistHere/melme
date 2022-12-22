@@ -59,3 +59,11 @@ self.addEventListener("fetch", event => {
 
 	event.respondWith(respond());
 });
+
+self.addEventListener("push", event => {
+	event.waitUntill(
+		self.registration.showNotification("Reminder about the event", {
+			body: event.data.text(),
+		})
+	);
+});

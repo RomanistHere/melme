@@ -9,6 +9,7 @@
 	import Separator from "$lib/components/icons/Separator.svelte";
 	import PeopleComing from "$lib/components/ui/PeopleComing.svelte";
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
+	import SecondaryButton from "$lib/components/ui/SecondaryButton.svelte";
 
 	import {
 		truncateString,
@@ -17,9 +18,11 @@
 		getTimeHumanFormat,
 		getDateHumanFormat,
 		convertTimesToUTC,
+		convertLocalDateToUTCIgnoringTimezone,
 	} from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
-	import SecondaryButton from "$lib/components/ui/SecondaryButton.svelte";
+	import { appState } from "$lib/stores/index.js";
+	import { page } from "$app/stores";
 
 	export let data;
 
@@ -41,6 +44,7 @@
 		registrationLink,
 		requirements,
 		isRegistrationNeeded,
+		vapidPublicKey,
 	} = data);
 
 	$: isLiked = $userState?.likedEvents?.includes(slug);
@@ -51,39 +55,68 @@
 	$: humanTime = getTimeHumanFormat(date);
 	$: showTimes = false;
 
+	let sub = null;
+
 	let areYouGoingText = true;
 
 	const hostRating = "0.0";
 
-	const handlePrimaryButtonClick = () => {
-		if (isComing) {
-			return false;
+	const handlePrimaryButtonClick = async () => {
+		const status = await Notification.requestPermission();
+		// todo: if status !== approved show notification or something
+		console.log(status);
+		const reg = await navigator.serviceWorker.ready;
+		sub = await reg.pushManager.getSubscription();
+
+		if (!sub) {
+			sub = await reg.pushManager.subscribe({
+				userVisibleOnly: true,
+				applicationServerKey: vapidPublicKey,
+			});
 		}
 
-		userState.update(currentState => {
-			if (!currentState) {
-				return {
-					comingEvents: [slug],
-				};
-			}
-
-			const { comingEvents } = currentState;
-
-			if (!comingEvents || comingEvents.length === 0) {
-				return {
-					...currentState,
-					comingEvents: [slug],
-				};
-			} else if (comingEvents.length > 0 && !comingEvents.includes(slug)) {
-				return {
-					...currentState,
-					comingEvents: [...comingEvents, slug],
-				};
+		const resp = await fetch("/api/savePushEndpoint", {
+			method: "POST",
+			body: JSON.stringify({
+				subscription: sub.toJSON(),
+				slug,
+				time: date,
+			}),
+			headers: {
+				"Content-type": "application/json",
 			}
 		});
 
-		upVotes = upVotes + 1;
-		areYouGoingText = false;
+		const { error } = await resp.json();
+
+		// if (isComing) {
+		// 	return false;
+		// }
+		//
+		// userState.update(currentState => {
+		// 	if (!currentState) {
+		// 		return {
+		// 			comingEvents: [slug],
+		// 		};
+		// 	}
+		//
+		// 	const { comingEvents } = currentState;
+		//
+		// 	if (!comingEvents || comingEvents.length === 0) {
+		// 		return {
+		// 			...currentState,
+		// 			comingEvents: [slug],
+		// 		};
+		// 	} else if (comingEvents.length > 0 && !comingEvents.includes(slug)) {
+		// 		return {
+		// 			...currentState,
+		// 			comingEvents: [...comingEvents, slug],
+		// 		};
+		// 	}
+		// });
+		//
+		// upVotes = upVotes + 1;
+		// areYouGoingText = false;
 	};
 
 	const handleLikeClickButton = e => {
@@ -244,7 +277,7 @@
 			isAdditionalText={isComing ? null : areYouGoingText}
 		/>
 		<form
-			action="?/increaseUpvote"
+			action="?/comingToEvent"
 			method="POST"
 			use:enhance={handlePrimaryButtonClick}
 		>

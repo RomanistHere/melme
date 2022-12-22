@@ -28,6 +28,7 @@
 	"type": "module",
 	"dependencies": {
 		"mongodb": "^4.13.0",
-		"mongoose": "^6.8.1"
+		"mongoose": "^6.8.1",
+		"web-push": "^3.5.0"
 	}
 }
