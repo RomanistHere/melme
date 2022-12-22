@@ -10,6 +10,7 @@
 	import PeopleComing from "$lib/components/ui/PeopleComing.svelte";
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
 	import SecondaryButton from "$lib/components/ui/SecondaryButton.svelte";
+	import NotificationPopup from "./NotificationPopup.svelte";
 
 	import {
 		truncateString,
@@ -18,13 +19,16 @@
 		getTimeHumanFormat,
 		getDateHumanFormat,
 		convertTimesToUTC,
-		convertLocalDateToUTCIgnoringTimezone,
+		convertUTCToLocalDateIgnoringTimezone,
+		getToday,
+		openOverlay,
 	} from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
 	import { appState } from "$lib/stores/index.js";
-	import { page } from "$app/stores";
 
 	export let data;
+
+	const today = convertUTCToLocalDateIgnoringTimezone(new Date(getToday()));
 
 	$: ({
 		slug,
@@ -55,69 +59,45 @@
 	$: humanTime = getTimeHumanFormat(date);
 	$: showTimes = false;
 
-	let sub = null;
-
 	let areYouGoingText = true;
 
 	const hostRating = "0.0";
 
-	const handlePrimaryButtonClick = async () => {
-		const status = await Notification.requestPermission();
-		// todo: if status !== approved show notification or something
-		console.log(status);
-		const reg = await navigator.serviceWorker.ready;
-		sub = await reg.pushManager.getSubscription();
+	const handlePrimaryButtonClick = () => {
+		openOverlay("shouldSetNotificationPopup", {
+			slug,
+			vapidPublicKey,
+			date: availableTimes.filter(d => d - new Date() > 0)[0],
+		});
 
-		if (!sub) {
-			sub = await reg.pushManager.subscribe({
-				userVisibleOnly: true,
-				applicationServerKey: vapidPublicKey,
-			});
+		if (isComing) {
+			return false;
 		}
 
-		const resp = await fetch("/api/savePushEndpoint", {
-			method: "POST",
-			body: JSON.stringify({
-				subscription: sub.toJSON(),
-				slug,
-				time: date,
-			}),
-			headers: {
-				"Content-type": "application/json",
+		userState.update(currentState => {
+			if (!currentState) {
+				return {
+					comingEvents: [slug],
+				};
+			}
+
+			const { comingEvents } = currentState;
+
+			if (!comingEvents || comingEvents.length === 0) {
+				return {
+					...currentState,
+					comingEvents: [slug],
+				};
+			} else if (comingEvents.length > 0 && !comingEvents.includes(slug)) {
+				return {
+					...currentState,
+					comingEvents: [...comingEvents, slug],
+				};
 			}
 		});
 
-		const { error } = await resp.json();
-
-		// if (isComing) {
-		// 	return false;
-		// }
-		//
-		// userState.update(currentState => {
-		// 	if (!currentState) {
-		// 		return {
-		// 			comingEvents: [slug],
-		// 		};
-		// 	}
-		//
-		// 	const { comingEvents } = currentState;
-		//
-		// 	if (!comingEvents || comingEvents.length === 0) {
-		// 		return {
-		// 			...currentState,
-		// 			comingEvents: [slug],
-		// 		};
-		// 	} else if (comingEvents.length > 0 && !comingEvents.includes(slug)) {
-		// 		return {
-		// 			...currentState,
-		// 			comingEvents: [...comingEvents, slug],
-		// 		};
-		// 	}
-		// });
-		//
-		// upVotes = upVotes + 1;
-		// areYouGoingText = false;
-		isComing = true;
+		upVotes = upVotes + 1;
+		areYouGoingText = false;
 	};
 
 	const handleLikeClickButton = e => {
@@ -330,3 +310,5 @@
 		{/if}
 	</div>
 </div>
+
+<NotificationPopup />

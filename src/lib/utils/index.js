@@ -1,4 +1,5 @@
 import { goto } from "$app/navigation";
+import { modalState } from "$lib/stores/index.js";
 
 export const truncateString = (string, limit) => {
 	if (!string) return string;
@@ -105,3 +106,26 @@ export const getClosestDateToNow = datesArray => {
 
 	return afterDates[0];
 };
+
+export const openOverlay = (openName, payload = null, closeName) => {
+	if (closeName) {
+		modalState.update(state => ({
+			...state,
+			[closeName]: {
+				active: false,
+				payload: null,
+			}
+		}));
+	}
+
+	modalState.update(state => ({
+		...state,
+		[openName]: {
+			active: true,
+			payload,
+		}
+	}));
+};
+
+export const closeOverlay = name =>
+	openOverlay(null, null, name);
