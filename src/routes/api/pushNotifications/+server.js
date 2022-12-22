@@ -2,19 +2,28 @@ import { json } from "@sveltejs/kit";
 import webPush from "web-push";
 
 import { PushNotification } from "$db/models/pushNotification.model";
+import { Event } from "$db/models/event.model";
 
 export async function GET({ request }) {
 	try {
 		const today = new Date().toISOString().split("T")[0];
-		console.log(today)
 
 		const notifications = await PushNotification.find({
 			time: { $gte: today },
 		}, "-_id");
 
-		const sub = JSON.parse(notifications[0].subscription);
+		const { subscription, slug } = notifications[0];
+		const sub = JSON.parse(subscription);
 
-		webPush.sendNotification(sub, notifications[0].slug);
+		const data = await Event.find(
+			{
+				slug,
+			},
+			"-_id title"
+		);
+		const { title } = data[0];
+
+		webPush.sendNotification(sub, `Don't miss ${title} in two hours!`);
 
 		return json({
 			error: null,
