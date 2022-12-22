@@ -23,7 +23,7 @@ export async function GET({ request }) {
 		);
 		const { title } = data[0];
 
-		webPush.sendNotification(sub, `Don't miss ${title} in two hours!`);
+		await webPush.sendNotification(sub, `Don't miss ${title} in two hours!`);
 
 		return json({
 			error: null,

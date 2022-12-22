@@ -117,6 +117,7 @@
 		//
 		// upVotes = upVotes + 1;
 		// areYouGoingText = false;
+		isComing = true;
 	};
 
 	const handleLikeClickButton = e => {
