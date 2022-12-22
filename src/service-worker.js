@@ -67,7 +67,5 @@ self.addEventListener("push", event => {
 		icon: "/logo-192x192.png",
 		badge: "/logo-192x192.png",
 	};
-	event.waitUntill(
-		self.registration.showNotification(title, options)
-	);
+	event.waitUntill(self.registration.showNotification(title, options));
 });

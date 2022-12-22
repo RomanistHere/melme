@@ -11,12 +11,10 @@
 
 	let sub = null;
 
-	const closePopup = () =>
-		closeOverlay("shouldSetNotificationPopup");
+	const closePopup = () => closeOverlay("shouldSetNotificationPopup");
 
 	const clickOnBg = e => {
-		if (e.target === e.currentTarget)
-			closePopup();
+		if (e.target === e.currentTarget) closePopup();
 	};
 
 	const scheduleNotification = async () => {
@@ -24,7 +22,9 @@
 			const status = await Notification.requestPermission();
 			// todo: if status !== approved show notification or something
 			if (status !== "approved")
-				throw new Error("Without notifications permission it's not going to work. We're working on other ways to deliver notifications.");
+				throw new Error(
+					"Without notifications permission it's not going to work. We're working on other ways to deliver notifications."
+				);
 
 			console.log(status);
 			const reg = await navigator.serviceWorker.ready;
@@ -33,14 +33,17 @@
 			if (!sub) {
 				sub = await reg.pushManager.subscribe({
 					userVisibleOnly: true,
-					applicationServerKey: shouldSetNotificationPopup.payload.vapidPublicKey,
+					applicationServerKey:
+						shouldSetNotificationPopup.payload.vapidPublicKey,
 				});
 			}
 
 			const closestDateInFuture = shouldSetNotificationPopup.payload.date;
 
 			if (!closestDateInFuture)
-				throw new Error("We didn't find this event in the future, so can't schedule a reminder.");
+				throw new Error(
+					"We didn't find this event in the future, so can't schedule a reminder."
+				);
 
 			const resp = await fetch("/api/savePushEndpoint", {
 				method: "POST",
@@ -51,16 +54,16 @@
 				}),
 				headers: {
 					"Content-type": "application/json",
-				}
+				},
 			});
 
 			const { error } = await resp.json();
-			if (error)
-				throw new Error(error);
+			if (error) throw new Error(error);
 
 			closePopup();
 		} catch (error) {
 			console.log(error);
+			// eslint-disable-next-line no-alert
 			alert(error);
 		}
 	};
@@ -75,8 +78,8 @@
 	>
 		<div
 			class="absolute rounded-t-3xl bg-white bottom-0 inset-x-0 p-6"
-			in:fly="{{ y: 150, duration: 300 }}"
-			out:fly="{{ y: -150, duration: 300 }}"
+			in:fly={{ y: 150, duration: 300 }}
+			out:fly={{ y: -150, duration: 300 }}
 		>
 			<p class="text-lg mb-1">
 				Do you want to schedule a reminder-notification for 2h before the event?

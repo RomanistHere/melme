@@ -24,7 +24,6 @@
 		openOverlay,
 	} from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
-	import { appState } from "$lib/stores/index.js";
 
 	export let data;
 

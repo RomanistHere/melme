@@ -114,7 +114,7 @@ export const openOverlay = (openName, payload = null, closeName) => {
 			[closeName]: {
 				active: false,
 				payload: null,
-			}
+			},
 		}));
 	}
 
@@ -123,9 +123,8 @@ export const openOverlay = (openName, payload = null, closeName) => {
 		[openName]: {
 			active: true,
 			payload,
-		}
+		},
 	}));
 };
 
-export const closeOverlay = name =>
-	openOverlay(null, null, name);
+export const closeOverlay = name => openOverlay(null, null, name);

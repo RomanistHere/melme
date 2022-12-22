@@ -14,10 +14,8 @@ const schema = new Schema({
 		required: true,
 	},
 	createdAt: Date,
-}).index(
-	{
-		createdAt: 1,
-	}
-);
+}).index({
+	createdAt: 1,
+});
 
 export const PushNotification = model("PushNotification", schema);
