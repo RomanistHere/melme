@@ -2,7 +2,7 @@ import { error } from "@sveltejs/kit";
 
 import { Event } from "$db/models/event.model";
 
-import { VAPID_PUBLIC_KEY } from "$env/static/private";
+import { VAPID_PUBLIC_KEY } from "$env/dynamic/private";
 
 export const load = async function ({ params }) {
 	const data = await Event.find(
