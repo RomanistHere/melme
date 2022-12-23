@@ -59,3 +59,13 @@ self.addEventListener("fetch", event => {
 
 	event.respondWith(respond());
 });
+
+self.addEventListener("push", event => {
+	const { title, content } = JSON.parse(event.data.text());
+	const options = {
+		body: content,
+		icon: "/logo-192x192.png",
+		badge: "/logo-192x192.png",
+	};
+	event.waitUntill(self.registration.showNotification(title, options));
+});

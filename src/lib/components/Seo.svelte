@@ -1,6 +1,6 @@
 <script>
 	export let title = "melme";
-	export let description = "Free events in Dubai";
+	export let description = "Best free events in Dubai";
 	export let image;
 </script>
 

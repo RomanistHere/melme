@@ -7,6 +7,7 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			$db: "./src/db",
+			$server: "./src/server",
 		},
 	},
 	preprocess: [

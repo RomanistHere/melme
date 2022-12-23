@@ -9,6 +9,8 @@
 	import Separator from "$lib/components/icons/Separator.svelte";
 	import PeopleComing from "$lib/components/ui/PeopleComing.svelte";
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
+	import SecondaryButton from "$lib/components/ui/SecondaryButton.svelte";
+	import NotificationPopup from "./NotificationPopup.svelte";
 
 	import {
 		truncateString,
@@ -17,11 +19,15 @@
 		getTimeHumanFormat,
 		getDateHumanFormat,
 		convertTimesToUTC,
+		convertUTCToLocalDateIgnoringTimezone,
+		getToday,
+		openOverlay,
 	} from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
-	import SecondaryButton from "$lib/components/ui/SecondaryButton.svelte";
 
 	export let data;
+
+	const today = convertUTCToLocalDateIgnoringTimezone(new Date(getToday()));
 
 	$: ({
 		slug,
@@ -41,10 +47,12 @@
 		registrationLink,
 		requirements,
 		isRegistrationNeeded,
+		vapidPublicKey,
 	} = data);
 
 	$: isLiked = $userState?.likedEvents?.includes(slug);
 	$: isComing = $userState?.comingEvents?.includes(slug);
+	$: isReminderSet = $userState?.reminderEvents?.includes(slug);
 	$: availableTimes = convertTimesToUTC(times);
 	$: date = getClosestDateToNow(availableTimes);
 	$: humanDate = getDateHumanFormat(date);
@@ -55,7 +63,19 @@
 
 	const hostRating = "0.0";
 
+	const setReminder = () => {
+		if (isReminderSet) return false;
+
+		openOverlay("shouldSetNotificationPopup", {
+			slug,
+			vapidPublicKey,
+			date: availableTimes.filter(d => d - new Date() > 0)[0],
+		});
+	};
+
 	const handlePrimaryButtonClick = () => {
+		setReminder();
+
 		if (isComing) {
 			return false;
 		}
@@ -244,7 +264,7 @@
 			isAdditionalText={isComing ? null : areYouGoingText}
 		/>
 		<form
-			action="?/increaseUpvote"
+			action="?/comingToEvent"
 			method="POST"
 			use:enhance={handlePrimaryButtonClick}
 		>
@@ -272,11 +292,23 @@
 
 		{#if showTimes}
 			<ul>
-				{#each availableTimes as time}
-					<li>{getDateHumanFormat(time)}, {getTimeHumanFormat(time)}</li>
+				{#each availableTimes.sort((a, b) => a - b) as time}
+					{@const humanDate = getDateHumanFormat(time)}
+					<li>
+						{humanDate}, {getTimeHumanFormat(time)}
+						{#if humanDate === getDateHumanFormat(new Date())}
+							- today
+						{/if}
+					</li>
 				{/each}
 			</ul>
 		{/if}
+
+		<SecondaryButton
+			title={isReminderSet ? "Reminder is set" : "Set reminder"}
+			on:click={setReminder}
+			disabled={isReminderSet}
+		/>
 
 		<p class="my-4 whitespace-pre-wrap">
 			{description}
@@ -296,3 +328,5 @@
 		{/if}
 	</div>
 </div>
+
+<NotificationPopup />
