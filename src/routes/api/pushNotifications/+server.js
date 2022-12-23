@@ -27,7 +27,7 @@ export async function GET({ request }) {
 
 				const timeTillEventInHours = (time - new Date()) / 1000 / 60 / 60;
 
-				if (timeTillEventInHours < 2) {
+				if (timeTillEventInHours < 8) {
 					const data = await Event.find(
 						{
 							slug,
@@ -40,7 +40,7 @@ export async function GET({ request }) {
 						sub,
 						JSON.stringify({
 							title: "Reminder",
-							content: `Don't miss ${title} in less than two hours!`,
+							content: `Don't miss ${title} in less than eight hours!`,
 							openUrl: slug,
 						})
 					);

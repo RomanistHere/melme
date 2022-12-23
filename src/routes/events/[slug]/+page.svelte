@@ -52,6 +52,7 @@
 
 	$: isLiked = $userState?.likedEvents?.includes(slug);
 	$: isComing = $userState?.comingEvents?.includes(slug);
+	$: isReminderSet = $userState?.reminderEvents?.includes(slug);
 	$: availableTimes = convertTimesToUTC(times);
 	$: date = getClosestDateToNow(availableTimes);
 	$: humanDate = getDateHumanFormat(date);
@@ -62,12 +63,18 @@
 
 	const hostRating = "0.0";
 
-	const handlePrimaryButtonClick = () => {
+	const setReminder = () => {
+		if (isReminderSet) return false;
+
 		openOverlay("shouldSetNotificationPopup", {
 			slug,
 			vapidPublicKey,
 			date: availableTimes.filter(d => d - new Date() > 0)[0],
 		});
+	};
+
+	const handlePrimaryButtonClick = () => {
+		setReminder();
 
 		if (isComing) {
 			return false;
@@ -285,11 +292,23 @@
 
 		{#if showTimes}
 			<ul>
-				{#each availableTimes as time}
-					<li>{getDateHumanFormat(time)}, {getTimeHumanFormat(time)}</li>
+				{#each availableTimes.sort((a, b) => a - b) as time}
+					{@const humanDate = getDateHumanFormat(time)}
+					<li>
+						{humanDate}, {getTimeHumanFormat(time)}
+						{#if humanDate === getDateHumanFormat(new Date())}
+							- today
+						{/if}
+					</li>
 				{/each}
 			</ul>
 		{/if}
+
+		<SecondaryButton
+			title={isReminderSet ? "Reminder is set" : "Set reminder"}
+			on:click={setReminder}
+			disabled={isReminderSet}
+		/>
 
 		<p class="my-4 whitespace-pre-wrap">
 			{description}
