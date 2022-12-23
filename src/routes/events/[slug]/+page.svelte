@@ -149,7 +149,7 @@
 	image={imgSrc}
 />
 
-<div class="-m-4 bg-white">
+<div class="-m-4 mb-0 bg-white">
 	<a
 		href="/"
 		on:click|preventDefault={handleClickBack}

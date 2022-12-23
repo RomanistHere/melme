@@ -109,7 +109,7 @@
 		<div
 			class="absolute rounded-t-3xl bg-white bottom-0 inset-x-0 max-w-xl mx-auto p-6"
 			in:fly={{ y: 150, duration: 300 }}
-			out:fly={{ y: -150, duration: 300 }}
+			out:fly={{ y: 150, duration: 300 }}
 		>
 			{#if error}
 				<p class="text-lg mb-1">

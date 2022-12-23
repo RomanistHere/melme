@@ -1,5 +1,6 @@
 <script>
 	import "../app.css";
+	import Footer from "$lib/components/Footer.svelte";
 </script>
 
 <svelte:head>
@@ -12,4 +13,6 @@
 
 <div class="max-w-lg mx-auto">
 	<slot />
+
+	<Footer />
 </div>
