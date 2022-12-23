@@ -11,8 +11,10 @@
 	></script>
 </svelte:head>
 
-<div class="max-w-lg mx-auto">
-	<slot />
+<div class="max-w-lg mx-auto min-h-screen flex flex-col">
+	<div class="flex-1">
+		<slot />
+	</div>
 
 	<Footer />
 </div>

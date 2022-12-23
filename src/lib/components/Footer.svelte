@@ -2,9 +2,7 @@
 	import TextLink from "$lib/components/ui/TextLink.svelte";
 </script>
 
-<footer
-	class="flex justify-between bg-slate-400/25 -mx-4 -mb-4 p-4"
->
+<footer class="flex justify-between bg-slate-400/25 -mx-4 p-4">
 	<div>
 		<p class="py-0.5">
 			Created by

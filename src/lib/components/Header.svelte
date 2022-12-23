@@ -16,8 +16,7 @@
 	};
 
 	const clickOnBg = e => {
-		if (e.target === e.currentTarget)
-			closeMenu();
+		if (e.target === e.currentTarget) closeMenu();
 	};
 
 	const openSubmitEventPage = e => {
@@ -27,26 +26,24 @@
 	};
 </script>
 
-<header class="-m-4 mb-4 p-4 text-white bg-indigo-700">
+<header class="-mx-4 mb-4 p-4 text-white bg-indigo-700">
 	<h1 class="text-2xl mt-2 relative">
 		Free events in Dubai
 		<button
 			class="absolute w-10 h-10 p-2 right-0 top-1/2 -translate-y-1/2"
 			on:click|preventDefault={openMenu}
 		>
-			<span
-				class="relative w-6 h-6 block"
-			>
-				<span class="absolute bg-white w-full h-1/6 inset-x-0 top-0"></span>
-				<span class="absolute bg-white w-full h-1/6 inset-x-0 top-2"></span>
-				<span class="absolute bg-white w-full h-1/6 inset-x-0 top-4"></span>
+			<span class="relative w-6 h-6 block">
+				<span class="absolute bg-white w-full h-1/6 inset-x-0 top-0" />
+				<span class="absolute bg-white w-full h-1/6 inset-x-0 top-2" />
+				<span class="absolute bg-white w-full h-1/6 inset-x-0 top-4" />
 			</span>
 		</button>
 	</h1>
 
-<!--	<p class="mt-4">-->
-<!--		Sorted by: time-->
-<!--	</p>-->
+	<!--	<p class="mt-4">-->
+	<!--		Sorted by: time-->
+	<!--	</p>-->
 </header>
 
 {#if isMenuOpened}
