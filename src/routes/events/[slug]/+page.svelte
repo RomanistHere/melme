@@ -141,6 +141,19 @@
 		e.preventDefault();
 		showTimes = !showTimes;
 	};
+
+	const initShareProcess = async e => {
+		e.preventDefault();
+		try {
+			await navigator.share({
+				url: `melme.io/${slug}`,
+				title,
+			});
+		} catch (err) {
+			// eslint-disable-next-line no-alert
+			alert(err);
+		}
+	};
 </script>
 
 <Seo
@@ -310,6 +323,11 @@
 			disabled={isReminderSet}
 		/>
 
+		<SecondaryButton
+			title="Share to"
+			on:click={initShareProcess}
+		/>
+
 		<p class="my-4 whitespace-pre-wrap">
 			{description}
 		</p>
@@ -324,6 +342,16 @@
 				class="underline"
 			>
 				{truncateString(registrationLink, 20)}
+			</a>
+		{/if}
+		{#if addresses.length === 1}
+			<a
+				class="bg-gray-100 font-regular text-indigo-700 rounded-xl p-3 block w-full my-4 text-center"
+				href={`https://maps.google.com/?q=${addresses[0]}`}
+				target="_blank"
+				rel="noreferrer"
+			>
+				Open in Google Maps
 			</a>
 		{/if}
 	</div>
