@@ -55,7 +55,7 @@
 	});
 </script>
 
-<nav class="w-full overflow-hidden">
+<div class="w-full overflow-hidden">
 	<ul class="-mx-1 text-sm pb-3 whitespace-nowrap overflow-y-scroll">
 		{#if isLikesNotEmpty}
 			<li
@@ -84,4 +84,4 @@
 			</li>
 		{/each}
 	</ul>
-</nav>
+</div>

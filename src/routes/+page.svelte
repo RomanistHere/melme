@@ -1,6 +1,5 @@
 <script>
 	import { onMount } from "svelte";
-	import { goto } from "$app/navigation";
 	import { page } from "$app/stores";
 
 	import Card from "$lib/components/ui/Card/Card.svelte";
@@ -35,11 +34,6 @@
 		} else {
 			sortedByDateEvents = sortByDateAndTime(events);
 		}
-	};
-
-	const openSubmitEventPage = e => {
-		e.preventDefault();
-		goto("submit-event");
 	};
 
 	const resetPaginationChanges = () => {
@@ -94,11 +88,6 @@
 	onCategoryChange={resetPaginationChanges}
 />
 
-<PrimaryButton
-	title="Submit event"
-	on:click={openSubmitEventPage}
-/>
-
 {#if sortedByDateEvents.length === 0}
 	<p class="text-center my-14">
 		We didn't find any results for you. Pick another category or <TextLink
@@ -122,13 +111,16 @@
 		on:click={fetchMoreEvents}
 	/>
 {:else}
-	<p class="pt-3 pb-7 text-center">Looks like we out of results for now...</p>
+	<p class="pt-3 pb-7 text-center">
+		Looks like we out of results for now... Didn't find anything interesting?
+		<TextLink
+			href="/moderation-queue"
+			title="Check our discovery queue"
+		/>
+		or
+		<TextLink
+			href="/submit-event"
+			title="Submit an event"
+		/>
+	</p>
 {/if}
-
-<div class="text-center pb-8">
-	Didn't find anything interesting?
-	<TextLink
-		href="/moderation-queue"
-		title="Check our discovery queue"
-	/>
-</div>
