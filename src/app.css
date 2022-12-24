@@ -16,4 +16,25 @@
 	html {
 		-webkit-tap-highlight-color: transparent;
 	}
+
+	.article li {
+		list-style: disc;
+		margin-left: 1rem;
+		margin-bottom: 0.25rem;
+	}
+
+	.article p,
+	.article ul {
+		margin-bottom: 1rem;
+	}
+
+	.article a {
+		text-decoration: underline;
+	}
+
+	.article hr {
+		background: #888888;
+		height: 2px;
+		margin-bottom: 1rem;
+	}
 }
