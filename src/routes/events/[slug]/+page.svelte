@@ -144,7 +144,7 @@
 </script>
 
 <Seo
-	title={`melme | ${title}`}
+	title={`melme | ${title.toLowerCase()}`}
 	{description}
 	image={imgSrc}
 />
