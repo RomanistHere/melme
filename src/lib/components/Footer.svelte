@@ -23,12 +23,12 @@
 	<div class="text-right">
 		<TextLink
 			class="block py-0.5"
-			href="articles/terms-of-use"
+			href="/articles/terms-of-use"
 			title="Terms of use"
 		/>
 		<TextLink
 			class="block py-0.5"
-			href="articles/privacy-policy"
+			href="/articles/privacy-policy"
 			title="Privacy policy"
 		/>
 		<TextLink
