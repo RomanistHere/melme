@@ -1,21 +1,7 @@
 import { Event } from "$db/models/event.model";
 
 import { appConfig } from "$lib/config.js";
-
-const getCategoryFromParams = searchParams => {
-	try {
-		const arrayOfParams = searchParams.get("categories").split("-");
-
-		if (!arrayOfParams) return null;
-		// when we leave empty category in url, it will return "", so we check for it
-		return arrayOfParams.length === 1 && arrayOfParams[0] === ""
-			? null
-			: arrayOfParams;
-	} catch (err) {
-		return null;
-	}
-};
-
+import { getCategoryFromParams } from "$lib/utils/index.js";
 export const load = async function ({ url }) {
 	const { searchParams, search } = url;
 	const today = new Date().toISOString().split("T")[0];

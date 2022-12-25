@@ -20,6 +20,10 @@ Another thing about the Careem app - it comes with 20-50% off on first order in 
 
 ---
 
+For most of popular attractions you can save a bit money with third-party services like [headout](https://www.headout.com/things-to-do-city-dubai/) or [klook](https://www.klook.com/en-US/experiences/city/78-dubai/). For eating, there are also apps to save some money. One example would be [repeat](https://repeat.app/). 
+
+---
+
 There are places, you can visit for free every or almost every day. Here's a [separate article](dubai-free-places) with information about them.
 
 ---

@@ -61,17 +61,10 @@ const schema = new Schema(
 			type: Number,
 			default: 0,
 		},
-		// location: {
-		// 	type: {
-		// 		type: String,
-		// 		enum: ["Point"],
-		// 		default: "Point",
-		// 	},
-		// 	coordinates: {
-		// 		type: [Number],
-		// 		required: true,
-		// 	},
-		// },
+		location: {
+			bestWatchFrom: [[Number]],
+			coordinates: [[Number]],
+		},
 	},
 	{
 		timestamps: true,

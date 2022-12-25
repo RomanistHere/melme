@@ -19,15 +19,12 @@
 		getTimeHumanFormat,
 		getDateHumanFormat,
 		convertTimesToUTC,
-		convertUTCToLocalDateIgnoringTimezone,
-		getToday,
 		openOverlay,
+		showError,
 	} from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
 
 	export let data;
-
-	const today = convertUTCToLocalDateIgnoringTimezone(new Date(getToday()));
 
 	$: ({
 		slug,
@@ -149,9 +146,8 @@
 				url: `melme.io/${slug}`,
 				title,
 			});
-		} catch (err) {
-			// eslint-disable-next-line no-alert
-			alert(err);
+		} catch (error) {
+			showError(error);
 		}
 	};
 </script>
@@ -317,17 +313,6 @@
 			</ul>
 		{/if}
 
-		<SecondaryButton
-			title={isReminderSet ? "Reminder is set" : "Set reminder"}
-			on:click={setReminder}
-			disabled={isReminderSet}
-		/>
-
-		<SecondaryButton
-			title="Share to"
-			on:click={initShareProcess}
-		/>
-
 		<p class="my-4 whitespace-pre-wrap">
 			{description}
 		</p>
@@ -344,6 +329,18 @@
 				{truncateString(registrationLink, 20)}
 			</a>
 		{/if}
+
+		<SecondaryButton
+			title={isReminderSet ? "Reminder is set" : "Set reminder"}
+			on:click={setReminder}
+			disabled={isReminderSet}
+		/>
+
+		<SecondaryButton
+			title="Share to"
+			on:click={initShareProcess}
+		/>
+
 		{#if addresses.length === 1}
 			<a
 				class="bg-gray-100 font-regular text-indigo-700 rounded-xl p-3 block w-full my-4 text-center"

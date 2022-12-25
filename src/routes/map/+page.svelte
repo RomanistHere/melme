@@ -1,27 +1,24 @@
 <script>
+	import { goto } from "$app/navigation";
+
 	import Seo from "$lib/components/Seo.svelte";
 	import Map from "$lib/components/Map/Map.svelte";
 
-	const poisData = [
-		{
-			location: [55.27, 25.23],
-			slug: "something",
-			title: "something",
-		},
-		{
-			location: [55.28, 25.18],
-			slug: "something",
-			title: "something",
-		},
-		{
-			location: [55.28, 25.184],
-			slug: "something",
-			title: "something",
-		},
-	];
+	export let data;
+
+	const prepareData = eventData => {
+		const parsed = JSON.parse(eventData.events);
+
+		return parsed.map(item => ({
+			...item,
+			location: item.location.coordinates,
+		}));
+	};
+
+	$: poisData = prepareData(data);
 
 	const handlePoiClick = ({ detail }) => {
-		console.log(detail);
+		goto(`events/${detail.slug}`);
 	};
 </script>
 

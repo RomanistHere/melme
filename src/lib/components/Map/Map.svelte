@@ -15,9 +15,12 @@
 
 	export let onMapClick = null;
 	export let poisData = [];
+	export let highlightedPoisData = [];
+	export let isPoisClickable = true;
 
 	let map;
 	let hoveredStateId = null;
+	let isMapLoaded = false;
 
 	const imagesToLoad = {
 		"event-marker": "../images/map/event-pin.png",
@@ -27,21 +30,22 @@
 
 	const preparePOIsJson = markerData => ({
 		type: "FeatureCollection",
-		features: markerData.map(({ location, slug }) => ({
-			type: "Feature",
-			geometry: {
-				type: "Point",
-				coordinates: location,
-			},
-			properties: {
-				"image-name": "event-marker",
-				slug,
-			},
-		})),
+		features: markerData.map(({ location, slug }) =>
+			location.map(loc => ({
+				type: "Feature",
+				geometry: {
+					type: "Point",
+					coordinates: loc,
+				},
+				properties: {
+					"image-name": "event-marker",
+					slug,
+				},
+			}))).flat(),
 	});
 
-	const displayPins = (map, data) => {
-		if (!map || !data) return;
+	const displayPins = (isLoaded, data) => {
+		if (!isLoaded || !data) return;
 
 		map.loadImage(imagesToLoad["event-marker"], (error, image) => {
 			if (error) throw error;
@@ -68,15 +72,18 @@
 					"icon-allow-overlap": true,
 				},
 				paint: {
-					// "icon-color": "#9D9D9D", //3f3ec2
-					"icon-color": [
+					// "icon-color": "#9D9D9D", // #3f3ec2
+					"icon-color": isPoisClickable ? [
 						"case",
 						["boolean", ["feature-state", "hover"], false],
 						"#3f3ec2",
 						"#9D9D9D",
-					],
+					] : "#9D9D9D",
 				},
 			});
+
+			if (!isPoisClickable)
+				return;
 
 			map.on("movestart", resetPinHoverState);
 
@@ -102,45 +109,10 @@
 					);
 				}
 			});
-
-			// map.on("mousemove", "stories-layer", e => {
-			// 	e.originalEvent.preventDefault();
-			// 	map.getCanvas().style.cursor = "pointer";
-			// 	if (e.features.length > 0) {
-			// 		if (hoveredStoryId) {
-			// 			map.setFeatureState({
-			// 				source: "POIs",
-			// 				id: hoveredStoryId,
-			// 			}, {
-			// 				hover: false,
-			// 			});
-			// 		}
-			// 		// console.log(e.features[0]);
-			// 		hoveredStoryId = e.features[0].id;
-			// 		map.setFeatureState({
-			// 			source: "POIs",
-			// 			id: hoveredStoryId,
-			// 		}, {
-			// 			hover: true,
-			// 		});
-			// 	}
-			// });
-			// map.on("mouseleave", "stories-layer", () => {
-			// 	map.getCanvas().style.cursor = "";
-			// 	if (hoveredStoryId !== null) {
-			// 		map.setFeatureState({
-			// 			source: "POIs",
-			// 			id: hoveredStoryId,
-			// 		}, {
-			// 			hover: false,
-			// 		});
-			// 	}
-			// 	hoveredStoryId = null;
-			// });
 		});
 	};
 
-	$: displayPins(map, poisData);
+	$: displayPins(isMapLoaded, poisData);
 
 	const createMap = container => {
 		const token =
@@ -148,15 +120,18 @@
 		const mapObj = new mapboxgl.Map({
 			accessToken: token,
 			container,
-			center: [55.27, 25.23],
+			center: [55.21, 25.14],
 			style: "mapbox://styles/romanisthere/clc1u0ef2001d14lms41wjsh8", // style URL
-			minZoom: 4,
+			minZoom: 2,
 			maxZoom: 18,
-			zoom: 11,
+			zoom: 9,
 			dragRotate: false,
 			logoPosition: "bottom-left",
 		});
+
 		mapObj.addControl(new mapboxgl.NavigationControl(), "bottom-right");
+		mapObj.on("load", () => { isMapLoaded = true });
+
 		// mapObj.on("contextmenu", onMapClick);
 		if (onMapClick) mapObj.on("click", onMapClick);
 
