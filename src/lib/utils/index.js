@@ -141,8 +141,8 @@ export const getCategoryFromParams = searchParams => {
 		if (!arrayOfParams) return null;
 		// when we leave empty category in url, it will return "", so we check for it
 		return arrayOfParams.length === 1 && arrayOfParams[0] === ""
-			   ? null
-			   : arrayOfParams;
+			? null
+			: arrayOfParams;
 	} catch (err) {
 		return null;
 	}

@@ -31,18 +31,21 @@
 
 	const preparePOIsJson = markerData => ({
 		type: "FeatureCollection",
-		features: markerData.map(({ location, slug }) =>
-			location.map(loc => ({
-				type: "Feature",
-				geometry: {
-					type: "Point",
-					coordinates: loc,
-				},
-				properties: {
-					"image-name": "event-marker",
-					...(slug && { slug }),
-				},
-			}))).flat(),
+		features: markerData
+			.map(({ location, slug }) =>
+				location.map(loc => ({
+					type: "Feature",
+					geometry: {
+						type: "Point",
+						coordinates: loc,
+					},
+					properties: {
+						"image-name": "event-marker",
+						...(slug && { slug }),
+					},
+				}))
+			)
+			.flat(),
 	});
 
 	const displayPins = (isLoaded, data, isHighlighted = false) => {
@@ -51,10 +54,14 @@
 		map.loadImage(imagesToLoad["event-marker"], (error, image) => {
 			if (error) throw error;
 
-			map.addImage(isHighlighted ? "event-marker-highlighted" : "event-marker", image, {
-				sdf: "true",
-				pixelRatio: 1.5,
-			});
+			map.addImage(
+				isHighlighted ? "event-marker-highlighted" : "event-marker",
+				image,
+				{
+					sdf: "true",
+					pixelRatio: 1.5,
+				}
+			);
 
 			const eventsJson = preparePOIsJson(data);
 
@@ -75,12 +82,16 @@
 				},
 				paint: {
 					// eslint-disable-next-line no-nested-ternary
-					"icon-color": isPoisClickable ? [
-						"case",
-						["boolean", ["feature-state", "hover"], false],
-						"#3f3ec2",
-						"#9D9D9D",
-					] : isHighlighted ? "#3f3ec2" : "#9D9D9D",
+					"icon-color": isPoisClickable
+						? [
+								"case",
+								["boolean", ["feature-state", "hover"], false],
+								"#3f3ec2",
+								"#9D9D9D",
+						  ]
+						: isHighlighted
+						? "#3f3ec2"
+						: "#9D9D9D",
 				},
 			});
 
@@ -94,8 +105,7 @@
 				map.fitBounds(bounds, { maxZoom: 14 });
 			}
 
-			if (!isPoisClickable)
-				return;
+			if (!isPoisClickable) return;
 
 			map.on("movestart", resetPinHoverState);
 
@@ -122,7 +132,7 @@
 				}
 
 				map.flyTo({
-					center: e.features[0].geometry.coordinates
+					center: e.features[0].geometry.coordinates,
 				});
 			});
 		});
@@ -147,7 +157,9 @@
 		});
 
 		mapObj.addControl(new mapboxgl.NavigationControl(), "bottom-right");
-		mapObj.on("load", () => { isMapLoaded = true });
+		mapObj.on("load", () => {
+			isMapLoaded = true;
+		});
 
 		// mapObj.on("contextmenu", onMapClick);
 		if (onMapClick) mapObj.on("click", onMapClick);

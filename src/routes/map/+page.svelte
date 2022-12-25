@@ -7,7 +7,6 @@
 
 	export let data;
 
-
 	const prepareData = eventData => {
 		const parsed = JSON.parse(eventData.events);
 
@@ -26,9 +25,7 @@
 
 <Seo title="melme | map view" />
 
-<Header
-	class="relative z-10"
-/>
+<Header class="relative z-10" />
 
 <section class="fixed inset-0 w-screen h-screen">
 	<Map

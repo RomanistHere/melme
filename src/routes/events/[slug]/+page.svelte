@@ -334,18 +334,28 @@
 
 		{#if location}
 			<h2 class="mb-2 font-bold text-lg">Location</h2>
-			<p><i>blue pin</i> - event</p>
+			<p>
+				<i>blue pin</i>
+				- event
+			</p>
 			{#if location.bestWatchFrom}
-				<p class="mb-2"><i>gray pin</i> - good spot to watch</p>
+				<p class="mb-2">
+					<i>gray pin</i>
+					- good spot to watch
+				</p>
 			{/if}
 			<div class="h-96 -mx-6">
 				<Map
-					poisData={[{
-						location: location.bestWatchFrom
-					}]}
-					highlightedPoisData={[{
-						location: location.coordinates
-					}]}
+					poisData={[
+						{
+							location: location.bestWatchFrom,
+						},
+					]}
+					highlightedPoisData={[
+						{
+							location: location.coordinates,
+						},
+					]}
 					shouldCenterOnResults={true}
 					isPoisClickable={false}
 				/>
