@@ -8,7 +8,7 @@
 </script>
 
 <Seo
-	title="melme | {data.title}"
+	title="melme | {data.title.toLowerCase()}"
 	description={data.description}
 />
 

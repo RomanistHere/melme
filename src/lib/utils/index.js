@@ -128,3 +128,22 @@ export const openOverlay = (openName, payload = null, closeName) => {
 };
 
 export const closeOverlay = name => openOverlay(null, null, name);
+
+export const showError = error => {
+	// eslint-disable-next-line no-alert
+	alert(error);
+};
+
+export const getCategoryFromParams = searchParams => {
+	try {
+		const arrayOfParams = searchParams.get("categories").split("-");
+
+		if (!arrayOfParams) return null;
+		// when we leave empty category in url, it will return "", so we check for it
+		return arrayOfParams.length === 1 && arrayOfParams[0] === ""
+			? null
+			: arrayOfParams;
+	} catch (err) {
+		return null;
+	}
+};

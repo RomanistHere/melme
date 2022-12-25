@@ -19,15 +19,13 @@
 		getTimeHumanFormat,
 		getDateHumanFormat,
 		convertTimesToUTC,
-		convertUTCToLocalDateIgnoringTimezone,
-		getToday,
 		openOverlay,
+		showError,
 	} from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
+	import Map from "$lib/components/Map/Map.svelte";
 
 	export let data;
-
-	const today = convertUTCToLocalDateIgnoringTimezone(new Date(getToday()));
 
 	$: ({
 		slug,
@@ -48,6 +46,7 @@
 		requirements,
 		isRegistrationNeeded,
 		vapidPublicKey,
+		location,
 	} = data);
 
 	$: isLiked = $userState?.likedEvents?.includes(slug);
@@ -141,10 +140,22 @@
 		e.preventDefault();
 		showTimes = !showTimes;
 	};
+
+	const initShareProcess = async e => {
+		e.preventDefault();
+		try {
+			await navigator.share({
+				url: `melme.io/${slug}`,
+				title: `See ${title} on melme.io:`,
+			});
+		} catch (error) {
+			showError(error);
+		}
+	};
 </script>
 
 <Seo
-	title={`melme | ${title}`}
+	title={`melme | ${title.toLowerCase()}`}
 	{description}
 	image={imgSrc}
 />
@@ -304,12 +315,6 @@
 			</ul>
 		{/if}
 
-		<SecondaryButton
-			title={isReminderSet ? "Reminder is set" : "Set reminder"}
-			on:click={setReminder}
-			disabled={isReminderSet}
-		/>
-
 		<p class="my-4 whitespace-pre-wrap">
 			{description}
 		</p>
@@ -324,6 +329,58 @@
 				class="underline"
 			>
 				{truncateString(registrationLink, 20)}
+			</a>
+		{/if}
+
+		{#if location}
+			<h2 class="mb-2 font-bold text-lg">Location</h2>
+			<p>
+				<i>blue pin</i>
+				- event
+			</p>
+			{#if location.bestWatchFrom}
+				<p class="mb-2">
+					<i>gray pin</i>
+					- good spot to watch
+				</p>
+			{/if}
+			<div class="h-96 -mx-6">
+				<Map
+					poisData={[
+						{
+							location: location.bestWatchFrom,
+						},
+					]}
+					highlightedPoisData={[
+						{
+							location: location.coordinates,
+						},
+					]}
+					shouldCenterOnResults={true}
+					isPoisClickable={false}
+				/>
+			</div>
+		{/if}
+
+		<SecondaryButton
+			title={isReminderSet ? "Reminder is set" : "Set reminder"}
+			on:click={setReminder}
+			disabled={isReminderSet}
+		/>
+
+		<SecondaryButton
+			title="Share to"
+			on:click={initShareProcess}
+		/>
+
+		{#if addresses.length === 1}
+			<a
+				class="bg-gray-100 font-regular text-indigo-700 rounded-xl p-3 block w-full my-4 text-center"
+				href={`https://maps.google.com/?q=${addresses[0]}`}
+				target="_blank"
+				rel="noreferrer"
+			>
+				Open in Google Maps
 			</a>
 		{/if}
 	</div>

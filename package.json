@@ -28,6 +28,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"mapbox-gl": "^2.11.1",
 		"mongodb": "^4.13.0",
 		"mongoose": "^6.8.1",
 		"web-push": "^3.5.0"

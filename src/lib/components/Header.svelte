@@ -5,6 +5,9 @@
 	import PrimaryButton from "$lib/components/ui/PrimaryButton.svelte";
 	import { goto } from "$app/navigation";
 
+	let customClass = "";
+	export { customClass as class };
+
 	let isMenuOpened = false;
 
 	const openMenu = () => {
@@ -26,9 +29,9 @@
 	};
 </script>
 
-<header class="-mx-4 mb-4 p-4 text-white bg-indigo-700">
+<header class="-mx-4 mb-4 p-4 text-white bg-indigo-700 {customClass}">
 	<h1 class="text-2xl mt-2 relative">
-		Free events in Dubai
+		<a href="/">Free events in Dubai</a>
 		<button
 			class="absolute w-10 h-10 p-2 right-0 top-1/2 -translate-y-1/2"
 			on:click|preventDefault={openMenu}
