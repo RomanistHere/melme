@@ -333,10 +333,10 @@
 		{/if}
 
 		{#if location}
-			<h2 class="mb-2 font-bold text-lg">Location</h2>
+			<h2 class="mb-2 mt-6 font-bold text-lg">Location</h2>
 			<p>
 				<i>blue pin</i>
-				- event
+				- location of event
 			</p>
 			{#if location.bestWatchFrom}
 				<p>
@@ -344,7 +344,7 @@
 					- good spot to watch
 				</p>
 			{/if}
-			<div class="h-96 -mx-6 mt-2">
+			<div class="h-96 -mx-6 mt-2 mb-6">
 				<Map
 					poisData={location.bestWatchFrom && [{
 						location: location.bestWatchFrom,
@@ -359,14 +359,14 @@
 		{/if}
 
 		<SecondaryButton
-			title={isReminderSet ? "Reminder is set" : "Set reminder"}
-			on:click={setReminder}
-			disabled={isReminderSet}
+			title="Share to"
+			on:click={initShareProcess}
 		/>
 
 		<SecondaryButton
-			title="Share to"
-			on:click={initShareProcess}
+			title={isReminderSet ? "Reminder is set" : "Set reminder"}
+			on:click={setReminder}
+			disabled={isReminderSet}
 		/>
 
 		{#if addresses.length === 1}
