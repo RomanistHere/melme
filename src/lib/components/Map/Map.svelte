@@ -14,8 +14,8 @@
 	};
 
 	export let onMapClick = null;
-	export let poisData = [];
-	export let highlightedPoisData = [];
+	export let poisData = null;
+	export let highlightedPoisData = null;
 	export let isPoisClickable = true;
 	export let shouldCenterOnResults = false;
 
@@ -76,7 +76,7 @@
 				type: "symbol",
 				source: isHighlighted ? "events-highlighted" : "events",
 				layout: {
-					"icon-image": "event-marker",
+					"icon-image": isHighlighted ? "event-marker-highlighted" : "event-marker",
 					"icon-allow-overlap": true,
 					"icon-anchor": "bottom",
 				},
