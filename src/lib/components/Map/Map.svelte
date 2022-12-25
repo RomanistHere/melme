@@ -17,6 +17,7 @@
 	export let poisData = [];
 	export let highlightedPoisData = [];
 	export let isPoisClickable = true;
+	export let shouldCenterOnResults = false;
 
 	let map;
 	let hoveredStateId = null;
@@ -39,48 +40,59 @@
 				},
 				properties: {
 					"image-name": "event-marker",
-					slug,
+					...(slug && { slug }),
 				},
 			}))).flat(),
 	});
 
-	const displayPins = (isLoaded, data) => {
+	const displayPins = (isLoaded, data, isHighlighted = false) => {
 		if (!isLoaded || !data) return;
 
 		map.loadImage(imagesToLoad["event-marker"], (error, image) => {
 			if (error) throw error;
 
-			map.addImage("event-marker", image, {
+			map.addImage(isHighlighted ? "event-marker-highlighted" : "event-marker", image, {
 				sdf: "true",
 				pixelRatio: 1.5,
 			});
 
 			const eventsJson = preparePOIsJson(data);
 
-			map.addSource("events", {
+			map.addSource(isHighlighted ? "events-highlighted" : "events", {
 				type: "geojson",
 				data: eventsJson,
 				generateId: true,
 			});
 
 			map.addLayer({
-				id: "events",
+				id: isHighlighted ? "events-highlighted" : "events",
 				type: "symbol",
-				source: "events",
+				source: isHighlighted ? "events-highlighted" : "events",
 				layout: {
 					"icon-image": "event-marker",
 					"icon-allow-overlap": true,
+					"icon-anchor": "bottom",
 				},
 				paint: {
-					// "icon-color": "#9D9D9D", // #3f3ec2
+					// eslint-disable-next-line no-nested-ternary
 					"icon-color": isPoisClickable ? [
 						"case",
 						["boolean", ["feature-state", "hover"], false],
 						"#3f3ec2",
 						"#9D9D9D",
-					] : "#9D9D9D",
+					] : isHighlighted ? "#3f3ec2" : "#9D9D9D",
 				},
 			});
+
+			if (shouldCenterOnResults) {
+				const bounds = new mapboxgl.LngLatBounds();
+
+				eventsJson.features.forEach(feature => {
+					bounds.extend(feature.geometry.coordinates);
+				});
+
+				map.fitBounds(bounds, { maxZoom: 14 });
+			}
 
 			if (!isPoisClickable)
 				return;
@@ -108,10 +120,15 @@
 						{ hover: true }
 					);
 				}
+
+				map.flyTo({
+					center: e.features[0].geometry.coordinates
+				});
 			});
 		});
 	};
 
+	$: displayPins(isMapLoaded, highlightedPoisData, true);
 	$: displayPins(isMapLoaded, poisData);
 
 	const createMap = container => {

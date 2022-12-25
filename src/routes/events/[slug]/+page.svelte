@@ -23,6 +23,7 @@
 		showError,
 	} from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
+	import Map from "$lib/components/Map/Map.svelte";
 
 	export let data;
 
@@ -45,6 +46,7 @@
 		requirements,
 		isRegistrationNeeded,
 		vapidPublicKey,
+		location,
 	} = data);
 
 	$: isLiked = $userState?.likedEvents?.includes(slug);
@@ -328,6 +330,26 @@
 			>
 				{truncateString(registrationLink, 20)}
 			</a>
+		{/if}
+
+		{#if location}
+			<h2 class="mb-2 font-bold text-lg">Location</h2>
+			<p><i>blue pin</i> - event</p>
+			{#if location.bestWatchFrom}
+				<p class="mb-2"><i>gray pin</i> - good spot to watch</p>
+			{/if}
+			<div class="h-96 -mx-6">
+				<Map
+					poisData={[{
+						location: location.bestWatchFrom
+					}]}
+					highlightedPoisData={[{
+						location: location.coordinates
+					}]}
+					shouldCenterOnResults={true}
+					isPoisClickable={false}
+				/>
+			</div>
 		{/if}
 
 		<SecondaryButton
