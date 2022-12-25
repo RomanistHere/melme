@@ -146,7 +146,7 @@
 		try {
 			await navigator.share({
 				url: `melme.io/${slug}`,
-				title,
+				title: `See ${title} on melme.io:`,
 			});
 		} catch (error) {
 			showError(error);
