@@ -8,12 +8,13 @@
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
 	import TogglerLink from "./TogglerLink.svelte";
 	import CategoryPicker from "./CategoryPicker.svelte";
-
-	import { handleClickBack } from "$lib/utils/index.js";
-	import { categoryList, timeOptions } from "$lib/config.js";
 	import Seo from "$lib/components/Seo.svelte";
 	import DateAndTimePicker from "./DateAndTimePicker.svelte";
 	import AddressPicker from "./AddressPicker.svelte";
+	import LocationPicker from "./LocationPicker.svelte";
+
+	import { handleClickBack } from "$lib/utils/index.js";
+	import { categoryList, timeOptions } from "$lib/config.js";
 
 	export let form;
 
@@ -117,6 +118,10 @@
 
 			<AddressPicker
 				externalError={form?.missingAddress && "The address is missing"}
+			/>
+
+			<LocationPicker
+				title="Could you point to the location(s) on the map?"
 			/>
 
 			<DateAndTimePicker
