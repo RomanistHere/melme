@@ -1,4 +1,4 @@
-import { invalid } from "@sveltejs/kit";
+import { fail } from "@sveltejs/kit";
 
 import { Event } from "$db/models/event.model";
 import { UserRateLimit } from "$db/models/userRateLimit.model.js";
@@ -54,6 +54,7 @@ export const actions = {
 
 		const formData = await event.request.formData();
 		const data = Object.fromEntries(formData);
+		const locationParsed = JSON.parse(data.location);
 
 		const datePropNames = Object.keys(data).filter(
 			name => name.indexOf("date_") === 0
@@ -105,26 +106,29 @@ export const actions = {
 			})
 			.filter(Boolean);
 
-		if (data.title.length === 0) return invalid(400, { missingTitle: true });
+		if (data.title.length === 0) return fail(400, { missingTitle: true });
 		else if (data.description.length < 20)
-			return invalid(400, { shortDescription: true });
+			return fail(400, { shortDescription: true });
 		else if (data.linkToEvent.length === 0)
-			return invalid(400, { missingLink: true });
-		else if (addresses.length === 0)
-			return invalid(400, { missingAddress: true });
-		else if (times.length === 0) return invalid(400, { missingDate: true });
+			return fail(400, { missingLink: true });
+		else if (addresses.length === 0) return fail(400, { missingAddress: true });
+		else if (times.length === 0) return fail(400, { missingDate: true });
 
+		const slug = `${data.title
+			.replace(/[^A-Za-z0-9-\s]/g, "")
+			.split(" ")
+			.join("-")}-${generateRandomString()}`;
 		const eventDB = new Event({
 			...data,
+			slug,
 			times,
 			addresses,
 			categories: JSON.parse(data.categories),
 			isFree: data.isEventFree === "on",
 			isRegistrationNeeded: data.isRegistrationNeeded === "on",
-			slug: `${data.title
-				.replace(/[^A-Za-z0-9-\s]/g, "")
-				.split(" ")
-				.join("-")}-${generateRandomString()}`,
+			location: {
+				coordinates: locationParsed,
+			},
 		});
 
 		try {

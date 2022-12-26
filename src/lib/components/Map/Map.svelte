@@ -49,21 +49,27 @@
 	});
 
 	const displayPins = (isLoaded, data, isHighlighted = false) => {
-		if (!isLoaded || !data) return;
+		if (!isLoaded || !data || !data[0] || !data[0].location.length) return;
 
 		map.loadImage(imagesToLoad["event-marker"], (error, image) => {
 			if (error) throw error;
 
-			map.addImage(
-				isHighlighted ? "event-marker-highlighted" : "event-marker",
-				image,
-				{
+			if (!map.hasImage("event-marker")) {
+				map.addImage("event-marker", image, {
 					sdf: "true",
 					pixelRatio: 1.5,
-				}
-			);
+				});
+			}
 
 			const eventsJson = preparePOIsJson(data);
+
+			if (isHighlighted && map.getSource("events-highlighted")) {
+				map.getSource("events-highlighted").setData(eventsJson);
+				return;
+			} else if (!isHighlighted && map.getSource("events")) {
+				map.getSource("events").setData(eventsJson);
+				return;
+			}
 
 			map.addSource(isHighlighted ? "events-highlighted" : "events", {
 				type: "geojson",
@@ -76,9 +82,7 @@
 				type: "symbol",
 				source: isHighlighted ? "events-highlighted" : "events",
 				layout: {
-					"icon-image": isHighlighted
-						? "event-marker-highlighted"
-						: "event-marker",
+					"icon-image": "event-marker",
 					"icon-allow-overlap": true,
 					"icon-anchor": "bottom",
 				},
@@ -104,7 +108,7 @@
 					bounds.extend(feature.geometry.coordinates);
 				});
 
-				map.fitBounds(bounds, { maxZoom: 14 });
+				map.fitBounds(bounds, { maxZoom: 14, padding: 50 });
 			}
 
 			if (!isPoisClickable) return;

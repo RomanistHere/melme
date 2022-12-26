@@ -154,3 +154,6 @@ export const getCategoryFromParams = searchParams => {
 		return null;
 	}
 };
+
+export const roundToSixthDecimal = number =>
+	Math.round(100000 * number) / 100000;
