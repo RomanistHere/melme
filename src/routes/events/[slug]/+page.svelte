@@ -319,7 +319,7 @@
 			{description}
 		</p>
 		{#if requirements}
-			<p class="my-4">
+			<p class="my-4 whitespace-pre-wrap break-words">
 				{requirements}
 			</p>
 		{/if}

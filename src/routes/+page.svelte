@@ -97,7 +97,7 @@
 	</p>
 {:else}
 	<ul>
-		{#each sortedByDateEvents as event}
+		{#each sortedByDateEvents as event (event.slug)}
 			<li>
 				<Card {...event} />
 			</li>

@@ -68,11 +68,16 @@ export const sortDateByClosest = datesArray => {
 	if (datesArray.length === 1) return datesArray;
 
 	const today = new Date();
-	return datesArray.sort((a, b) => {
+	const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+
+	const sorted = datesArray.sort((a, b) => {
 		const distanceA = Math.abs(today - a);
 		const distanceB = Math.abs(today - b);
 		return distanceA - distanceB;
 	});
+
+	// remove times that were before yesterday
+	return sorted.filter(d => d - yesterday > 0);
 };
 
 export const convertTimesToUTC = timesArr =>
@@ -88,11 +93,13 @@ export const sortByDateAndTime = objects => {
 	// todo: also if the same event is repeated for example at 15:00 and 16:00
 	// todo: and duration is 45 min, at 15:30-15:45 it should still display "live" version
 	const today = new Date();
-	return sortWithinObj.sort((a, b) => {
+	const sorted = sortWithinObj.sort((a, b) => {
 		const distanceA = Math.abs(today - a.times[0]);
 		const distanceB = Math.abs(today - b.times[0]);
 		return distanceA - distanceB;
 	});
+
+	return sorted;
 };
 
 export const getClosestDateToNow = datesArray => {
