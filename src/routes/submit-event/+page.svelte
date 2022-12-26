@@ -120,9 +120,7 @@
 				externalError={form?.missingAddress && "The address is missing"}
 			/>
 
-			<LocationPicker
-				title="Could you point to the location(s) on the map?"
-			/>
+			<LocationPicker title="Could you point to the location(s) on the map?" />
 
 			<DateAndTimePicker
 				title="*Pick a date and a local time when it starts"

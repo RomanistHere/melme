@@ -49,21 +49,16 @@
 	});
 
 	const displayPins = (isLoaded, data, isHighlighted = false) => {
-		if (!isLoaded || !data || !data[0] || !data[0].location.length)
-			return;
+		if (!isLoaded || !data || !data[0] || !data[0].location.length) return;
 
 		map.loadImage(imagesToLoad["event-marker"], (error, image) => {
 			if (error) throw error;
 
 			if (!map.hasImage("event-marker")) {
-				map.addImage(
-					"event-marker",
-					image,
-					{
-						sdf: "true",
-						pixelRatio: 1.5,
-					}
-				);
+				map.addImage("event-marker", image, {
+					sdf: "true",
+					pixelRatio: 1.5,
+				});
 			}
 
 			const eventsJson = preparePOIsJson(data);
@@ -95,10 +90,10 @@
 					// eslint-disable-next-line no-nested-ternary
 					"icon-color": isPoisClickable
 						? [
-							"case",
-							["boolean", ["feature-state", "hover"], false],
-							"#3f3ec2",
-							"#9D9D9D",
+								"case",
+								["boolean", ["feature-state", "hover"], false],
+								"#3f3ec2",
+								"#9D9D9D",
 						  ]
 						: isHighlighted
 						? "#3f3ec2"

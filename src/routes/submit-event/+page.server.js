@@ -111,8 +111,7 @@ export const actions = {
 			return fail(400, { shortDescription: true });
 		else if (data.linkToEvent.length === 0)
 			return fail(400, { missingLink: true });
-		else if (addresses.length === 0)
-			return fail(400, { missingAddress: true });
+		else if (addresses.length === 0) return fail(400, { missingAddress: true });
 		else if (times.length === 0) return fail(400, { missingDate: true });
 
 		const slug = `${data.title

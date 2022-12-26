@@ -11,15 +11,20 @@
 	let inputData = null;
 
 	const updateState = pois => {
-		poisData = [{
-			location: [ ...pois ],
-		}];
+		poisData = [
+			{
+				location: [...pois],
+			},
+		];
 		inputData = JSON.stringify(pois);
 	};
 
 	const onMapClick = e => {
 		const { lat, lng } = e.lngLat;
-		pickedPois = [ ...pickedPois, [roundToSixthDecimal(lng), roundToSixthDecimal(lat)] ];
+		pickedPois = [
+			...pickedPois,
+			[roundToSixthDecimal(lng), roundToSixthDecimal(lat)],
+		];
 		updateState(pickedPois);
 	};
 
@@ -50,7 +55,7 @@
 		class="hidden"
 		name="location"
 		bind:value={inputData}
-	>
+	/>
 </div>
 
 {#if pickedPois.length > 0}
