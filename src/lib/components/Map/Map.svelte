@@ -76,7 +76,9 @@
 				type: "symbol",
 				source: isHighlighted ? "events-highlighted" : "events",
 				layout: {
-					"icon-image": isHighlighted ? "event-marker-highlighted" : "event-marker",
+					"icon-image": isHighlighted
+						? "event-marker-highlighted"
+						: "event-marker",
 					"icon-allow-overlap": true,
 					"icon-anchor": "bottom",
 				},

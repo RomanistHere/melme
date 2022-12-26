@@ -346,12 +346,16 @@
 			{/if}
 			<div class="h-96 -mx-6 mt-2 mb-6">
 				<Map
-					poisData={location.bestWatchFrom && [{
-						location: location.bestWatchFrom,
-					}]}
-					highlightedPoisData={location.coordinates && [{
-						location: location.coordinates,
-					}]}
+					poisData={location.bestWatchFrom && [
+						{
+							location: location.bestWatchFrom,
+						},
+					]}
+					highlightedPoisData={location.coordinates && [
+						{
+							location: location.coordinates,
+						},
+					]}
 					shouldCenterOnResults={true}
 					isPoisClickable={false}
 				/>
