@@ -1,12 +1,15 @@
 <script>
 	import { fly, fade } from "svelte/transition";
+	import { goto } from "$app/navigation";
 
 	import Cross from "$lib/components/icons/Cross.svelte";
 	import PrimaryButton from "$lib/components/ui/PrimaryButton.svelte";
-	import { goto } from "$app/navigation";
+	import ListToggle from "$lib/components/icons/ListToggle.svelte";
+	import MapToggle from "$lib/components/icons/MapToggle.svelte";
 
 	let customClass = "";
 	export { customClass as class };
+	export let viewButton;
 
 	let isMenuOpened = false;
 
@@ -29,7 +32,7 @@
 	};
 </script>
 
-<header class="-mx-4 mb-4 p-4 text-white bg-indigo-700 {customClass}">
+<header class="-mx-4 mb-4 p-4 py-3 text-white bg-indigo-700 {customClass}">
 	<h1 class="text-2xl mt-2 relative">
 		<a href="/">Free events in Dubai</a>
 		<button
@@ -44,14 +47,27 @@
 		</button>
 	</h1>
 
-	<!--	<p class="mt-4">-->
-	<!--		Sorted by: time-->
-	<!--	</p>-->
+	<p class="mt-3">
+		Sorted by: time
+	</p>
+
+	{#if viewButton}
+		<a
+			href={viewButton === "list" ? "/" : "/map"}
+			class="absolute right-4 bg-white w-12 h-12 flex justify-center items-center rounded-full top-20 z-10 border-indigo-700 border-2"
+		>
+			{#if viewButton === "list"}
+				<ListToggle />
+			{:else if viewButton === "map"}
+				<MapToggle />
+			{/if}
+		</a>
+	{/if}
 </header>
 
 {#if isMenuOpened}
 	<section
-		class="fixed inset-0 bg-gray-800/50 z-30"
+		class="fixed inset-0 bg-gray-800/50 z-20"
 		role="dialog"
 		transition:fade={{ duration: 100 }}
 		on:click={clickOnBg}

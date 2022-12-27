@@ -82,14 +82,7 @@
 
 <Seo />
 
-<Header />
-
-<a
-	href="/map"
-	class="absolute right-4 bg-white w-12 h-12 flex justify-center items-center rounded-full top-18 z-20 border-gray-400 border-2"
->
-	<MapToggle />
-</a>
+<Header viewButton="map" />
 
 <Categories
 	bind:externalFilters={frontendFilers}
