@@ -15,7 +15,7 @@
 			For
 			<TextLink
 				href="https://www.reddit.com/r/dubai/comments/z68pza/i_want_to_make_a_free_events_in_dubai_appsite_but/"
-				title="reddit community"
+				title="r/Dubai community"
 			/>
 		</p>
 		<p class="py-0.5">All rights reserved © 2022</p>
@@ -33,8 +33,8 @@
 		/>
 		<TextLink
 			class="block py-0.5"
-			href="mailto:romanisthere@pm.me"
-			title="Email us"
+			href="/articles/contact-us"
+			title="Contact us"
 		/>
 	</div>
 </footer>
