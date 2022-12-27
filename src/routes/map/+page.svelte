@@ -35,12 +35,13 @@
 	<ListToggle />
 </a>
 
-<section class="fixed inset-0 w-screen h-screen">
+<div class="h-[28rem] -m-4 mb-0">
 	<Map
 		{poisData}
 		on:handlePoiClick={handlePoiClick}
 	/>
-</section>
+</div>
+
 
 <SuggestedEvents
 	data={poisData}

@@ -26,7 +26,7 @@
 	$: scrollIntoViewAndHighlight(activeEvent);
 </script>
 
-<div class="overflow-hidden fixed z-10 bg-white px-4 -mx-4 inset-x-0 bottom-0">
+<div class="overflow-hidden bg-white -mx-4">
 	<ul class="whitespace-nowrap overflow-y-scroll -mx-2 p-4">
 		{#each preparedData as { slug, title, description, imgSrc, hostName, duration, isFree, price, times } (slug)}
 			<li
