@@ -113,7 +113,12 @@
 
 			if (!isPoisClickable) return;
 
-			map.on("touchstart", resetPinHoverState);
+			map.on("touchstart", () => {
+				dispatch("handlePoiClick", {
+					slug: null,
+				});
+				resetPinHoverState();
+			});
 
 			map.on("click", "events", e => {
 				dispatch("handlePoiClick", {

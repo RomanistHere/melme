@@ -8,6 +8,7 @@
 	import Seo from "$lib/components/Seo.svelte";
 	import Categories from "$lib/components/Categories.svelte";
 	import TextLink from "$lib/components/ui/TextLink.svelte";
+	import MapToggle from "$lib/components/icons/MapToggle.svelte";
 
 	import { userState } from "$lib/stores/localStorage.js";
 	import { loadedEvents, appState } from "$lib/stores/index.js";
@@ -82,6 +83,13 @@
 <Seo />
 
 <Header />
+
+<a
+	href="/map"
+	class="absolute right-4 bg-white w-12 h-12 flex justify-center items-center rounded-full top-18 z-20 border-gray-400 border-2"
+>
+	<MapToggle />
+</a>
 
 <Categories
 	bind:externalFilters={frontendFilers}

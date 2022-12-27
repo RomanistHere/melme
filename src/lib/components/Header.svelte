@@ -51,7 +51,7 @@
 
 {#if isMenuOpened}
 	<section
-		class="fixed inset-0 bg-gray-800/50 z-10"
+		class="fixed inset-0 bg-gray-800/50 z-30"
 		role="dialog"
 		transition:fade={{ duration: 100 }}
 		on:click={clickOnBg}
