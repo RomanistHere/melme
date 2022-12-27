@@ -47,9 +47,7 @@
 		</button>
 	</h1>
 
-	<p class="mt-3">
-		Sorted by: time
-	</p>
+	<p class="mt-3">Sorted by: time</p>
 
 	{#if viewButton}
 		<a

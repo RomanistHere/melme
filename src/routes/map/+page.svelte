@@ -35,7 +35,6 @@
 	/>
 </div>
 
-
 <SuggestedEvents
 	data={poisData}
 	activeEvent={activePoi}
