@@ -1,6 +1,4 @@
 <script>
-	import { goto } from "$app/navigation";
-
 	import Seo from "$lib/components/Seo.svelte";
 	import Map from "$lib/components/Map/Map.svelte";
 	import Header from "$lib/components/Header.svelte";
@@ -9,7 +7,7 @@
 	export let data;
 
 	const prepareData = eventData => {
-		const parsed = JSON.parse(eventData.events);
+		const parsed = eventData.events;
 
 		return parsed.map(item => ({
 			...item,
@@ -21,7 +19,6 @@
 	$: activePoi = null;
 
 	const handlePoiClick = ({ detail }) => {
-		// goto(`events/${detail.slug}`);
 		activePoi = detail.slug;
 	};
 </script>

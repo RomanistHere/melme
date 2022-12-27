@@ -3,7 +3,7 @@
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
 	import Separator from "$lib/components/icons/Separator.svelte";
 	import PeopleComing from "$lib/components/ui/PeopleComing.svelte";
-	import CardLayout from "$lib/components/ui/Card/CardLayout.svelte";
+	import CardLayout from "$lib/components/Card/CardLayout.svelte";
 
 	import {
 		truncateString,

@@ -13,6 +13,7 @@
 	export let duration;
 	export let isFree;
 	export let price;
+	export let isSmall;
 
 	$: isLiked = $userState?.likedEvents?.includes(slug);
 
@@ -42,6 +43,7 @@
 
 <div
 	class="relative h-64 bg-center bg-cover"
+	class:h-40={isSmall}
 	style="background-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url('{imgSrc}')"
 >
 	<div
@@ -70,5 +72,6 @@
 		{duration}
 		{isFree}
 		{price}
+		{isSmall}
 	/>
 </div>

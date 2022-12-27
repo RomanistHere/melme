@@ -113,7 +113,7 @@
 
 			if (!isPoisClickable) return;
 
-			map.on("movestart", resetPinHoverState);
+			map.on("touchstart", resetPinHoverState);
 
 			map.on("click", "events", e => {
 				dispatch("handlePoiClick", {

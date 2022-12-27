@@ -8,6 +8,7 @@
 	export let duration;
 	export let isFree;
 	export let price;
+	export let isSmall;
 
 	const today = getToday();
 	const tomorrow = new Date(new Date().getTime() + 86400000).toLocaleDateString(
@@ -57,6 +58,12 @@
 	{/if}
 </span>
 
-{#if isLive}
+{#if isLive && !isSmall}
 	<MarqueeAnimation class="absolute bottom-1" />
+{:else if isLive}
+	<span
+		class="text-sm py-0.5 px-2 rounded-xl absolute left-3 bottom-2 bg-white"
+	>
+		Live
+	</span>
 {/if}

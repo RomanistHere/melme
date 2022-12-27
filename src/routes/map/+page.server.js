@@ -14,7 +14,7 @@ export const load = async function ({ url }) {
 			times: { $gte: today },
 			...(categories ? { categories: { $in: [...categories] } } : {}),
 		},
-		"slug location title imgSrc description -_id"
+		"-_id"
 	)
 		.sort({
 			times: 1,
@@ -23,8 +23,10 @@ export const load = async function ({ url }) {
 		.lean();
 
 	const eventsWithLocation = data.filter(item => item.location?.coordinates);
-	const events = JSON.stringify(eventsWithLocation.map(item =>
-		({ ...item, description: truncateString(item.description, 40) })));
+	const events = eventsWithLocation.map(item => ({
+		...item,
+		description: truncateString(item.description, 40),
+	}));
 
 	return {
 		events,
