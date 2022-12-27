@@ -13,11 +13,14 @@
 
 	const scrollIntoViewAndHighlight = slug => {
 		activeSlug = null;
-		if (!slug || !bindings[slug])
-			return;
+		if (!slug || !bindings[slug]) return;
 
 		activeSlug = slug;
-		bindings[slug].scrollIntoView({ behavior: "smooth", block: "end", inline: "center" });
+		bindings[slug].scrollIntoView({
+			behavior: "smooth",
+			block: "end",
+			inline: "center",
+		});
 	};
 
 	$: scrollIntoViewAndHighlight(activeEvent);

@@ -19,9 +19,9 @@ _A dinosaur in Dubai Mall? No way!_
 
 Did you know there's a huge Diplodocus, or [Dubai Dino](https://thedubaimall.com/en/entertain-detail/dubai-dino-1), located at the Souk Area of the mall? Take a quick peek and dive into the Jurassic period while enjoying your shopping time!
 
-The Souk Area is located on the Ground Floor, 3 min away from *H&M*. If you have doubts, simply ask the security staff or use one of the interactive maps.
+The Souk Area is located on the Ground Floor, 3 min away from _H&M_. If you have doubts, simply ask the security staff or use one of the interactive maps.
 
-If you're still not impressed, we have some more things to share. [One of the largest aquariums](https://thedubaimall.com/en/entertain-detail/dubai-aquarium-umderwatep-zoo-1) in the world is located on the second floor of the mall right next to *The Cheesecake Factory* and *Candylicious*. If you don't want to spend too much money on the tickets, you can enjoy the view from the outside.
+If you're still not impressed, we have some more things to share. [One of the largest aquariums](https://thedubaimall.com/en/entertain-detail/dubai-aquarium-umderwatep-zoo-1) in the world is located on the second floor of the mall right next to _The Cheesecake Factory_ and _Candylicious_. If you don't want to spend too much money on the tickets, you can enjoy the view from the outside.
 
 Tip: if you still wish to explore the Dubai Aquarium from the inside, we recommend you to [combine](https://www.getyourguide.com/dubai-l173/burj-khalifa-ticket-dubai-aquarium-ticket-t62827/?partner=true&date_from=2022-12-26&_pc=1,2) that with visiting the Burj-Khalifa. It might save you as little as 190 AED for 2 people.
 
@@ -29,7 +29,7 @@ If you're wondering where else to go, why not drop by the [DXB Play](https://the
 
 As a cherry on top, don't miss the Dubai Fountain show coming live daily from 6pm to 11pm every 30 minutes. Enjoy the spectacular view of lights & water choreographed to music. It is breathtaking!
 
-In case you're not sure which exit to use, the closest restaurants are *Wagamama? and The Five Guys.*
+In case you're not sure which exit to use, the closest restaurants are _Wagamama? and The Five Guys._
 
 ---
 
