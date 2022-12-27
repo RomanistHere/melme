@@ -4,6 +4,7 @@
 	import Seo from "$lib/components/Seo.svelte";
 	import Map from "$lib/components/Map/Map.svelte";
 	import Header from "$lib/components/Header.svelte";
+	import SuggestedEvents from "$lib/components/SuggestedEvents/SuggestedEvents.svelte";
 
 	export let data;
 
@@ -17,9 +18,11 @@
 	};
 
 	$: poisData = prepareData(data);
+	$: activePoi = null;
 
 	const handlePoiClick = ({ detail }) => {
-		goto(`events/${detail.slug}`);
+		// goto(`events/${detail.slug}`);
+		activePoi = detail.slug;
 	};
 </script>
 
@@ -33,3 +36,8 @@
 		on:handlePoiClick={handlePoiClick}
 	/>
 </section>
+
+<SuggestedEvents
+	data={poisData}
+	activeEvent={activePoi}
+/>

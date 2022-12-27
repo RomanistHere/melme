@@ -1,26 +1,7 @@
 import { Event } from "$db/models/event.model";
 
 import { appConfig } from "$lib/config.js";
-import { getCategoryFromParams } from "$lib/utils/index.js";
-// import { getGeoSuggestions } from "$lib/utils/map.js";
-
-// const getLocations = async eventsData => {
-// 	if (!eventsData)
-// 		return;
-//
-// 	return await Promise.all(
-// 		eventsData.map(async ({ addresses, slug }) => {
-// 			const addr = addresses[0];
-// 			const resp = await getGeoSuggestions(addr);
-// 			const { features } = await resp.json();
-// 			return {
-// 				location: features[0].center,
-// 				slug,
-// 				addr,
-// 			};
-// 		})
-// 	);
-// };
+import { getCategoryFromParams, truncateString } from "$lib/utils/index.js";
 
 export const load = async function ({ url }) {
 	const { searchParams, search } = url;
@@ -33,7 +14,7 @@ export const load = async function ({ url }) {
 			times: { $gte: today },
 			...(categories ? { categories: { $in: [...categories] } } : {}),
 		},
-		"slug location -_id"
+		"slug location title imgSrc description -_id"
 	)
 		.sort({
 			times: 1,
@@ -42,10 +23,10 @@ export const load = async function ({ url }) {
 		.lean();
 
 	const eventsWithLocation = data.filter(item => item.location?.coordinates);
-
-	// const locations = await getLocations(data);
+	const events = JSON.stringify(eventsWithLocation.map(item =>
+		({ ...item, description: truncateString(item.description, 40) })));
 
 	return {
-		events: JSON.stringify(eventsWithLocation),
+		events,
 	};
 };
