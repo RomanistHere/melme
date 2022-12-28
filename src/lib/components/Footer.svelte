@@ -39,8 +39,12 @@
 	</div>
 	<p class="w-full text-center text-xs mt-2">
 		<i>melme</i>
-		<a href="https://www.reddit.com/r/FDEApp/comments/zfvw2m/remember_that_free_events_in_dubai_app_idea_ive/" class="underline">
+		<a
+			href="https://www.reddit.com/r/FDEApp/comments/zfvw2m/remember_that_free_events_in_dubai_app_idea_ive/"
+			class="underline"
+		>
 			was released
 		</a>
-		on Dec 8, 2022 and is in early stage now</p>
+		on Dec 8, 2022 and is in early stage now
+	</p>
 </footer>
