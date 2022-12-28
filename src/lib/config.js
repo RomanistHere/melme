@@ -33,6 +33,6 @@ export const timeOptionsToMinutes = {
 };
 
 export const appConfig = {
-	firstResultsLimit: 15,
+	firstResultsLimit: 20,
 	moreResultsLimit: 10,
 };
