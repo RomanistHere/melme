@@ -97,7 +97,7 @@
 						class="p-2 block"
 						href="articles/dubai-free-places"
 					>
-						visit every day
+						free to visit every day
 					</a>
 				</li>
 				<li>
