@@ -119,6 +119,7 @@
 
 				<Input
 					title="Your email address"
+					type="email"
 					bind:value={userEmail}
 					externalError={isInputError && "Wrong address format"}
 				/>
