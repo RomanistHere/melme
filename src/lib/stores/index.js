@@ -13,4 +13,8 @@ export const modalState = writable({
 		active: false,
 		payload: null,
 	},
+	subscriptionPopup: {
+		active: false,
+		payload: null,
+	},
 });

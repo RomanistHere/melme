@@ -33,4 +33,5 @@ export const userState = writable({
 	comingEvents: [],
 	reminderEvents: [],
 	isModQueueVisited: false,
+	isSubscribed: false,
 });

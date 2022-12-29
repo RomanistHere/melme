@@ -5,23 +5,27 @@
 	import SecondaryButton from "$lib/components/ui/SecondaryButton.svelte";
 
 	import { modalState } from "$lib/stores/index.js";
-	import { closeOverlay } from "$lib/utils/index.js";
+	import { closeOverlay, truncateString } from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
 
 	$: ({ shouldSetNotificationPopup } = $modalState);
-	$: error = null;
+	$: err = null;
 	$: success = null;
 
 	let sub = null;
 
-	const closePopup = () => closeOverlay("shouldSetNotificationPopup");
+	const closePopup = () => {
+		err = null;
+		success = null;
+		closeOverlay("shouldSetNotificationPopup");
+	};
 
 	const clickOnBg = e => {
 		if (e.target === e.currentTarget) closePopup();
 	};
 
 	const scheduleNotification = async () => {
-		error = null;
+		err = null;
 		success = null;
 
 		try {
@@ -93,7 +97,7 @@
 
 			success = true;
 		} catch (e) {
-			error = e;
+			err = e;
 			console.log(e);
 		}
 	};
@@ -111,9 +115,9 @@
 			in:fly={{ y: 150, duration: 300 }}
 			out:fly={{ y: 150, duration: 300 }}
 		>
-			{#if error}
+			{#if err}
 				<p class="text-lg mb-1">
-					{error}
+					{truncateString(err, 80)}
 				</p>
 
 				<p class="text-sm opacity-40 mb-6">Reminder is not scheduled.</p>

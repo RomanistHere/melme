@@ -11,6 +11,7 @@
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
 	import SecondaryButton from "$lib/components/ui/SecondaryButton.svelte";
 	import NotificationPopup from "./NotificationPopup.svelte";
+	import SubscriptionPopup from "$lib/components/modals/SubscriptionPopup.svelte";
 
 	import {
 		truncateString,
@@ -61,6 +62,12 @@
 	let areYouGoingText = true;
 
 	const hostRating = "0.0";
+
+	const openSubscriptionPopup = e => {
+		e.preventDefault();
+
+		openOverlay("subscriptionPopup");
+	};
 
 	const setReminder = () => {
 		if (isReminderSet) return false;
@@ -364,6 +371,13 @@
 			</div>
 		{/if}
 
+		{#if !$userState?.isSubscribed}
+			<PrimaryButton
+				title="Subscribe for more events like this"
+				on:click={openSubscriptionPopup}
+			/>
+		{/if}
+
 		<SecondaryButton
 			title="Share to"
 			on:click={initShareProcess}
@@ -389,3 +403,5 @@
 </div>
 
 <NotificationPopup />
+
+<SubscriptionPopup />
