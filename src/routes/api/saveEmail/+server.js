@@ -24,12 +24,12 @@ export async function POST(event) {
 
 		const { email } = await event.request.json();
 
-		const data = await User.findOne({ email });
+		const data = await User.findOne({ email: email.toLowerCase() });
 
 		if (data) return json({ error: "Email address is already in database." });
 
 		await new User({
-			email,
+			email: email.toLowerCase(),
 			createdAt: new Date(),
 		}).save();
 
