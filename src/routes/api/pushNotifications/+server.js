@@ -3,8 +3,9 @@ import webPush from "web-push";
 
 import { PushNotification } from "$db/models/pushNotification.model";
 import { Event } from "$db/models/event.model";
+import { logError } from "$lib/utils/index.js";
 
-export async function GET({ request }) {
+export async function GET() {
 	try {
 		const today = new Date().toISOString().split("T")[0];
 		const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1));
@@ -56,7 +57,7 @@ export async function GET({ request }) {
 
 		return json({ error: null });
 	} catch (e) {
-		console.log(e);
+		logError(e);
 		return json({ error: e });
 	}
 }

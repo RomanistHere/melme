@@ -6,7 +6,7 @@
 	import Input from "$lib/components/ui/Input.svelte";
 
 	import { modalState } from "$lib/stores/index.js";
-	import { closeOverlay, truncateString } from "$lib/utils/index.js";
+	import { closeOverlay, truncateString, logError } from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
 
 	$: ({ subscriptionPopup } = $modalState);
@@ -32,7 +32,12 @@
 		success = null;
 		isInputError = false;
 
-		if (!userEmail || !userEmail.includes("@") || userEmail.split("@").filter(Boolean).length !== 2 || userEmail.length < 7) {
+		if (
+			!userEmail ||
+			!userEmail.includes("@") ||
+			userEmail.split("@").filter(Boolean).length !== 2 ||
+			userEmail.length < 7
+		) {
 			isInputError = true;
 			return;
 		}
@@ -58,7 +63,7 @@
 			}));
 		} catch (e) {
 			err = e;
-			console.log(e);
+			logError(e);
 		}
 	};
 </script>
@@ -80,7 +85,9 @@
 					{truncateString(err, 80)}
 				</p>
 
-				<p class="text-sm opacity-40 mb-6">Something went wrong. Your address wasn't saved.</p>
+				<p class="text-sm opacity-40 mb-6">
+					Something went wrong. Your address wasn't saved.
+				</p>
 
 				<SecondaryButton
 					title="Try again"
@@ -102,7 +109,8 @@
 				/>
 			{:else}
 				<p class="text-lg mb-1">
-					When we ready, we will occasionally send you emails with the best events we find.
+					When we ready, we will occasionally send you emails with the best
+					events we find.
 				</p>
 
 				<p class="text-sm opacity-40 mb-6">

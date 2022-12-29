@@ -3,7 +3,6 @@
 	import Map from "$lib/components/Map/Map.svelte";
 	import Header from "$lib/components/Header.svelte";
 	import SuggestedEvents from "$lib/components/SuggestedEvents/SuggestedEvents.svelte";
-	import ListToggle from "$lib/components/icons/ListToggle.svelte";
 
 	export let data;
 

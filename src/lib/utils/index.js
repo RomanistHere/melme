@@ -157,3 +157,7 @@ export const getCategoryFromParams = searchParams => {
 
 export const roundToSixthDecimal = number =>
 	Math.round(100000 * number) / 100000;
+
+export const logError = err =>
+	// eslint-disable-next-line no-console
+	console.log(err);

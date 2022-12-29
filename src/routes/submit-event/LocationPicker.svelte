@@ -32,8 +32,6 @@
 		pickedPois = pickedPois.slice(0, -1);
 		updateState(pickedPois);
 	};
-
-	$: console.log(pickedPois);
 </script>
 
 <p class="lowercase text-sm mb-2">

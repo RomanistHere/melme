@@ -1,6 +1,7 @@
 import { json } from "@sveltejs/kit";
 
 import { PushNotification } from "$db/models/pushNotification.model";
+import { logError } from "$lib/utils/index.js";
 
 export async function POST({ request }) {
 	try {
@@ -17,7 +18,7 @@ export async function POST({ request }) {
 			error: null,
 		});
 	} catch (e) {
-		console.log(e);
+		logError(e);
 		return json({ error: e });
 	}
 }

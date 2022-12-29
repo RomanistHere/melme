@@ -5,7 +5,7 @@
 	import SecondaryButton from "$lib/components/ui/SecondaryButton.svelte";
 
 	import { modalState } from "$lib/stores/index.js";
-	import { closeOverlay, truncateString } from "$lib/utils/index.js";
+	import { closeOverlay, truncateString, logError } from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
 
 	$: ({ shouldSetNotificationPopup } = $modalState);
@@ -98,7 +98,7 @@
 			success = true;
 		} catch (e) {
 			err = e;
-			console.log(e);
+			logError(e);
 		}
 	};
 </script>
