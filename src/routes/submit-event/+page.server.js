@@ -7,35 +7,9 @@ import {
 	generateRandomString,
 	convertLocalDateToUTCIgnoringTimezone,
 } from "$lib/utils/index.js";
+import { rateLimitCheck } from "$lib/utils/server.js";
 
-const rateLimitCheck = usageTimesLimitation => async ip => {
-	try {
-		const userRateLimit = await UserRateLimit.findOne({
-			ip,
-		});
-
-		const isOverLimit = userRateLimit?.uses >= usageTimesLimitation;
-		const uses = userRateLimit?.uses + 1 || 0;
-
-		if (userRateLimit) await UserRateLimit.findOne({ ip }).remove();
-
-		await new UserRateLimit({
-			ip,
-			uses,
-			createdAt: new Date(),
-		}).save();
-
-		return {
-			isError: false,
-			isOverLimit,
-			message: "updated",
-		};
-	} catch (error) {
-		return { isError: true, message: error };
-	}
-};
-
-const isUserRateLimited = rateLimitCheck(10);
+const isUserRateLimited = rateLimitCheck(10, UserRateLimit);
 
 export const actions = {
 	default: async event => {
