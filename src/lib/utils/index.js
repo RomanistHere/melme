@@ -65,10 +65,11 @@ export const getTimeHumanFormat = dateStr => {
 };
 
 export const sortDateByClosest = datesArray => {
-	if (datesArray.length === 1) return datesArray;
+	if (datesArray.length === 1)
+		return datesArray;
 
 	const today = new Date();
-	const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+	const yesterday = new Date(new Date().setHours(0, 0, 0, 0));
 
 	const sorted = datesArray.sort((a, b) => {
 		const distanceA = Math.abs(today - a);
@@ -161,3 +162,28 @@ export const roundToSixthDecimal = number =>
 export const logError = err =>
 	// eslint-disable-next-line no-console
 	console.log(err);
+
+export const getClosestTime = event => {
+	console.log(event);
+	if (!event)
+		return;
+
+	const { duration, times } = event;
+
+	if (!times)
+		return;
+
+	const todayString = getToday();
+	const today = convertUTCToLocalDateIgnoringTimezone(new Date(getToday()));
+
+	const afterDates = times.filter(d => d - today > 0);
+
+	for (let i = 0; i < afterDates.length; i++) {
+		const date = afterDates[i];
+		const isEventToday = todayString === date.toLocaleDateString("en-CA");
+
+		console.log(today);
+		console.log(date)
+		console.log(isEventToday)
+	}
+};

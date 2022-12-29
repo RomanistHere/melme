@@ -20,16 +20,10 @@
 	export let price;
 	export let times;
 	export let categories;
-	// export let location;
-	export let isApproved;
 	export let isFree;
-	export let isBlocked;
 	export let upVotes;
-	export let downVotes;
 	export let hostName;
-	export let linkToEvent;
 	export let duration;
-	export let requirements;
 	export let isRegistrationNeeded;
 
 	$: date = getClosestDateToNow(times);

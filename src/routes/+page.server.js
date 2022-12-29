@@ -21,6 +21,40 @@ export const load = async function ({ url }) {
 		.limit(appConfig.firstResultsLimit)
 		.lean();
 
+	// const data = await Event.aggregate([
+	// 	{ $unwind: "$times" },
+	// 	{
+	// 		$match: {
+	// 			times: { "$gte": today }
+	// 		},
+	// 	},
+	// 	{
+	// 		$sort: {
+	// 			times: 1,
+	// 		},
+	// 	},
+	// 	{
+	// 		$group: {
+	// 			_id: "$_id",
+	// 			times: { $push: "$times" },
+	// 			title: { $first: "$title" },
+	// 			slug: { $first: "$slug" },
+	// 			description: { $first: "$description" },
+	// 			addresses: { $first: "$addresses" },
+	// 			imgSrc: { $first: "$imgSrc" },
+	// 			price: { $first: "$price" },
+	// 			categories: { $first: "$categories" },
+	// 			isFree: { $first: "$isFree" },
+	// 			upVotes: { $first: "$upVotes" },
+	// 			hostName: { $first: "$hostName" },
+	// 			duration: { $first: "$duration" },
+	// 			isRegistrationNeeded: { $first: "$isRegistrationNeeded" },
+	// 		}
+	// 	},
+	// 	{ $unset: "_id" },
+	// 	{ $limit: appConfig.firstResultsLimit }
+	// ]);
+
 	return {
 		events: data,
 	};
