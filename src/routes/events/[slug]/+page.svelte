@@ -340,9 +340,7 @@
 			</a>
 		{/if}
 
-		<InstallApp
-			version="offline"
-		/>
+		<InstallApp version="offline" />
 
 		{#if location}
 			<h2 class="mb-2 mt-6 font-bold text-lg">Location</h2>

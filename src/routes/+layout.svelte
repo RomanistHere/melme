@@ -9,8 +9,7 @@
 	const beforePwaInstallHandle = e => {
 		e.preventDefault();
 
-		if ($userState?.pwaDismissed)
-			return;
+		if ($userState?.pwaDismissed) return;
 
 		appState.update(state => ({
 			...state,
@@ -20,7 +19,7 @@
 	};
 </script>
 
-<svelte:window on:beforeinstallprompt={beforePwaInstallHandle}/>
+<svelte:window on:beforeinstallprompt={beforePwaInstallHandle} />
 
 <svelte:head>
 	<script

@@ -10,9 +10,10 @@
 			btn: "Add shortcut",
 		},
 		offline: {
-			title: "No Wifi? No problem. Access offline content with a one-click installation.",
+			title:
+				"No Wifi? No problem. Access offline content with a one-click installation.",
 			btn: "Install",
-		}
+		},
 	};
 
 	const dismissPwa = () => {

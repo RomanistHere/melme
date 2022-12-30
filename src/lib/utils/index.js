@@ -65,8 +65,7 @@ export const getTimeHumanFormat = dateStr => {
 };
 
 export const sortDateByClosest = datesArray => {
-	if (datesArray.length === 1)
-		return datesArray;
+	if (datesArray.length === 1) return datesArray;
 
 	const today = new Date();
 	const yesterday = new Date(new Date().setHours(0, 0, 0, 0));
@@ -165,13 +164,11 @@ export const logError = err =>
 
 export const getClosestTime = event => {
 	console.log(event);
-	if (!event)
-		return;
+	if (!event) return;
 
 	const { duration, times } = event;
 
-	if (!times)
-		return;
+	if (!times) return;
 
 	const todayString = getToday();
 	const today = convertUTCToLocalDateIgnoringTimezone(new Date(getToday()));
@@ -183,7 +180,7 @@ export const getClosestTime = event => {
 		const isEventToday = todayString === date.toLocaleDateString("en-CA");
 
 		console.log(today);
-		console.log(date)
-		console.log(isEventToday)
+		console.log(date);
+		console.log(isEventToday);
 	}
 };
