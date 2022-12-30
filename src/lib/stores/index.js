@@ -6,6 +6,8 @@ export const loadedEvents = writable([]);
 
 export const appState = writable({
 	loadMorePressedTimes: 0,
+	pwaInstallPrompt: null,
+	showPwaInstall: false,
 });
 
 export const modalState = writable({

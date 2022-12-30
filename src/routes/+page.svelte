@@ -13,6 +13,7 @@
 	import { loadedEvents, appState } from "$lib/stores/index.js";
 	import { sortByDateAndTime } from "$lib/utils/index.js";
 	import { appConfig } from "$lib/config.js";
+	import InstallApp from "$lib/components/InstallApp.svelte";
 
 	// `data` comes from export in +page.server.js
 	export let data;
@@ -97,10 +98,15 @@
 	</p>
 {:else}
 	<ul>
-		{#each sortedByDateEvents as event (event.slug)}
+		{#each sortedByDateEvents as event, i (event.slug)}
 			<li>
 				<Card {...event} />
 			</li>
+			{#if i === 5}
+				<li>
+					<InstallApp />
+				</li>
+			{/if}
 		{/each}
 	</ul>
 {/if}

@@ -25,6 +25,7 @@
 	} from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
 	import Map from "$lib/components/Map/Map.svelte";
+	import InstallApp from "$lib/components/InstallApp.svelte";
 
 	export let data;
 
@@ -338,6 +339,10 @@
 				{truncateString(registrationLink, 20)}
 			</a>
 		{/if}
+
+		<InstallApp
+			version="offline"
+		/>
 
 		{#if location}
 			<h2 class="mb-2 mt-6 font-bold text-lg">Location</h2>
