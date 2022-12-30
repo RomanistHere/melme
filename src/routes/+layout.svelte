@@ -1,7 +1,25 @@
 <script>
 	import "../app.css";
+
 	import Footer from "$lib/components/Footer.svelte";
+
+	import { appState } from "$lib/stores/index.js";
+	import { userState } from "$lib/stores/localStorage.js";
+
+	const beforePwaInstallHandle = e => {
+		e.preventDefault();
+
+		if ($userState?.pwaDismissed) return;
+
+		appState.update(state => ({
+			...state,
+			pwaInstallPrompt: e,
+			showPwaInstall: true,
+		}));
+	};
 </script>
+
+<svelte:window on:beforeinstallprompt={beforePwaInstallHandle} />
 
 <svelte:head>
 	<script
