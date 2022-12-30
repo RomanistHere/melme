@@ -1,6 +1,11 @@
 <script>
+	import { onMount } from "svelte";
+
+	import IosPwaPopup from "$lib/components/modals/IosPwaPopup.svelte";
+
 	import { appState } from "$lib/stores/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
+	import { isIos, isInStandaloneMode, openOverlay } from "$lib/utils/index.js";
 
 	export let version = "shortcut";
 
@@ -30,6 +35,11 @@
 	};
 
 	const installPwa = async () => {
+		if ($appState.isIos) {
+			openOverlay("iosPwaPopup");
+			return;
+		}
+
 		$appState.pwaInstallPrompt.prompt();
 		await $appState.pwaInstallPrompt.userChoice;
 
@@ -39,6 +49,18 @@
 			showPwaInstall: false,
 		}));
 	};
+
+	onMount(() => {
+		if (isIos() && !isInStandaloneMode()) {
+			if ($userState?.pwaDismissed) return;
+
+			appState.update(state => ({
+				...state,
+				isIos: true,
+				showPwaInstall: true,
+			}));
+		}
+	});
 </script>
 
 {#if $appState.showPwaInstall}
@@ -60,3 +82,5 @@
 		</div>
 	</div>
 {/if}
+
+<IosPwaPopup />

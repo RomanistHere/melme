@@ -8,6 +8,7 @@ export const appState = writable({
 	loadMorePressedTimes: 0,
 	pwaInstallPrompt: null,
 	showPwaInstall: false,
+	isIos: false,
 });
 
 export const modalState = writable({
@@ -16,6 +17,10 @@ export const modalState = writable({
 		payload: null,
 	},
 	subscriptionPopup: {
+		active: false,
+		payload: null,
+	},
+	iosPwaPopup: {
 		active: false,
 		payload: null,
 	},
