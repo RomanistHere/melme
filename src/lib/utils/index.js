@@ -168,7 +168,7 @@ export const isIos = () => {
 };
 
 export const isInStandaloneMode = () =>
-	("standalone" in window.navigator) && (window.navigator.standalone);
+	"standalone" in window.navigator && window.navigator.standalone;
 
 export const getClosestTime = event => {
 	console.log(event);
