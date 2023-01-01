@@ -1,7 +1,7 @@
 import { fail } from "@sveltejs/kit";
 
 import { Event } from "$db/models/event.model";
-import { UserRateLimit } from "$db/models/userRateLimit.model.js";
+import { UserRateLimit } from "$db/models/userRateLimit.model";
 
 import {
 	generateRandomString,
@@ -28,7 +28,8 @@ export const actions = {
 
 		const formData = await event.request.formData();
 		const data = Object.fromEntries(formData);
-		const locationParsed = JSON.parse(data.location);
+
+		const locationParsed = data.location ? JSON.parse(data.location) : null;
 
 		const datePropNames = Object.keys(data).filter(
 			name => name.indexOf("date_") === 0
@@ -100,9 +101,7 @@ export const actions = {
 			categories: JSON.parse(data.categories),
 			isFree: data.isEventFree === "on",
 			isRegistrationNeeded: data.isRegistrationNeeded === "on",
-			location: {
-				coordinates: locationParsed,
-			},
+			...(locationParsed ? { location: { coordinates: locationParsed } } : {}),
 		});
 
 		try {

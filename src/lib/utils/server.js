@@ -7,7 +7,7 @@ export const rateLimitCheck = (usageTimesLimitation, Scheme) => async ip => {
 		const isOverLimit = userRateLimit?.uses >= usageTimesLimitation;
 		const uses = userRateLimit?.uses + 1 || 0;
 
-		if (userRateLimit) await Scheme.findOne({ ip }).remove();
+		if (userRateLimit) await Scheme.findOne({ ip }).deleteOne();
 
 		await new Scheme({
 			ip,

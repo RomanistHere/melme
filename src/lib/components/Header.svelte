@@ -28,7 +28,7 @@
 	const openSubmitEventPage = e => {
 		e.preventDefault();
 		closeMenu();
-		goto("submit-event");
+		goto("submit/event");
 	};
 </script>
 

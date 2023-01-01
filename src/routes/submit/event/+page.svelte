@@ -6,12 +6,12 @@
 	import RadioButtons from "$lib/components/ui/RadioButtons.svelte";
 	import PrimaryButton from "$lib/components/ui/PrimaryButton.svelte";
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
-	import TogglerLink from "./TogglerLink.svelte";
-	import CategoryPicker from "./CategoryPicker.svelte";
 	import Seo from "$lib/components/Seo.svelte";
-	import DateAndTimePicker from "./DateAndTimePicker.svelte";
-	import AddressPicker from "./AddressPicker.svelte";
-	import LocationPicker from "./LocationPicker.svelte";
+	import TogglerLink from "../TogglerLink.svelte";
+	import CategoryPicker from "../CategoryPicker.svelte";
+	import DateAndTimePicker from "../DateAndTimePicker.svelte";
+	import AddressPicker from "../AddressPicker.svelte";
+	import LocationPicker from "../LocationPicker.svelte";
 
 	import { handleClickBack } from "$lib/utils/index.js";
 	import { categoryList, timeOptions } from "$lib/config.js";
@@ -63,7 +63,7 @@
 		</p>
 	{:else}
 		<a
-			href="/"
+			href="/static"
 			on:click|preventDefault={handleClickBack}
 			class="p-3 block -ml-3 mb-2"
 		>
@@ -97,7 +97,7 @@
 
 			<Textarea
 				title="*Description of the event"
-				placeholder="Provide the description here, you can paste the original one or describe in your own words."
+				placeholder="Provide the description here, you can paste it from somewhere else or describe in your own words."
 				id="event-description"
 				name="description"
 				maxlength={2048}
