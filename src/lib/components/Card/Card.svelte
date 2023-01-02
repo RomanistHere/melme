@@ -25,10 +25,25 @@
 	export let hostName;
 	export let duration;
 	export let isRegistrationNeeded;
+	export let isTimeStrings = true;
 
-	$: date = getClosestDateToNow(times);
-	$: humanDate = getDateHumanFormat(date);
-	$: humanTime = getTimeHumanFormat(date);
+	const getTodayTimes = arr => {
+		if (!arr)
+			return null;
+
+		const dayOfWeek = new Date().getUTCDay();
+		return arr.filter(({ weekday }) => weekday === dayOfWeek)[0];
+	};
+
+	const getFromTime = ({ startHour, startMinute }) =>
+		`from ${startHour.toString().padStart(2, "0")}:${startMinute.toString().padStart(2, "0")}`;
+
+	const getToTime = ({ endHour, endMinute }) =>
+		`till ${endHour.toString().padStart(2, "0")}:${endMinute.toString().padStart(2, "0")}`;
+
+	$: date = isTimeStrings ? getClosestDateToNow(times) : getTodayTimes(times);
+	$: info1 = isTimeStrings ? getDateHumanFormat(date) : getFromTime(date);
+	$: info2 = isTimeStrings ? getTimeHumanFormat(date) : getToTime(date);
 </script>
 
 <div class="my-6 bg-white rounded-2xl overflow-hidden">
@@ -40,6 +55,7 @@
 		{isFree}
 		{price}
 		{date}
+		{isTimeStrings}
 	/>
 
 	<div class="p-6">
@@ -57,11 +73,11 @@
 			</span>
 			<Separator />
 			<span>
-				{humanDate}
+				{info1}
 			</span>
 			<Separator />
 			<span>
-				{humanTime}
+				{info2}
 			</span>
 		</p>
 		<p class="mb-2">
@@ -87,7 +103,7 @@
 			<PeopleComing number={upVotes} />
 			<a
 				class="font-medium text-indigo-600 flex items-center"
-				href="events/{slug}"
+				href="attractions/{slug}"
 			>
 				<span class="mr-1">Learn more</span>
 				<div class="rotate-180 scale-90">

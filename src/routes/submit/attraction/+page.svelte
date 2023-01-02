@@ -38,7 +38,7 @@
 	$: imgPreview = null;
 </script>
 
-<Seo title="melme | submit event" />
+<Seo title="melme | submit attraction" />
 
 <section class="max-w-2xl mx-auto py-8">
 	{#if form?.success}
