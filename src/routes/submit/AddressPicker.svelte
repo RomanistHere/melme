@@ -56,7 +56,7 @@
 </ul>
 
 <button
-	class="underline mb-6 mt-4 text-sm"
+	class="underline mb-6 mt-4 text-sm text-indigo-700"
 	on:click|preventDefault={increaseNumber}
 >
 	Add another location

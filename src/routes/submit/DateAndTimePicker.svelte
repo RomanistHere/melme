@@ -60,7 +60,7 @@
 </ul>
 
 <button
-	class="text-sm underline mt-2 mb-6"
+	class="text-sm underline mt-2 mb-6 text-indigo-700"
 	on:click|preventDefault={increaseNumber}
 >
 	Add another time

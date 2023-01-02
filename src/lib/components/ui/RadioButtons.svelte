@@ -5,8 +5,7 @@
 	export let id;
 	export let name;
 	export let title;
-
-	let group;
+	export let group;
 
 	const handleChange = e => {
 		group = e.target.value;

@@ -3,18 +3,17 @@
 
 	import Input from "$lib/components/ui/Input.svelte";
 	import Textarea from "$lib/components/ui/Textarea.svelte";
-	import RadioButtons from "$lib/components/ui/RadioButtons.svelte";
 	import PrimaryButton from "$lib/components/ui/PrimaryButton.svelte";
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
 	import Seo from "$lib/components/Seo.svelte";
 	import TogglerLink from "../TogglerLink.svelte";
 	import CategoryPicker from "../CategoryPicker.svelte";
-	import DateAndTimePicker from "../DateAndTimePicker.svelte";
+	import TimeRangePicker from "../TimeRangePicker.svelte";
 	import AddressPicker from "../AddressPicker.svelte";
 	import LocationPicker from "../LocationPicker.svelte";
 
 	import { handleClickBack } from "$lib/utils/index.js";
-	import { categoryList, timeOptions } from "$lib/config.js";
+	import { attractionCategoryList } from "$lib/config.js";
 
 	export let form;
 
@@ -121,17 +120,9 @@
 
 			<LocationPicker title="Could you point to the location(s) on the map?" />
 
-			<DateAndTimePicker
-				title="*Pick a date and a local time when it starts"
+			<TimeRangePicker
+				title="*What's the best time to visit?"
 				externalError={form?.missingDate && "Something wrong with the dates"}
-			/>
-
-			<RadioButtons
-				title="Do you know how long it will be?"
-				id="event-duration"
-				name="duration"
-				options={timeOptions}
-				class="mb-4"
 			/>
 
 			<Textarea
@@ -197,7 +188,7 @@
 
 			<CategoryPicker
 				title="Pick a category for this attraction (multiple allowed)"
-				list={categoryList}
+				list={attractionCategoryList}
 				bind:pickedList
 			/>
 
