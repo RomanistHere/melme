@@ -9,13 +9,13 @@ import { rateLimitCheck } from "$lib/utils/server.js";
 const isUserRateLimited = rateLimitCheck(10, UserRateLimit);
 
 const strToNumber = {
-	"Sun": 0,
-	"Mon": 1,
-	"Tue": 2,
-	"Wed": 3,
-	"Thu": 4,
-	"Fri": 5,
-	"Sat": 6,
+	Sun: 0,
+	Mon: 1,
+	Tue: 2,
+	Wed: 3,
+	Thu: 4,
+	Fri: 5,
+	Sat: 6,
 };
 const stringToArr = {
 	"Mon-Sun": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -131,7 +131,9 @@ export const actions = {
 				categories: JSON.parse(data.categories),
 				isFree: data.isEventFree === "on",
 				isRegistrationNeeded: data.isRegistrationNeeded === "on",
-				...(locationParsed ? { location: { coordinates: locationParsed } } : {}),
+				...(locationParsed
+					? { location: { coordinates: locationParsed } }
+					: {}),
 			}).save();
 		} catch (error) {
 			return { success: false, error };

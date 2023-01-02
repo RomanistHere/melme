@@ -28,18 +28,21 @@
 	export let isTimeStrings = true;
 
 	const getTodayTimes = arr => {
-		if (!arr)
-			return null;
+		if (!arr) return null;
 
 		const dayOfWeek = new Date().getUTCDay();
 		return arr.filter(({ weekday }) => weekday === dayOfWeek)[0];
 	};
 
 	const getFromTime = ({ startHour, startMinute }) =>
-		`from ${startHour.toString().padStart(2, "0")}:${startMinute.toString().padStart(2, "0")}`;
+		`from ${startHour.toString().padStart(2, "0")}:${startMinute
+			.toString()
+			.padStart(2, "0")}`;
 
 	const getToTime = ({ endHour, endMinute }) =>
-		`till ${endHour.toString().padStart(2, "0")}:${endMinute.toString().padStart(2, "0")}`;
+		`till ${endHour.toString().padStart(2, "0")}:${endMinute
+			.toString()
+			.padStart(2, "0")}`;
 
 	$: date = isTimeStrings ? getClosestDateToNow(times) : getTodayTimes(times);
 	$: info1 = isTimeStrings ? getDateHumanFormat(date) : getFromTime(date);

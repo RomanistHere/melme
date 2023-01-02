@@ -91,9 +91,9 @@
 {#if events.length === 0}
 	<p class="text-center my-14">
 		We didn't find any results for you. Pick another category or <TextLink
-		title="submit your event"
-		href="submit-event"
-	/>.
+			title="submit your event"
+			href="submit-event"
+		/>.
 	</p>
 {:else}
 	<ul>

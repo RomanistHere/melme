@@ -70,7 +70,8 @@
 		</a>
 
 		<h1 class="mb-8 text-2xl">
-			To submit an attraction, please, fill all the necessary fields marked with *
+			To submit an attraction, please, fill all the necessary fields marked with
+			*
 		</h1>
 
 		{#if form?.error}

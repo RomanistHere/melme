@@ -24,13 +24,15 @@ const schema = new Schema(
 			required: true,
 		},
 		times: {
-			type: [{
-				weekday: Number,
-				startHour: Number,
-				startMinute: Number,
-				endHour: Number,
-				endMinute: Number,
-			}],
+			type: [
+				{
+					weekday: Number,
+					startHour: Number,
+					startMinute: Number,
+					endHour: Number,
+					endMinute: Number,
+				},
+			],
 			required: true,
 		},
 		price: String,
