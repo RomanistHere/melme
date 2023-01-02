@@ -53,7 +53,7 @@
 			</a>
 			or
 			<a
-				href="/submit-attraction"
+				href="/submit/attraction"
 				class="underline"
 				on:click={resetValues}
 			>
@@ -108,7 +108,7 @@
 			<Input
 				title="Does it has an official website?"
 				id="event-link"
-				name="linkToEvent"
+				name="linkToWebsite"
 				maxlength={128}
 				placeholder="It would be handy if you searched for it."
 				class="mb-4"
