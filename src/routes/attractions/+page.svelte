@@ -127,8 +127,8 @@
 		/>
 		or
 		<TextLink
-			href="/submit-event"
-			title="Submit an event"
+			href="/submit/attraction"
+			title="Submit an attraction"
 		/>
 	</p>
 {/if}

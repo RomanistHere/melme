@@ -89,7 +89,7 @@
 						class="p-2 block"
 						href="articles/dubai-free-tips"
 					>
-						save money tips
+						How to save money
 					</a>
 				</li>
 				<li>
@@ -97,7 +97,15 @@
 						class="p-2 block"
 						href="articles/dubai-free-places"
 					>
-						visit every day
+						What to visit every day
+					</a>
+				</li>
+				<li>
+					<a
+						class="p-2 block"
+						href="attractions"
+					>
+						See the list of attractions
 					</a>
 				</li>
 				<li>
