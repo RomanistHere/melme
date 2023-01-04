@@ -104,7 +104,7 @@ export const sortByDateAndTime = objects => {
 	return sorted;
 };
 
-const padTime = time =>
+export const padTime = time =>
 	time.toString().padStart(2, "0");
 
 export const getEndTime = arr => {

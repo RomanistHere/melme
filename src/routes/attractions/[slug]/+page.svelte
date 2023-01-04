@@ -17,6 +17,7 @@
 		openOverlay,
 		showError,
 		getEndTime,
+		padTime,
 	} from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
 	import Map from "$lib/components/Map/Map.svelte";
@@ -56,6 +57,17 @@
 	$: showTimes = false;
 
 	const hostRating = "0.0";
+
+	const todayDay = new Date().getUTCDay();
+	const days = {
+		0: "Sunday",
+		1: "Monday",
+		2: "Tuesday",
+		3: "Wednesday",
+		4: "Thursday",
+		5: "Friday",
+		6: "Saturday",
+	};
 
 	const openSubscriptionPopup = e => {
 		e.preventDefault();
@@ -230,26 +242,37 @@
 			{/each}
 		</ul>
 
-		<!--{#if availableTimes.length > 1}-->
-		<!--	<SecondaryButton-->
-		<!--		title="{showTimes ? 'Hide' : 'Show'} time slots"-->
-		<!--		on:click={showTimeSlots}-->
-		<!--	/>-->
-		<!--{/if}-->
+		{#if times.length > 1}
+			<SecondaryButton
+				title="{showTimes ? 'Hide' : 'Show'} visiting time"
+				on:click={showTimeSlots}
+			/>
+		{/if}
 
-		<!--{#if showTimes}-->
-		<!--	<ul>-->
-		<!--		{#each availableTimes.sort((a, b) => a - b) as time}-->
-		<!--			{@const humanDate = getDateHumanFormat(time)}-->
-		<!--			<li>-->
-		<!--				{humanDate}, {getTimeHumanFormat(time)}-->
-		<!--				{#if humanDate === getDateHumanFormat(new Date())}-->
-		<!--					- today-->
-		<!--				{/if}-->
-		<!--			</li>-->
-		<!--		{/each}-->
-		<!--	</ul>-->
-		<!--{/if}-->
+		{#if showTimes}
+			<ul>
+				{#each times as { weekday, startHour, startMinute, endHour, endMinute}}
+					<li>
+						<span class="min-w-[6rem] inline-block">
+							{days[weekday]}
+						</span>
+
+						{#if startHour === endHour && startMinute === endMinute}
+							day off
+						{:else}
+							from
+							{padTime(startHour)}:{padTime(startMinute)}
+							till
+							{padTime(endHour)}:{padTime(endMinute)}
+						{/if}
+
+						{#if todayDay === weekday}
+							- today
+						{/if}
+					</li>
+				{/each}
+			</ul>
+		{/if}
 
 		<p class="my-4 whitespace-pre-wrap">
 			{description}
@@ -272,7 +295,7 @@
 		</p>
 
 		{#if isRegistrationNeeded && registrationLink}
-			Link to registration: <a
+			Registration: <a
 			href={registrationLink}
 			class="underline"
 		>
@@ -339,7 +362,5 @@
 		{/if}
 	</div>
 </div>
-
-<!--<NotificationPopup />-->
 
 <SubscriptionPopup />
