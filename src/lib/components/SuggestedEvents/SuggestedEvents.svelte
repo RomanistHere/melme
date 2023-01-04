@@ -29,6 +29,8 @@
 <div class="overflow-hidden bg-white -mx-4">
 	<ul class="whitespace-nowrap overflow-y-scroll -mx-2 p-4">
 		{#each preparedData as { slug, title, description, imgSrc, hostName, duration, isFree, price, times } (slug)}
+			{@const isInstanceOfDate = times[0] instanceof Date}
+			{@const path = isInstanceOfDate ? "events" : "attractions"}
 			<li
 				class="w-60 inline-block mx-2 rounded-2xl shadow-lg overflow-hidden"
 				class:bg-indigo-100={activeSlug === slug}
@@ -42,9 +44,9 @@
 					{duration}
 					{isFree}
 					{price}
-					date={getClosestDateToNow(times, times[0] instanceof Date)}
+					date={getClosestDateToNow(times, isInstanceOfDate)}
 					isSmall={true}
-					isInstanceOfDate={times[0] instanceof Date}
+					{isInstanceOfDate}
 				/>
 				<div class="p-4 whitespace-normal">
 					<h6 class="font-bold my-2 truncate">
@@ -55,7 +57,7 @@
 					</p>
 					<a
 						class="font-medium text-indigo-600 mt-2 flex items-center"
-						href="events/{slug}"
+						href="{path}/{slug}"
 					>
 						<span class="mr-1">Learn more</span>
 						<div class="rotate-180 scale-90">

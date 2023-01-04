@@ -144,7 +144,7 @@ const getClosestDateFromTimes = arr => {
 	return d;
 };
 
-export const getClosestDateToNow = (datesArray, instanceOfDate = false) => {
+export const getClosestDateToNow = (datesArray, instanceOfDate = true) => {
 	if (!instanceOfDate)
 		return getClosestDateFromTimes(datesArray);
 
