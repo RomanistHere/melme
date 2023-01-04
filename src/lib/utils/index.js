@@ -102,7 +102,52 @@ export const sortByDateAndTime = objects => {
 	return sorted;
 };
 
-export const getClosestDateToNow = datesArray => {
+const padTime = time =>
+	time.toString().padStart(2, "0");
+
+export const getEndTime = arr => {
+	if (!arr)
+		return null;
+
+	const { endHour, endMinute } = getClosestDateObjFromArr(arr);
+	return `${padTime(endHour)}:${padTime(endMinute)}`;
+};
+
+const getClosestDateObjFromArr = arr => {
+	for (let i = 0; i < arr.length; i++) {
+		const dayOfWeek = new Date(new Date().setDate(new Date().getDate() + i)).getUTCDay();
+		const todayObj = arr.filter(({ weekday }) => weekday === dayOfWeek)[0];
+		const { startHour, startMinute, endHour, endMinute } = todayObj;
+
+		if (startHour !== endHour || startMinute !== endMinute) {
+			return todayObj;
+		}
+	}
+};
+
+const getClosestDateFromTimes = arr => {
+	if (!arr)
+		return null;
+
+	const { weekday, startHour, startMinute } = getClosestDateObjFromArr(arr);
+	const todayDay = new Date().getUTCDay();
+	const dayDiff = weekday - todayDay < 0 ? weekday - todayDay + 7 : weekday - todayDay;
+
+	const d = new Date();
+
+	d.setHours(startHour);
+	d.setMinutes(startMinute);
+	d.setSeconds(0);
+	d.setMilliseconds(0);
+	d.setDate(d.getDate() + dayDiff);
+
+	return d;
+};
+
+export const getClosestDateToNow = (datesArray, instanceOfDate = false) => {
+	if (!instanceOfDate)
+		return getClosestDateFromTimes(datesArray);
+
 	if (datesArray.length === 1) return datesArray[0];
 
 	const today = convertUTCToLocalDateIgnoringTimezone(new Date(getToday()));

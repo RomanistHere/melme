@@ -101,7 +101,6 @@
 			<li>
 				<Card
 					{...event}
-					isTimeStrings={false}
 				/>
 			</li>
 			{#if i === 5}

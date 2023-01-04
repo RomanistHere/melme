@@ -42,8 +42,9 @@
 					{duration}
 					{isFree}
 					{price}
-					date={getClosestDateToNow(times)}
+					date={getClosestDateToNow(times, times[0] instanceof Date)}
 					isSmall={true}
+					isInstanceOfDate={times[0] instanceof Date}
 				/>
 				<div class="p-4 whitespace-normal">
 					<h6 class="font-bold my-2 truncate">

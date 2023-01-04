@@ -10,6 +10,7 @@
 		getDateHumanFormat,
 		getTimeHumanFormat,
 		getClosestDateToNow,
+		getEndTime,
 	} from "$lib/utils/index.js";
 
 	export let slug;
@@ -25,28 +26,13 @@
 	export let hostName;
 	export let duration;
 	export let isRegistrationNeeded;
-	export let isTimeStrings = true;
 
-	const getTodayTimes = arr => {
-		if (!arr) return null;
-
-		const dayOfWeek = new Date().getUTCDay();
-		return arr.filter(({ weekday }) => weekday === dayOfWeek)[0];
-	};
-
-	const getFromTime = ({ startHour, startMinute }) =>
-		`from ${startHour.toString().padStart(2, "0")}:${startMinute
-			.toString()
-			.padStart(2, "0")}`;
-
-	const getToTime = ({ endHour, endMinute }) =>
-		`till ${endHour.toString().padStart(2, "0")}:${endMinute
-			.toString()
-			.padStart(2, "0")}`;
-
-	$: date = isTimeStrings ? getClosestDateToNow(times) : getTodayTimes(times);
-	$: info1 = isTimeStrings ? getDateHumanFormat(date) : getFromTime(date);
-	$: info2 = isTimeStrings ? getTimeHumanFormat(date) : getToTime(date);
+	$: isInstanceOfDate = times[0] instanceof Date;
+	$: date = getClosestDateToNow(times, isInstanceOfDate);
+	$: timeEnd = !isInstanceOfDate && getEndTime(times);
+	$: infoAboutDate = getDateHumanFormat(date);
+	$: infoAboutTime = getTimeHumanFormat(date);
+	$: path = isInstanceOfDate ? "events" : "attractions";
 </script>
 
 <div class="my-6 bg-white rounded-2xl overflow-hidden">
@@ -58,7 +44,7 @@
 		{isFree}
 		{price}
 		{date}
-		{isTimeStrings}
+		{isInstanceOfDate}
 	/>
 
 	<div class="p-6">
@@ -76,11 +62,14 @@
 			</span>
 			<Separator />
 			<span>
-				{info1}
+				{infoAboutDate}
 			</span>
 			<Separator />
 			<span>
-				{info2}
+				{infoAboutTime}
+				{#if timeEnd}
+					- {timeEnd}
+				{/if}
 			</span>
 		</p>
 		<p class="mb-2">
@@ -106,7 +95,7 @@
 			<PeopleComing number={upVotes} />
 			<a
 				class="font-medium text-indigo-600 flex items-center"
-				href="attractions/{slug}"
+				href="{path}/{slug}"
 			>
 				<span class="mr-1">Learn more</span>
 				<div class="rotate-180 scale-90">

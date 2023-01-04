@@ -14,7 +14,7 @@
 	export let isFree;
 	export let price;
 	export let isSmall;
-	export let isTimeStrings;
+	export let isInstanceOfDate;
 
 	$: isLiked = $userState?.likedEvents?.includes(slug);
 
@@ -68,13 +68,11 @@
 		on:click={handleLikeClickButton}
 		isActive={isLiked}
 	/>
-	{#if isTimeStrings}
-		<Badges
-			{date}
-			{duration}
-			{isFree}
-			{price}
-			{isSmall}
-		/>
-	{/if}
+	<Badges
+		{date}
+		{duration}
+		{isFree}
+		{price}
+		{isInstanceOfDate}
+	/>
 </div>
