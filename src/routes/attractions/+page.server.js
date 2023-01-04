@@ -8,7 +8,7 @@ export const load = async function ({ url }) {
 
 	const data = await Attraction.find(
 		{
-			// isApproved: true,
+			isApproved: true,
 			...(categories ? { categories: { $in: [...categories] } } : {}),
 		},
 		"-_id -createdAt -updatedAt -__v -times._id"

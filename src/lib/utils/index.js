@@ -86,7 +86,7 @@ export const convertTimesToUTC = timesArr =>
 	timesArr.map(convertUTCToLocalDateIgnoringTimezone);
 
 export const sortByDateAndTime = objects => {
-	const sortWithinObj = objects.map(item => ({
+	const sortWithinObj = objects.map(item => item.isAttraction ? item : ({
 		...item,
 		times: [...sortDateByClosest(convertTimesToUTC(item.times))],
 	}));
