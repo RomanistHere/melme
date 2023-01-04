@@ -1,5 +1,6 @@
 import { goto } from "$app/navigation";
-import { modalState } from "$lib/stores/index.js";
+import { get } from "svelte/store";
+import { modalState, appState } from "$lib/stores/index.js";
 
 export const truncateString = (string, limit) => {
 	if (!string) return string;
@@ -13,7 +14,8 @@ export const truncateString = (string, limit) => {
 export const generateRandomString = () => Math.random().toString(16).slice(2);
 
 export const handleClickBack = () => {
-	goto("/");
+	const { previousPage } = get(appState);
+	goto(previousPage);
 };
 
 export const getToday = () => new Date().toLocaleDateString("en-CA");

@@ -1,4 +1,6 @@
 <script>
+	import { afterNavigate } from "$app/navigation";
+
 	import "../app.css";
 
 	import Footer from "$lib/components/Footer.svelte";
@@ -17,6 +19,13 @@
 			showPwaInstall: true,
 		}));
 	};
+
+	afterNavigate(({ from }) => {
+		appState.update(state => ({
+			...state,
+			previousPage: from?.url.pathname || state.previousPage
+		}));
+	});
 </script>
 
 <svelte:window on:beforeinstallprompt={beforePwaInstallHandle} />

@@ -8,12 +8,12 @@
 	import Seo from "$lib/components/Seo.svelte";
 	import Categories from "$lib/components/Categories.svelte";
 	import TextLink from "$lib/components/ui/TextLink.svelte";
+	import InstallApp from "$lib/components/InstallApp.svelte";
 
 	import { userState } from "$lib/stores/localStorage.js";
 	import { loadedEvents, appState } from "$lib/stores/index.js";
 	import { sortByDateAndTime } from "$lib/utils/index.js";
 	import { appConfig } from "$lib/config.js";
-	import InstallApp from "$lib/components/InstallApp.svelte";
 
 	// `data` comes from export in +page.server.js
 	export let data;
@@ -32,7 +32,7 @@
 				$userState.likedEvents.includes(item.slug)
 			);
 		} else {
-			events = sortByDateAndTime(events);
+			// events = sortByDateAndTime(events);
 		}
 	};
 
@@ -83,10 +83,11 @@
 
 <Header viewButton="map" />
 
-<!--<Categories-->
-<!--	bind:externalFilters={frontendFilers}-->
-<!--	onCategoryChange={resetPaginationChanges}-->
-<!--/>-->
+<Categories
+	bind:externalFilters={frontendFilers}
+	onCategoryChange={resetPaginationChanges}
+	isAttractions={true}
+/>
 
 {#if events.length === 0}
 	<p class="text-center my-14">

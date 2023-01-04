@@ -5,19 +5,18 @@
 	import GeoPin from "$lib/components/icons/GeoPin.svelte";
 	import Star from "$lib/components/icons/Star.svelte";
 	import Separator from "$lib/components/icons/Separator.svelte";
-	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
 	import SecondaryButton from "$lib/components/ui/SecondaryButton.svelte";
 	import SubscriptionPopup from "$lib/components/modals/SubscriptionPopup.svelte";
+	import BackButton from "$lib/components/ui/BackButton.svelte";
 
 	import {
 		truncateString,
-		handleClickBack,
 		getClosestDateToNow,
 		getTimeHumanFormat,
 		getDateHumanFormat,
-		convertTimesToUTC,
 		openOverlay,
-		showError, getEndTime,
+		showError,
+		getEndTime,
 	} from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
 	import Map from "$lib/components/Map/Map.svelte";
@@ -50,9 +49,6 @@
 
 	$: isInstanceOfDate = times[0] instanceof Date;
 	$: isLiked = $userState?.likedEvents?.includes(slug);
-	$: isComing = $userState?.comingEvents?.includes(slug);
-	$: isReminderSet = $userState?.reminderEvents?.includes(slug);
-	// $: availableTimes = convertTimesToUTC(times);
 	$: date = getClosestDateToNow(times, isInstanceOfDate);
 	$: humanDate = getDateHumanFormat(date);
 	$: humanTime = getTimeHumanFormat(date);
@@ -123,13 +119,7 @@
 />
 
 <div class="-mx-4 bg-white">
-	<a
-		href="/"
-		on:click|preventDefault={handleClickBack}
-		class="p-3 block"
-	>
-		<ArrowLeft />
-	</a>
+	<BackButton />
 	<div
 		class="relative h-64 bg-center bg-cover"
 		style="background-image: url('{imgSrc}')"
@@ -327,7 +317,7 @@
 
 		{#if !$userState?.isSubscribed}
 			<PrimaryButton
-				title="Subscribe for more attractions like this"
+				title="Subscribe to learn about places like this"
 				on:click={openSubscriptionPopup}
 			/>
 		{/if}

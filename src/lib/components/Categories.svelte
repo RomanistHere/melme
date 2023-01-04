@@ -3,12 +3,14 @@
 	import { page } from "$app/stores";
 	import { goto } from "$app/navigation";
 
-	import { categoryList } from "$lib/config.js";
+	import { categoryList, attractionCategoryList } from "$lib/config.js";
 	// import { userState } from "$lib/stores/localStorage.js";
 
 	export let externalFilters;
 	export let onCategoryChange = () => {};
+	export let isAttractions = false;
 
+	$: categories = isAttractions ? attractionCategoryList : categoryList;
 	$: listOfActiveCategories = [];
 	// $: isLikesNotEmpty =
 	// 	$userState?.likedEvents &&
@@ -67,7 +69,7 @@
 				<button on:click={toggleLikedDisplay}>your likes</button>
 			</li>
 		{/if}
-		{#each categoryList as category}
+		{#each categories as category}
 			{@const isActive = listOfActiveCategories.includes(category)}
 			<li class="inline-block">
 				<button

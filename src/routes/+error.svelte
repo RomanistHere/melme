@@ -3,7 +3,7 @@
 	import Seo from "$lib/components/Seo.svelte";
 </script>
 
-<Seo title="Error! But don't you worry, everything is okay!" />
+<Seo title="Error! But don't worry!" />
 
 <section>
 	<h1 class="text-xl mb-12 mt-12">Unexpected things happen...</h1>

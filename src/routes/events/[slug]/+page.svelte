@@ -8,14 +8,15 @@
 	import Star from "$lib/components/icons/Star.svelte";
 	import Separator from "$lib/components/icons/Separator.svelte";
 	import PeopleComing from "$lib/components/ui/PeopleComing.svelte";
-	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
 	import SecondaryButton from "$lib/components/ui/SecondaryButton.svelte";
 	import NotificationPopup from "./NotificationPopup.svelte";
 	import SubscriptionPopup from "$lib/components/modals/SubscriptionPopup.svelte";
+	import Map from "$lib/components/Map/Map.svelte";
+	import InstallApp from "$lib/components/InstallApp.svelte";
+	import BackButton from "$lib/components/ui/BackButton.svelte";
 
 	import {
 		truncateString,
-		handleClickBack,
 		getClosestDateToNow,
 		getTimeHumanFormat,
 		getDateHumanFormat,
@@ -24,8 +25,6 @@
 		showError,
 	} from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
-	import Map from "$lib/components/Map/Map.svelte";
-	import InstallApp from "$lib/components/InstallApp.svelte";
 
 	export let data;
 
@@ -169,13 +168,7 @@
 />
 
 <div class="-mx-4 bg-white">
-	<a
-		href="/"
-		on:click|preventDefault={handleClickBack}
-		class="p-3 block"
-	>
-		<ArrowLeft />
-	</a>
+	<BackButton />
 	<div
 		class="relative h-64 bg-center bg-cover"
 		style="background-image: url('{imgSrc}')"
