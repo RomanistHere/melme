@@ -6,8 +6,11 @@
 	export let name;
 	export let title;
 	export let group;
+	export let disabled = false;
 
 	const handleChange = e => {
+		if (disabled)
+			return;
 		group = e.target.value;
 	};
 </script>
@@ -24,6 +27,7 @@
 			type="radio"
 			class="w-0 h-0 opacity-0 absolute"
 			value={option}
+			{disabled}
 			bind:group
 			on:change={handleChange}
 		/>

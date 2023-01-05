@@ -46,11 +46,11 @@ export async function GET() {
 						})
 					);
 
-					if (statusCode === 201) {
-						await PushNotification.findOneAndDelete({
-							slug,
-						});
-					}
+					// if (statusCode === 201) {
+					// 	await PushNotification.findOneAndDelete({
+					// 		slug,
+					// 	});
+					// }
 				}
 			})
 		);

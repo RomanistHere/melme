@@ -8,7 +8,7 @@
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
 	import Seo from "$lib/components/Seo.svelte";
 	import TogglerLink from "../TogglerLink.svelte";
-	import CategoryPicker from "../CategoryPicker.svelte";
+	import CategoryPicker from "$lib/components/CategoryPicker.svelte";
 	import DateAndTimePicker from "../DateAndTimePicker.svelte";
 	import AddressPicker from "../AddressPicker.svelte";
 	import LocationPicker from "../LocationPicker.svelte";
