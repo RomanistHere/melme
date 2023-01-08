@@ -17,8 +17,8 @@
 
 	const timeSubtraction = Math.floor((date - new Date()) / 1000 / 60);
 	const eventDuration = timeOptionsToMinutes[duration];
-	const isEventTomorrow = tomorrow === date.toLocaleDateString("en-CA");
-	const isEventToday = today === date.toLocaleDateString("en-CA");
+	const isEventTomorrow = tomorrow === date?.toLocaleDateString("en-CA");
+	const isEventToday = today === date?.toLocaleDateString("en-CA");
 
 	$: isEnded = isEventToday && -timeSubtraction > eventDuration;
 	$: isLive = isEventToday && timeSubtraction <= 0 && !isEnded;
