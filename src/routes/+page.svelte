@@ -8,7 +8,7 @@
 	import Seo from "$lib/components/Seo.svelte";
 	import Categories from "$lib/components/Categories.svelte";
 	import TextLink from "$lib/components/ui/TextLink.svelte";
-	import InstallApp from "$lib/components/InstallApp.svelte";
+	// import InstallApp from "$lib/components/InstallApp.svelte";
 
 	import { userState } from "$lib/stores/localStorage.js";
 	import { loadedEvents, appState } from "$lib/stores/index.js";

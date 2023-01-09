@@ -28,7 +28,7 @@
 	const openSubmitEventPage = e => {
 		e.preventDefault();
 		closeMenu();
-		goto("submit/event");
+		goto("submit");
 	};
 </script>
 
@@ -111,7 +111,7 @@
 				<li>
 					<PrimaryButton
 						class="mt-2"
-						title="Submit event"
+						title="Submit"
 						on:click={openSubmitEventPage}
 					/>
 				</li>
