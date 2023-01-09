@@ -94,11 +94,21 @@
 />
 
 {#if sortedByDateEvents.length === 0}
-	<p class="text-center my-14">
-		We didn't find any results for you. Pick another category or <TextLink
-			title="submit your event"
-			href="submit-event"
-		/>.
+	<p class="text-center mt-12 mb-2">
+		We didn't find any results for you. Choosing another category might help.
+	</p>
+
+	<p class="text-center">
+		You can also
+		<TextLink
+			href="/attractions"
+			title="check popular free activities"
+		/>
+		or
+		<TextLink
+			href="/submit/event"
+			title="Submit an event"
+		/>
 	</p>
 {:else}
 	<ul>
@@ -131,24 +141,24 @@
 			{/if}
 		{/each}
 	</ul>
-{/if}
 
-{#if areAnyResultLeft}
-	<PrimaryButton
-		title="Load more"
-		on:click={fetchMoreEvents}
-	/>
-{:else}
-	<p class="pt-3 pb-7 text-center">
-		Looks like we out of results for now... Didn't find anything interesting?
-		<TextLink
-			href="/moderation-queue"
-			title="Check our discovery queue"
+	{#if areAnyResultLeft}
+		<PrimaryButton
+			title="Load more"
+			on:click={fetchMoreEvents}
 		/>
-		or
-		<TextLink
-			href="/submit-event"
-			title="Submit an event"
-		/>
-	</p>
+	{:else}
+		<p class="pt-3 pb-7 text-center">
+			Looks like that's all we got for now... Didn't find anything interesting?
+			<TextLink
+				href="/attractions"
+				title="Check popular free activities"
+			/>
+			or
+			<TextLink
+				href="/submit/event"
+				title="Submit an event"
+			/>
+		</p>
+	{/if}
 {/if}

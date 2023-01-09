@@ -73,7 +73,8 @@
 			{@const isActive = listOfActiveCategories.includes(category)}
 			<li class="inline-block">
 				<button
-					class="mx-1 bg-gray-100 rounded-2xl py-1 px-2 m-1 text-stone-500"
+					class="mx-1 rounded-2xl py-1 px-2 m-1 text-stone-500"
+					class:bg-gray-100={!isActive}
 					class:bg-indigo-700={isActive}
 					class:text-white={isActive}
 					class:text-stone-500={!isActive}
