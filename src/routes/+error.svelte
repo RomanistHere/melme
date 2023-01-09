@@ -1,12 +1,18 @@
 <script>
-	import { page } from "$app/stores";
-	import Seo from "$lib/components/Seo.svelte";
 	import { onMount } from "svelte";
+	import { page } from "$app/stores";
 
+	import Seo from "$lib/components/Seo.svelte";
+
+	import { logError } from "$lib/utils/index.js";
 
 	onMount(() => {
-		// eslint-disable-next-line no-undef
-		plausible("404", { props: { path: document.location.pathname } });
+		try {
+			// eslint-disable-next-line no-undef
+			plausible("404", { props: { path: document.location.pathname } });
+		} catch (err) {
+			logError(err);
+		}
 	});
 </script>
 
