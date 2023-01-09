@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/stats/script.js",
+      "destination": "https://plausible.io/js/script.tagged-events.outbound-links.js"
+    }
+  ]
+}

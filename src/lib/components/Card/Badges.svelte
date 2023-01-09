@@ -7,7 +7,14 @@
 	export let isFree;
 	export let price;
 	export let isInstanceOfDate;
+	export let type;
 
+	const typesToCaption = {
+		"attraction": "Always open",
+		"one-time": "One-time opportunity",
+		"last-time": "Last chance",
+		"repeat": "On repeat",
+	};
 	const today = getToday();
 	const tomorrow = new Date(new Date().getTime() + 86400000).toLocaleDateString(
 		"en-CA"
@@ -60,3 +67,13 @@
 		{price}
 	{/if}
 </span>
+
+{#if type}
+	<span
+		class="bg-white rounded-full px-2 py-0.5 text-sm absolute right-3 bottom-2 inline-block"
+		class:bg-orange-400={type === "one-time"}
+		class:text-white={type === "one-time"}
+	>
+		{typesToCaption[type]}
+	</span>
+{/if}

@@ -1,6 +1,13 @@
 <script>
 	import { page } from "$app/stores";
 	import Seo from "$lib/components/Seo.svelte";
+	import { onMount } from "svelte";
+
+
+	onMount(() => {
+		// eslint-disable-next-line no-undef
+		plausible("404", { props: { path: document.location.pathname } });
+	});
 </script>
 
 <Seo title="Error! But don't worry!" />

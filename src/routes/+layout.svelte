@@ -34,8 +34,11 @@
 	<script
 		defer
 		data-domain="melme.io"
-		src="https://plausible.io/js/script.js"
+		src="/stats/script.js"
 	></script>
+	<script>
+		window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }
+	</script>
 </svelte:head>
 
 <div class="max-w-lg mx-auto min-h-screen flex flex-col">

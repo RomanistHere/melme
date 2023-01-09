@@ -86,10 +86,28 @@ export const convertTimesToUTC = timesArr =>
 	timesArr.map(convertUTCToLocalDateIgnoringTimezone);
 
 export const sortByDateAndTime = objects => {
-	const sortWithinObj = objects.map(item => item.isAttraction ? item : ({
-		...item,
-		times: [...sortDateByClosest(convertTimesToUTC(item.times))],
-	}));
+	const sortWithinObj = objects.map(item => {
+		if (item.isAttraction) {
+			return {
+				...item,
+				type: "attraction",
+			};
+		}
+
+		const allTimeLength = item.times.length;
+		const timesFiltered = [...sortDateByClosest(convertTimesToUTC(item.times))];
+
+		return {
+			...item,
+			times: timesFiltered,
+			// eslint-disable-next-line no-nested-ternary
+			type: allTimeLength === 1
+				  ? "one-time"
+				  : timesFiltered.length === 1
+						? "last-time"
+						: "repeat",
+		};
+	});
 
 	// todo: extend sorting to show live events first based on duration
 	// todo: also if the same event is repeated for example at 15:00 and 16:00

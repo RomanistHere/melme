@@ -11,7 +11,7 @@
 
 	import { userState } from "$lib/stores/localStorage.js";
 	import { loadedEvents, appState } from "$lib/stores/index.js";
-	import { sortByDateAndTime } from "$lib/utils/index.js";
+	import { logError, sortByDateAndTime } from "$lib/utils/index.js";
 	import { appConfig } from "$lib/config.js";
 	import InstallApp from "$lib/components/InstallApp.svelte";
 
@@ -75,6 +75,13 @@
 
 		if (parsedResp.data.length < appConfig.moreResultsLimit)
 			areAnyResultLeft = false;
+
+		try {
+			// eslint-disable-next-line no-undef
+			plausible("Load more");
+		} catch (err) {
+			logError(err);
+		}
 	};
 
 	onMount(resetPaginationChanges);
