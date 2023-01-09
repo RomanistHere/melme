@@ -36,11 +36,12 @@ export const actions = {
 				}
 			);
 			return {
-				success: true
+				success: true,
 			};
 		} catch (err) {
 			return {
-				success: false, error: err
+				success: false,
+				error: err,
 			};
 		}
 	},

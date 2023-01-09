@@ -16,17 +16,15 @@
 		"41 - 55 years",
 		"Older than 55 years",
 	];
-	const crowdGroups = [
-		"Yes",
-		"No",
-		"I can bear it for something worthy"
-	];
+	const crowdGroups = ["Yes", "No", "I can bear it for something worthy"];
 	const distanceGroups = [
 		"Walkable",
 		"Under 30 min by car",
-		"Anywhere in Dubai"
+		"Anywhere in Dubai",
 	];
-	const listOfInterests = [ ...new Set([ ...categoryList, ...attractionCategoryList ]) ].sort();
+	const listOfInterests = [
+		...new Set([...categoryList, ...attractionCategoryList]),
+	].sort();
 	const moods = {
 		discoveries: "🚀",
 		chill: "🧘‍♂️",
@@ -50,7 +48,7 @@
 		config = {
 			...config,
 			stage: "info2",
-			listOfInterests: [ ...pickedList ],
+			listOfInterests: [...pickedList],
 		};
 	};
 
@@ -65,9 +63,7 @@
 	};
 </script>
 
-<Seo
-	title="melme | personal recommendation"
-/>
+<Seo title="melme | personal recommendation" />
 
 <main class="pb-8">
 	<h1 class="text-2xl mt-20 text-center mb-12 bg-white py-3">
@@ -86,14 +82,16 @@
 				<li>
 					<button
 						class="bg-white rounded-xl block w-full my-3 py-6"
-						on:click|preventDefault={() => { selectMood(key) }}
+						on:click|preventDefault={() => {
+							selectMood(key);
+						}}
 					>
-					<span class="text-6xl block">
-						{moods[key]}
-					</span>
+						<span class="text-6xl block">
+							{moods[key]}
+						</span>
 						<span class="mt-3 block capitalize text-lg">
-						{key}
-					</span>
+							{key}
+						</span>
 					</button>
 				</li>
 			{/each}

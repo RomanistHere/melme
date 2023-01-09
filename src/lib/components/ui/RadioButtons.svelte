@@ -9,8 +9,7 @@
 	export let disabled = false;
 
 	const handleChange = e => {
-		if (disabled)
-			return;
+		if (disabled) return;
 		group = e.target.value;
 	};
 </script>

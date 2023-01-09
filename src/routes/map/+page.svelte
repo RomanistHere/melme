@@ -9,14 +9,17 @@
 	const prepareData = eventData => {
 		const { events, attractions } = eventData;
 
-		return [ ...events.map(item => ({
-			...item,
-			location: item.location.coordinates,
-		})), ...attractions.map(item => ({
-			...item,
-			location: item.location.coordinates,
-			isAttraction: true,
-		})) ];
+		return [
+			...events.map(item => ({
+				...item,
+				location: item.location.coordinates,
+			})),
+			...attractions.map(item => ({
+				...item,
+				location: item.location.coordinates,
+				isAttraction: true,
+			})),
+		];
 	};
 
 	$: poisData = prepareData(data);

@@ -97,9 +97,7 @@
 	<ul>
 		{#each events as event, i (event.slug)}
 			<li>
-				<Card
-					{...event}
-				/>
+				<Card {...event} />
 			</li>
 			{#if i === 5}
 				<li>

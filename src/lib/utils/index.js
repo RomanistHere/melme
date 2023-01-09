@@ -101,11 +101,12 @@ export const sortByDateAndTime = objects => {
 			...item,
 			times: timesFiltered,
 			// eslint-disable-next-line no-nested-ternary
-			type: allTimeLength === 1
-				  ? "one-time"
-				  : timesFiltered.length === 1
-						? "last-time"
-						: "repeat",
+			type:
+				allTimeLength === 1
+					? "one-time"
+					: timesFiltered.length === 1
+					? "last-time"
+					: "repeat",
 		};
 	});
 
@@ -122,20 +123,17 @@ export const sortByDateAndTime = objects => {
 	return sorted;
 };
 
-export const padTime = time =>
-	time.toString().padStart(2, "0");
+export const padTime = time => time.toString().padStart(2, "0");
 
 export const getEndTime = arr => {
-	if (!arr)
-		return null;
+	if (!arr) return null;
 
 	const { endHour, endMinute } = getClosestDateObjFromArr(arr);
 	return `${padTime(endHour)}:${padTime(endMinute)}`;
 };
 
 export const getEndDate = arr => {
-	if (!arr)
-		return null;
+	if (!arr) return null;
 
 	const { endHour, endMinute } = getClosestDateObjFromArr(arr);
 	const d = new Date();
@@ -147,7 +145,9 @@ export const getEndDate = arr => {
 
 const getClosestDateObjFromArr = arr => {
 	for (let i = 0; i < arr.length; i++) {
-		const dayOfWeek = new Date(new Date().setDate(new Date().getDate() + i)).getUTCDay();
+		const dayOfWeek = new Date(
+			new Date().setDate(new Date().getDate() + i)
+		).getUTCDay();
 		const todayObj = arr.filter(({ weekday }) => weekday === dayOfWeek)[0];
 		const { startHour, startMinute, endHour, endMinute } = todayObj;
 
@@ -158,12 +158,12 @@ const getClosestDateObjFromArr = arr => {
 };
 
 const getClosestDateFromTimes = arr => {
-	if (!arr)
-		return null;
+	if (!arr) return null;
 
 	const { weekday, startHour, startMinute } = getClosestDateObjFromArr(arr);
 	const todayDay = new Date().getUTCDay();
-	const dayDiff = weekday - todayDay < 0 ? weekday - todayDay + 7 : weekday - todayDay;
+	const dayDiff =
+		weekday - todayDay < 0 ? weekday - todayDay + 7 : weekday - todayDay;
 
 	const d = new Date();
 
@@ -177,8 +177,7 @@ const getClosestDateFromTimes = arr => {
 };
 
 export const getClosestDateToNow = (datesArray, instanceOfDate = true) => {
-	if (!instanceOfDate)
-		return getClosestDateFromTimes(datesArray);
+	if (!instanceOfDate) return getClosestDateFromTimes(datesArray);
 
 	if (datesArray.length === 1) return datesArray[0];
 

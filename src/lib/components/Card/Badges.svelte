@@ -65,9 +65,7 @@
 	</span>
 {/if}
 
-<span
-	class="absolute text-sm py-0.5 px-2 rounded-xl bottom-2 left-3 bg-white"
->
+<span class="absolute text-sm py-0.5 px-2 rounded-xl bottom-2 left-3 bg-white">
 	{#if isFree}
 		Free
 	{:else}

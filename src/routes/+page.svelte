@@ -113,9 +113,11 @@
 			<!--{/if}-->
 			{#if i === 10}
 				<li>
-
 					<div class="rounded-2xl my-6 bg-indigo-700 text-white p-4">
-						<p>Can't find interesting events? We collected popular free activities for you!</p>
+						<p>
+							Can't find interesting events? We collected popular free
+							activities for you!
+						</p>
 						<div class="flex justify-end mt-2">
 							<a
 								class="p-2 bg-white text-indigo-700 rounded-full px-4"

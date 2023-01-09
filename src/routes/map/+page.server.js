@@ -37,7 +37,9 @@ export const load = async function ({ url }) {
 		"-_id -createdAt -updatedAt -__v -times._id"
 	).lean();
 
-	const attractionsWithLocation = attractionsData.filter(item => item.location?.coordinates);
+	const attractionsWithLocation = attractionsData.filter(
+		item => item.location?.coordinates
+	);
 	const attractions = attractionsWithLocation.map(item => ({
 		...item,
 		description: truncateString(item.description, 40),

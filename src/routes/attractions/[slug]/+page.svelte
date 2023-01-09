@@ -251,7 +251,7 @@
 
 		{#if showTimes}
 			<ul>
-				{#each times as { weekday, startHour, startMinute, endHour, endMinute}}
+				{#each times as { weekday, startHour, startMinute, endHour, endMinute }}
 					<li>
 						<span class="min-w-[6rem] inline-block">
 							{days[weekday]}
@@ -296,11 +296,11 @@
 
 		{#if isRegistrationNeeded && registrationLink}
 			Registration: <a
-			href={registrationLink}
-			class="underline"
-		>
-			{truncateString(registrationLink, 20)}
-		</a>
+				href={registrationLink}
+				class="underline"
+			>
+				{truncateString(registrationLink, 20)}
+			</a>
 		{/if}
 
 		<InstallApp version="offline" />

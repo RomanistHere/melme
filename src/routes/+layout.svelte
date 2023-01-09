@@ -23,7 +23,7 @@
 	afterNavigate(({ from }) => {
 		appState.update(state => ({
 			...state,
-			previousPage: from?.url.pathname || state.previousPage
+			previousPage: from?.url.pathname || state.previousPage,
 		}));
 	});
 </script>
@@ -38,7 +38,11 @@
 		src="/stats/js/script.js"
 	></script>
 	<script>
-		window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }
+		window.plausible =
+			window.plausible ||
+			function () {
+				(window.plausible.q = window.plausible.q || []).push(arguments);
+			};
 	</script>
 </svelte:head>
 
