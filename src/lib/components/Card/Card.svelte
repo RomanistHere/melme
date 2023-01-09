@@ -11,6 +11,7 @@
 		getTimeHumanFormat,
 		getClosestDateToNow,
 		getEndTime,
+		getEndDate,
 	} from "$lib/utils/index.js";
 
 	export let slug;
@@ -31,6 +32,7 @@
 	$: isInstanceOfDate = times[0] instanceof Date;
 	$: date = getClosestDateToNow(times, isInstanceOfDate);
 	$: timeEnd = !isInstanceOfDate && getEndTime(times);
+	$: dateEnd = !isInstanceOfDate && getEndDate(times);
 	$: infoAboutDate = getDateHumanFormat(date);
 	$: infoAboutTime = getTimeHumanFormat(date);
 	$: path = isInstanceOfDate ? "events" : "attractions";
@@ -45,6 +47,7 @@
 		{isFree}
 		{price}
 		{date}
+		{dateEnd}
 		{isInstanceOfDate}
 		{type}
 	/>

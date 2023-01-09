@@ -133,6 +133,18 @@ export const getEndTime = arr => {
 	return `${padTime(endHour)}:${padTime(endMinute)}`;
 };
 
+export const getEndDate = arr => {
+	if (!arr)
+		return null;
+
+	const { endHour, endMinute } = getClosestDateObjFromArr(arr);
+	const d = new Date();
+	d.setHours(endHour);
+	d.setMinutes(endMinute);
+
+	return d;
+};
+
 const getClosestDateObjFromArr = arr => {
 	for (let i = 0; i < arr.length; i++) {
 		const dayOfWeek = new Date(new Date().setDate(new Date().getDate() + i)).getUTCDay();

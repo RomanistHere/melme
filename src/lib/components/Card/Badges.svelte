@@ -8,6 +8,7 @@
 	export let price;
 	export let isInstanceOfDate;
 	export let type;
+	export let dateEnd;
 
 	const typesToCaption = {
 		"attraction": "Always open",
@@ -25,7 +26,9 @@
 	const isEventTomorrow = tomorrow === date.toLocaleDateString("en-CA");
 	const isEventToday = today === date.toLocaleDateString("en-CA");
 
-	$: isEnded = isEventToday && -timeSubtraction > eventDuration;
+	$: isEnded = !dateEnd
+		? isEventToday && -timeSubtraction > eventDuration
+		: Math.floor((dateEnd - new Date()) / 1000 / 60) < 0;
 	$: isLive = isEventToday && timeSubtraction <= 0 && !isEnded;
 	$: isStartingSoon =
 		isEventToday && !isLive && timeSubtraction < 30 && timeSubtraction > 0;
@@ -43,7 +46,11 @@
 		{#if isStartingSoon}
 			Starting soon
 		{:else if isEnded}
-			Likely ended
+			{#if isInstanceOfDate}
+				Likely ended
+			{:else}
+				Closed
+			{/if}
 		{:else if isLive}
 			{#if isInstanceOfDate}
 				Live

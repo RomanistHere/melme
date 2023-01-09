@@ -16,6 +16,7 @@
 	export let isSmall;
 	export let isInstanceOfDate;
 	export let type;
+	export let dateEnd;
 
 	$: isLiked = $userState?.likedEvents?.includes(slug);
 
@@ -76,5 +77,6 @@
 		{price}
 		{isInstanceOfDate}
 		{type}
+		{dateEnd}
 	/>
 </div>

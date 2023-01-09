@@ -15,11 +15,8 @@
 	import { appConfig } from "$lib/config.js";
 	import InstallApp from "$lib/components/InstallApp.svelte";
 
-	// `data` comes from export in +page.server.js
 	export let data;
 
-	// this is a Svelte way to destructure property and keep it reactive
-	// basically it's equals to `const { events } = data`, where `events` will be updated when `data` is
 	$: ({ events } = data);
 	$: loadedEvents.set(events);
 	$: sortedByDateEvents = sortByDateAndTime(events);
