@@ -109,8 +109,8 @@
 				/>
 			{:else}
 				<p class="text-lg mb-1">
-					When we ready, we will occasionally send you emails with the best
-					events we find.
+					When we ready, we will occasionally send you emails with the best free
+					events and places we find.
 				</p>
 
 				<p class="text-sm opacity-40 mb-6">

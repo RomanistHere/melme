@@ -1,9 +1,22 @@
 <script>
+	import { onMount } from "svelte";
 	import { page } from "$app/stores";
+
 	import Seo from "$lib/components/Seo.svelte";
+
+	import { logError } from "$lib/utils/index.js";
+
+	onMount(() => {
+		try {
+			// eslint-disable-next-line no-undef
+			plausible("404", { props: { path: document.location.pathname } });
+		} catch (err) {
+			logError(err);
+		}
+	});
 </script>
 
-<Seo title="Error! But don't you worry, everything is okay!" />
+<Seo title="Error! But don't worry!" />
 
 <section>
 	<h1 class="text-xl mb-12 mt-12">Unexpected things happen...</h1>

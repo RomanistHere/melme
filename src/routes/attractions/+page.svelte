@@ -8,29 +8,28 @@
 	import Seo from "$lib/components/Seo.svelte";
 	import Categories from "$lib/components/Categories.svelte";
 	import TextLink from "$lib/components/ui/TextLink.svelte";
-	// import InstallApp from "$lib/components/InstallApp.svelte";
+	import InstallApp from "$lib/components/InstallApp.svelte";
 
 	import { userState } from "$lib/stores/localStorage.js";
 	import { loadedEvents, appState } from "$lib/stores/index.js";
-	import { logError, sortByDateAndTime } from "$lib/utils/index.js";
+	import { sortByDateAndTime } from "$lib/utils/index.js";
 	import { appConfig } from "$lib/config.js";
 
 	export let data;
 
 	$: ({ events } = data);
 	$: loadedEvents.set(events);
-	$: sortedByDateEvents = sortByDateAndTime(events);
 	$: frontendFilers = [];
-	$: updateFrontendFilters(frontendFilers);
+	// $: updateFrontendFilters(frontendFilers);
 	$: areAnyResultLeft = events.length >= appConfig.firstResultsLimit;
 
 	const updateFrontendFilters = listOfFilters => {
 		if (listOfFilters.includes("likes")) {
-			sortedByDateEvents = sortedByDateEvents.filter(item =>
+			events = events.filter(item =>
 				$userState.likedEvents.includes(item.slug)
 			);
 		} else {
-			sortedByDateEvents = sortByDateAndTime(events);
+			// events = sortByDateAndTime(events);
 		}
 	};
 
@@ -68,17 +67,10 @@
 			};
 		});
 		loadedEvents.update(curEvents => [...curEvents, ...fixTimes]);
-		sortedByDateEvents = sortByDateAndTime($loadedEvents);
+		events = sortByDateAndTime($loadedEvents);
 
 		if (parsedResp.data.length < appConfig.moreResultsLimit)
 			areAnyResultLeft = false;
-
-		try {
-			// eslint-disable-next-line no-undef
-			plausible("Load more");
-		} catch (err) {
-			logError(err);
-		}
 	};
 
 	onMount(resetPaginationChanges);
@@ -91,9 +83,10 @@
 <Categories
 	bind:externalFilters={frontendFilers}
 	onCategoryChange={resetPaginationChanges}
+	isAttractions={true}
 />
 
-{#if sortedByDateEvents.length === 0}
+{#if events.length === 0}
 	<p class="text-center mt-12 mb-2">
 		We didn't find any results for you. Choosing another category might help.
 	</p>
@@ -101,42 +94,24 @@
 	<p class="text-center">
 		You can also
 		<TextLink
-			href="/attractions"
-			title="check popular free activities"
+			href="/"
+			title="check free events"
 		/>
 		or
 		<TextLink
-			href="/submit/event"
-			title="Submit an event"
+			href="/submit/attraction"
+			title="Submit an activity"
 		/>
 	</p>
 {:else}
 	<ul>
-		{#each sortedByDateEvents as event, i (event.slug)}
+		{#each events as event, i (event.slug)}
 			<li>
 				<Card {...event} />
 			</li>
-			<!--{#if i === 5}-->
-			<!--	<li>-->
-			<!--		<InstallApp />-->
-			<!--	</li>-->
-			<!--{/if}-->
-			{#if i === 10}
+			{#if i === 5}
 				<li>
-					<div class="rounded-2xl my-6 bg-indigo-700 text-white p-4">
-						<p>
-							Can't find interesting events? We collected popular free
-							activities for you!
-						</p>
-						<div class="flex justify-end mt-2">
-							<a
-								class="p-2 bg-white text-indigo-700 rounded-full px-4"
-								href="/attractions"
-							>
-								Check the activities
-							</a>
-						</div>
-					</div>
+					<InstallApp />
 				</li>
 			{/if}
 		{/each}
@@ -151,13 +126,13 @@
 		<p class="pt-3 pb-7 text-center">
 			Looks like that's all we got for now... Didn't find anything interesting?
 			<TextLink
-				href="/attractions"
-				title="Check popular free activities"
+				href="/moderation-queue"
+				title="Check our discovery queue"
 			/>
 			or
 			<TextLink
-				href="/submit/event"
-				title="Submit an event"
+				href="/submit/attraction"
+				title="Submit an attraction"
 			/>
 		</p>
 	{/if}

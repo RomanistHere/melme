@@ -3,18 +3,17 @@
 
 	import Input from "$lib/components/ui/Input.svelte";
 	import Textarea from "$lib/components/ui/Textarea.svelte";
-	import RadioButtons from "$lib/components/ui/RadioButtons.svelte";
 	import PrimaryButton from "$lib/components/ui/PrimaryButton.svelte";
 	import ArrowLeft from "$lib/components/icons/ArrowLeft.svelte";
-	import TogglerLink from "./TogglerLink.svelte";
-	import CategoryPicker from "./CategoryPicker.svelte";
 	import Seo from "$lib/components/Seo.svelte";
-	import DateAndTimePicker from "./DateAndTimePicker.svelte";
-	import AddressPicker from "./AddressPicker.svelte";
-	import LocationPicker from "./LocationPicker.svelte";
+	import TogglerLink from "../TogglerLink.svelte";
+	import CategoryPicker from "$lib/components/CategoryPicker.svelte";
+	import TimeRangePicker from "../TimeRangePicker.svelte";
+	import AddressPicker from "../AddressPicker.svelte";
+	import LocationPicker from "../LocationPicker.svelte";
 
 	import { handleClickBack } from "$lib/utils/index.js";
-	import { categoryList, timeOptions } from "$lib/config.js";
+	import { attractionCategoryList } from "$lib/config.js";
 
 	export let form;
 
@@ -39,22 +38,22 @@
 	$: imgPreview = null;
 </script>
 
-<Seo title="melme | submit event" />
+<Seo title="melme | submit attraction" />
 
 <section class="max-w-2xl mx-auto py-8">
 	{#if form?.success}
 		<p class="text-2xl mb-2 text-center">Thank you!</p>
 		<p class="text-center">
-			The event was successfully sent! You can review it in
+			The attraction was successfully sent! You can review it in
 			<a
-				href="/moderation-queue"
+				href="/moderation-queue/attractions"
 				class="underline"
 			>
 				the submission queue.
 			</a>
 			or
 			<a
-				href="/submit-event"
+				href="/submit/attraction"
 				class="underline"
 				on:click={resetValues}
 			>
@@ -63,7 +62,7 @@
 		</p>
 	{:else}
 		<a
-			href="/"
+			href="/static"
 			on:click|preventDefault={handleClickBack}
 			class="p-3 block -ml-3 mb-2"
 		>
@@ -71,7 +70,8 @@
 		</a>
 
 		<h1 class="mb-8 text-2xl">
-			To submit an event, please, fill all the necessary fields marked with *
+			To submit an attraction, please, fill all the necessary fields marked with
+			*
 		</h1>
 
 		{#if form?.error}
@@ -85,19 +85,19 @@
 			use:enhance={enhanceCallback}
 		>
 			<Input
-				title="*Name of the event"
+				title="*Name of the attraction"
 				id="event-title"
 				name="title"
 				autofocus={true}
 				maxlength={64}
-				placeholder="Title of the event, e.g. Rally cars showcase."
+				placeholder="Title of the attraction, e.g. La Mer beach."
 				class="mb-4"
 				externalError={form?.missingTitle && "The title is missing"}
 			/>
 
 			<Textarea
-				title="*Description of the event"
-				placeholder="Provide the description here, you can paste the original one or describe in your own words."
+				title="*Description of the attraction"
+				placeholder="Provide the description here, you can paste it from somewhere else or describe in your own words."
 				id="event-description"
 				name="description"
 				maxlength={2048}
@@ -107,13 +107,12 @@
 			/>
 
 			<Input
-				title="*Link to the event from an official source"
+				title="Does it has an official website?"
 				id="event-link"
-				name="linkToEvent"
+				name="linkToWebsite"
 				maxlength={128}
-				placeholder="Where did you hear it from?"
+				placeholder="It would be handy if you searched for it."
 				class="mb-4"
-				externalError={form?.missingLink && "The link is missing"}
 			/>
 
 			<AddressPicker
@@ -122,17 +121,9 @@
 
 			<LocationPicker title="Could you point to the location(s) on the map?" />
 
-			<DateAndTimePicker
-				title="*Pick a date and a local time when it starts"
+			<TimeRangePicker
+				title="*What's the best time to visit?"
 				externalError={form?.missingDate && "Something wrong with the dates"}
-			/>
-
-			<RadioButtons
-				title="Do you know how long it will be?"
-				id="event-duration"
-				name="duration"
-				options={timeOptions}
-				class="mb-4"
 			/>
 
 			<Textarea
@@ -145,7 +136,7 @@
 			/>
 
 			<TogglerLink
-				title="Do you need to register for this event?"
+				title="Do you need to register to visit it?"
 				secondTitle="Provide the link to the registration."
 				inputPlaceholder="Paste a link to the registration form."
 				inputId="event-registration-link"
@@ -156,7 +147,7 @@
 			/>
 
 			<TogglerLink
-				title="Is that a free-to-enter event?"
+				title="Is that a free-to-visit attraction?"
 				secondTitle="How much does it cost?"
 				inputPlaceholder="Specify AED or USD."
 				inputId="event-cost"
@@ -188,7 +179,7 @@
 			{/if}
 
 			<Input
-				title="Who is hosting this event?"
+				title="Who is hosting this attraction?"
 				id="event-host"
 				name="hostName"
 				maxlength={32}
@@ -197,8 +188,8 @@
 			/>
 
 			<CategoryPicker
-				title="Pick a category for this event (multiple allowed)"
-				list={categoryList}
+				title="Pick a category for this attraction (multiple allowed)"
+				list={attractionCategoryList}
 				bind:pickedList
 			/>
 

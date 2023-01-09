@@ -7,12 +7,19 @@
 	export let data;
 
 	const prepareData = eventData => {
-		const parsed = eventData.events;
+		const { events, attractions } = eventData;
 
-		return parsed.map(item => ({
-			...item,
-			location: item.location.coordinates,
-		}));
+		return [
+			...events.map(item => ({
+				...item,
+				location: item.location.coordinates,
+			})),
+			...attractions.map(item => ({
+				...item,
+				location: item.location.coordinates,
+				isAttraction: true,
+			})),
+		];
 	};
 
 	$: poisData = prepareData(data);

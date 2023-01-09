@@ -10,6 +10,8 @@
 		getDateHumanFormat,
 		getTimeHumanFormat,
 		getClosestDateToNow,
+		getEndTime,
+		getEndDate,
 	} from "$lib/utils/index.js";
 
 	export let slug;
@@ -25,10 +27,15 @@
 	export let hostName;
 	export let duration;
 	export let isRegistrationNeeded;
+	export let type = "attraction";
 
-	$: date = getClosestDateToNow(times);
-	$: humanDate = getDateHumanFormat(date);
-	$: humanTime = getTimeHumanFormat(date);
+	$: isInstanceOfDate = times[0] instanceof Date;
+	$: date = getClosestDateToNow(times, isInstanceOfDate);
+	$: timeEnd = !isInstanceOfDate && getEndTime(times);
+	$: dateEnd = !isInstanceOfDate && getEndDate(times);
+	$: infoAboutDate = getDateHumanFormat(date);
+	$: infoAboutTime = getTimeHumanFormat(date);
+	$: path = isInstanceOfDate ? "events" : "attractions";
 </script>
 
 <div class="my-6 bg-white rounded-2xl overflow-hidden">
@@ -40,6 +47,9 @@
 		{isFree}
 		{price}
 		{date}
+		{dateEnd}
+		{isInstanceOfDate}
+		{type}
 	/>
 
 	<div class="p-6">
@@ -57,11 +67,14 @@
 			</span>
 			<Separator />
 			<span>
-				{humanDate}
+				{infoAboutDate}
 			</span>
 			<Separator />
 			<span>
-				{humanTime}
+				{infoAboutTime}
+				{#if timeEnd}
+					- {timeEnd}
+				{/if}
 			</span>
 		</p>
 		<p class="mb-2">
@@ -87,7 +100,7 @@
 			<PeopleComing number={upVotes} />
 			<a
 				class="font-medium text-indigo-600 flex items-center"
-				href="events/{slug}"
+				href="{path}/{slug}"
 			>
 				<span class="mr-1">Learn more</span>
 				<div class="rotate-180 scale-90">

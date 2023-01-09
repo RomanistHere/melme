@@ -9,6 +9,7 @@ export const appState = writable({
 	pwaInstallPrompt: null,
 	showPwaInstall: false,
 	isIos: false,
+	previousPage: "/",
 });
 
 export const modalState = writable({

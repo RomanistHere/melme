@@ -1,5 +1,6 @@
 import { goto } from "$app/navigation";
-import { modalState } from "$lib/stores/index.js";
+import { get } from "svelte/store";
+import { modalState, appState } from "$lib/stores/index.js";
 
 export const truncateString = (string, limit) => {
 	if (!string) return string;
@@ -13,7 +14,8 @@ export const truncateString = (string, limit) => {
 export const generateRandomString = () => Math.random().toString(16).slice(2);
 
 export const handleClickBack = () => {
-	goto("/");
+	const { previousPage } = get(appState);
+	goto(previousPage);
 };
 
 export const getToday = () => new Date().toLocaleDateString("en-CA");
@@ -84,10 +86,29 @@ export const convertTimesToUTC = timesArr =>
 	timesArr.map(convertUTCToLocalDateIgnoringTimezone);
 
 export const sortByDateAndTime = objects => {
-	const sortWithinObj = objects.map(item => ({
-		...item,
-		times: [...sortDateByClosest(convertTimesToUTC(item.times))],
-	}));
+	const sortWithinObj = objects.map(item => {
+		if (item.isAttraction) {
+			return {
+				...item,
+				type: "attraction",
+			};
+		}
+
+		const allTimeLength = item.times.length;
+		const timesFiltered = [...sortDateByClosest(convertTimesToUTC(item.times))];
+
+		return {
+			...item,
+			times: timesFiltered,
+			// eslint-disable-next-line no-nested-ternary
+			type:
+				allTimeLength === 1
+					? "one-time"
+					: timesFiltered.length === 1
+					? "last-time"
+					: "repeat",
+		};
+	});
 
 	// todo: extend sorting to show live events first based on duration
 	// todo: also if the same event is repeated for example at 15:00 and 16:00
@@ -102,7 +123,62 @@ export const sortByDateAndTime = objects => {
 	return sorted;
 };
 
-export const getClosestDateToNow = datesArray => {
+export const padTime = time => time.toString().padStart(2, "0");
+
+export const getEndTime = arr => {
+	if (!arr) return null;
+
+	const { endHour, endMinute } = getClosestDateObjFromArr(arr);
+	return `${padTime(endHour)}:${padTime(endMinute)}`;
+};
+
+export const getEndDate = arr => {
+	if (!arr) return null;
+
+	const { endHour, endMinute } = getClosestDateObjFromArr(arr);
+	const d = new Date();
+	d.setHours(endHour);
+	d.setMinutes(endMinute);
+
+	return d;
+};
+
+const getClosestDateObjFromArr = arr => {
+	for (let i = 0; i < arr.length; i++) {
+		const dayOfWeek = new Date(
+			new Date().setDate(new Date().getDate() + i)
+		).getUTCDay();
+		const todayObj = arr.filter(({ weekday }) => weekday === dayOfWeek)[0];
+		const { startHour, startMinute, endHour, endMinute } = todayObj;
+
+		if (startHour !== endHour || startMinute !== endMinute) {
+			return todayObj;
+		}
+	}
+};
+
+const getClosestDateFromTimes = arr => {
+	if (!arr) return null;
+
+	const { weekday, startHour, startMinute } = getClosestDateObjFromArr(arr);
+	const todayDay = new Date().getUTCDay();
+	const dayDiff =
+		weekday - todayDay < 0 ? weekday - todayDay + 7 : weekday - todayDay;
+
+	const d = new Date();
+
+	d.setHours(startHour);
+	d.setMinutes(startMinute);
+	d.setSeconds(0);
+	d.setMilliseconds(0);
+	d.setDate(d.getDate() + dayDiff);
+
+	return d;
+};
+
+export const getClosestDateToNow = (datesArray, instanceOfDate = true) => {
+	if (!instanceOfDate) return getClosestDateFromTimes(datesArray);
+
 	if (datesArray.length === 1) return datesArray[0];
 
 	const today = convertUTCToLocalDateIgnoringTimezone(new Date(getToday()));

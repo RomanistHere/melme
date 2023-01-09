@@ -9,7 +9,7 @@ date: "2022-12-24"
 **Timings:**
 
 - Mon-Thu 10:00-24:00
-- Fri-Dun 10:00-01:00
+- Fri-Sun 10:00-01:00
 
 **Location:**
 

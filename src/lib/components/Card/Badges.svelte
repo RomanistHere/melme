@@ -1,6 +1,4 @@
 <script>
-	import MarqueeAnimation from "$lib/components/ui/MarqueeAnimation.svelte";
-
 	import { timeOptionsToMinutes } from "$lib/config.js";
 	import { getToday } from "$lib/utils/index.js";
 
@@ -8,8 +6,16 @@
 	export let duration;
 	export let isFree;
 	export let price;
-	export let isSmall;
+	export let isInstanceOfDate;
+	export let type;
+	export let dateEnd;
 
+	const typesToCaption = {
+		"attraction": "Everyday activities",
+		"one-time": "One-time opportunity",
+		"last-time": "Last chance",
+		"repeat": "On repeat",
+	};
 	const today = getToday();
 	const tomorrow = new Date(new Date().getTime() + 86400000).toLocaleDateString(
 		"en-CA"
@@ -20,25 +26,37 @@
 	const isEventTomorrow = tomorrow === date?.toLocaleDateString("en-CA");
 	const isEventToday = today === date?.toLocaleDateString("en-CA");
 
-	$: isEnded = isEventToday && -timeSubtraction > eventDuration;
+	$: isEnded = !dateEnd
+		? isEventToday && -timeSubtraction > eventDuration
+		: Math.floor((dateEnd - new Date()) / 1000 / 60) < 0;
 	$: isLive = isEventToday && timeSubtraction <= 0 && !isEnded;
 	$: isStartingSoon =
 		isEventToday && !isLive && timeSubtraction < 30 && timeSubtraction > 0;
 	$: isBadge =
-		!isLive && (isStartingSoon || isEnded || isEventToday || isEventTomorrow);
+		isLive || isStartingSoon || isEnded || isEventToday || isEventTomorrow;
 </script>
 
 {#if isBadge}
 	<span
 		class="text-sm py-0.5 px-2 rounded-xl absolute left-3 bottom-10 bg-white"
-		class:bg-orange-500={isLive}
+		class:bg-indigo-500={isLive}
 		class:text-white={isLive || isEnded}
 		class:bg-stone-400={isEnded}
 	>
 		{#if isStartingSoon}
 			Starting soon
 		{:else if isEnded}
-			Likely ended
+			{#if isInstanceOfDate}
+				Likely ended
+			{:else}
+				Closed
+			{/if}
+		{:else if isLive}
+			{#if isInstanceOfDate}
+				Live
+			{:else}
+				Open
+			{/if}
 		{:else if isEventToday}
 			Today
 		{:else if isEventTomorrow}
@@ -47,10 +65,7 @@
 	</span>
 {/if}
 
-<span
-	class="absolute text-sm py-0.5 px-2 rounded-xl bottom-10 left-3 bg-white"
-	class:bottom-2={!isLive}
->
+<span class="absolute text-sm py-0.5 px-2 rounded-xl bottom-2 left-3 bg-white">
 	{#if isFree}
 		Free
 	{:else}
@@ -58,12 +73,12 @@
 	{/if}
 </span>
 
-{#if isLive && !isSmall}
-	<MarqueeAnimation class="absolute bottom-1" />
-{:else if isLive}
+{#if type}
 	<span
-		class="text-sm py-0.5 px-2 rounded-xl absolute left-3 bottom-2 bg-white"
+		class="bg-white rounded-full px-2 py-0.5 text-sm absolute right-3 bottom-2 inline-block"
+		class:bg-orange-400={type === "one-time"}
+		class:text-white={type === "one-time"}
 	>
-		Live
+		{typesToCaption[type]}
 	</span>
 {/if}

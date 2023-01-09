@@ -28,7 +28,7 @@
 	const openSubmitEventPage = e => {
 		e.preventDefault();
 		closeMenu();
-		goto("submit-event");
+		goto("submit");
 	};
 </script>
 
@@ -87,9 +87,17 @@
 				<li>
 					<a
 						class="p-2 block"
+						href="attractions"
+					>
+						Attractions
+					</a>
+				</li>
+				<li>
+					<a
+						class="p-2 block"
 						href="articles/dubai-free-tips"
 					>
-						save money tips
+						How to save money
 					</a>
 				</li>
 				<li>
@@ -97,13 +105,13 @@
 						class="p-2 block"
 						href="articles/dubai-free-places"
 					>
-						visit every day
+						What to visit every day
 					</a>
 				</li>
 				<li>
 					<PrimaryButton
 						class="mt-2"
-						title="Submit event"
+						title="Submit"
 						on:click={openSubmitEventPage}
 					/>
 				</li>

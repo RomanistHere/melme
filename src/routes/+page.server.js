@@ -2,6 +2,7 @@ import { Event } from "$db/models/event.model";
 
 import { appConfig } from "$lib/config.js";
 import { getCategoryFromParams } from "$lib/utils/index.js";
+
 export const load = async function ({ url }) {
 	const { searchParams, search } = url;
 	const today = new Date().toISOString().split("T")[0];

@@ -1,18 +1,12 @@
 <script>
-	import { enhance } from "$app/forms";
-
 	import LikeButton from "$lib/components/ui/LikeButton.svelte";
 	import PrimaryButton from "$lib/components/ui/PrimaryButton.svelte";
 	import Seo from "$lib/components/Seo.svelte";
 	import GeoPin from "$lib/components/icons/GeoPin.svelte";
 	import Star from "$lib/components/icons/Star.svelte";
 	import Separator from "$lib/components/icons/Separator.svelte";
-	import PeopleComing from "$lib/components/ui/PeopleComing.svelte";
 	import SecondaryButton from "$lib/components/ui/SecondaryButton.svelte";
-	import NotificationPopup from "./NotificationPopup.svelte";
 	import SubscriptionPopup from "$lib/components/modals/SubscriptionPopup.svelte";
-	import Map from "$lib/components/Map/Map.svelte";
-	import InstallApp from "$lib/components/InstallApp.svelte";
 	import BackButton from "$lib/components/ui/BackButton.svelte";
 
 	import {
@@ -20,11 +14,14 @@
 		getClosestDateToNow,
 		getTimeHumanFormat,
 		getDateHumanFormat,
-		convertTimesToUTC,
 		openOverlay,
 		showError,
+		getEndTime,
+		padTime,
 	} from "$lib/utils/index.js";
 	import { userState } from "$lib/stores/localStorage.js";
+	import Map from "$lib/components/Map/Map.svelte";
+	import InstallApp from "$lib/components/InstallApp.svelte";
 
 	export let data;
 
@@ -42,6 +39,7 @@
 		upVotes,
 		hostName,
 		linkToEvent,
+		linkToWebsite,
 		duration,
 		registrationLink,
 		requirements,
@@ -50,66 +48,31 @@
 		location,
 	} = data);
 
+	$: isInstanceOfDate = times[0] instanceof Date;
 	$: isLiked = $userState?.likedEvents?.includes(slug);
-	$: isComing = $userState?.comingEvents?.includes(slug);
-	$: isReminderSet = $userState?.reminderEvents?.includes(slug);
-	$: availableTimes = convertTimesToUTC(times);
-	$: date = getClosestDateToNow(availableTimes);
+	$: date = getClosestDateToNow(times, isInstanceOfDate);
 	$: humanDate = getDateHumanFormat(date);
 	$: humanTime = getTimeHumanFormat(date);
+	$: timeEnd = !isInstanceOfDate && getEndTime(times);
 	$: showTimes = false;
 
-	let areYouGoingText = true;
-
 	const hostRating = "0.0";
+
+	const todayDay = new Date().getUTCDay();
+	const days = {
+		0: "Sunday",
+		1: "Monday",
+		2: "Tuesday",
+		3: "Wednesday",
+		4: "Thursday",
+		5: "Friday",
+		6: "Saturday",
+	};
 
 	const openSubscriptionPopup = e => {
 		e.preventDefault();
 
 		openOverlay("subscriptionPopup");
-	};
-
-	const setReminder = () => {
-		if (isReminderSet) return false;
-
-		openOverlay("shouldSetNotificationPopup", {
-			slug,
-			vapidPublicKey,
-			date: availableTimes.filter(d => d - new Date() > 0)[0],
-		});
-	};
-
-	const handlePrimaryButtonClick = () => {
-		setReminder();
-
-		if (isComing) {
-			return false;
-		}
-
-		userState.update(currentState => {
-			if (!currentState) {
-				return {
-					comingEvents: [slug],
-				};
-			}
-
-			const { comingEvents } = currentState;
-
-			if (!comingEvents || comingEvents.length === 0) {
-				return {
-					...currentState,
-					comingEvents: [slug],
-				};
-			} else if (comingEvents.length > 0 && !comingEvents.includes(slug)) {
-				return {
-					...currentState,
-					comingEvents: [...comingEvents, slug],
-				};
-			}
-		});
-
-		upVotes = upVotes + 1;
-		areYouGoingText = false;
 	};
 
 	const handleLikeClickButton = e => {
@@ -251,9 +214,16 @@
 		<p class="opacity-30 flex items-center mb-4 text-sm">
 			<span>{humanDate}</span>
 			<Separator />
-			<span>{humanTime}</span>
-			<Separator />
-			<span>{duration}</span>
+			<span>
+				{humanTime}
+				{#if timeEnd}
+					- {timeEnd}
+				{/if}
+			</span>
+			{#if isInstanceOfDate}
+				<Separator />
+				<span>{duration}</span>
+			{/if}
 		</p>
 		<ul class="-mx-1 mb-6">
 			{#if isRegistrationNeeded}
@@ -271,44 +241,32 @@
 				</li>
 			{/each}
 		</ul>
-		<PeopleComing
-			number={upVotes}
-			isAdditionalText={isComing ? null : areYouGoingText}
-		/>
-		<form
-			action="?/comingToEvent"
-			method="POST"
-			use:enhance={handlePrimaryButtonClick}
-		>
-			<PrimaryButton
-				title={isComing ? "You are going 🎉" : "I'm going"}
-				class="mb-8 mt-2"
-				disabled={isComing}
-			/>
-		</form>
-		<p class="my-4">
-			Website: <a
-				href={linkToEvent}
-				class="underline"
-			>
-				{truncateString(linkToEvent, 60)}
-			</a>
-		</p>
 
-		{#if availableTimes.length > 1}
+		{#if times.length > 1}
 			<SecondaryButton
-				title="{showTimes ? 'Hide' : 'Show'} time slots"
+				title="{showTimes ? 'Hide' : 'Show'} visiting time"
 				on:click={showTimeSlots}
 			/>
 		{/if}
 
 		{#if showTimes}
 			<ul>
-				{#each availableTimes.sort((a, b) => a - b) as time}
-					{@const humanDate = getDateHumanFormat(time)}
+				{#each times as { weekday, startHour, startMinute, endHour, endMinute }}
 					<li>
-						{humanDate}, {getTimeHumanFormat(time)}
-						{#if humanDate === getDateHumanFormat(new Date())}
+						<span class="min-w-[6rem] inline-block">
+							{days[weekday]}
+						</span>
+
+						{#if startHour === endHour && startMinute === endMinute}
+							day off
+						{:else}
+							from
+							{padTime(startHour)}:{padTime(startMinute)}
+							till
+							{padTime(endHour)}:{padTime(endMinute)}
+						{/if}
+
+						{#if todayDay === weekday}
 							- today
 						{/if}
 					</li>
@@ -319,13 +277,25 @@
 		<p class="my-4 whitespace-pre-wrap">
 			{description}
 		</p>
+
 		{#if requirements}
 			<p class="my-4 whitespace-pre-wrap break-words">
 				{requirements}
 			</p>
 		{/if}
+
+		<p class="my-4">
+			Website:
+			<a
+				href={linkToEvent || linkToWebsite}
+				class="underline"
+			>
+				{truncateString(linkToEvent || linkToWebsite, 60)}
+			</a>
+		</p>
+
 		{#if isRegistrationNeeded && registrationLink}
-			Link to registration: <a
+			Registration: <a
 				href={registrationLink}
 				class="underline"
 			>
@@ -339,14 +309,15 @@
 			<h2 class="mb-2 mt-6 font-bold text-lg">Location</h2>
 			<p>
 				<i>blue pin</i>
-				- location of event
+				- location of the attraction
 			</p>
 			{#if location.bestWatchFrom && location.bestWatchFrom.length > 0}
 				<p>
 					<i>gray pin</i>
-					- good spot to watch
+					- good spot to observe
 				</p>
 			{/if}
+
 			<div class="h-96 -mx-6 mt-2 mb-6">
 				<Map
 					poisData={location.bestWatchFrom &&
@@ -369,7 +340,7 @@
 
 		{#if !$userState?.isSubscribed}
 			<PrimaryButton
-				title="Subscribe for more events like this"
+				title="Subscribe to learn about places like this"
 				on:click={openSubscriptionPopup}
 			/>
 		{/if}
@@ -377,12 +348,6 @@
 		<SecondaryButton
 			title="Share to"
 			on:click={initShareProcess}
-		/>
-
-		<SecondaryButton
-			title={isReminderSet ? "Reminder is set" : "Set reminder"}
-			on:click={setReminder}
-			disabled={isReminderSet}
 		/>
 
 		{#if addresses.length === 1}
@@ -397,7 +362,5 @@
 		{/if}
 	</div>
 </div>
-
-<NotificationPopup />
 
 <SubscriptionPopup />

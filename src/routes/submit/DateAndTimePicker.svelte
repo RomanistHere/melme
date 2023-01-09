@@ -1,9 +1,11 @@
 <script>
-	import Input from "$lib/components/ui/Input.svelte";
+	import DatePicker from "$lib/components/ui/DatePicker.svelte";
+	import TimePicker from "$lib/components/ui/TimePicker.svelte";
 
 	import { generateRandomString } from "$lib/utils/index.js";
 
-	export let externalError = null;
+	export let title;
+	export let externalError;
 
 	let number = [0];
 
@@ -25,20 +27,22 @@
 	{#if externalError}
 		{externalError}
 	{:else}
-		*Address
+		{title}
 	{/if}
 </p>
 
 <ul>
 	{#each number as i, count (i)}
-		<li class="flex -my-2 items-end">
-			<Input
+		<li class="flex flex-wrap items-end">
+			<DatePicker
 				title=""
-				id="event-address"
-				name="address_{i}"
-				maxlength={128}
-				placeholder="Type 'not specified' if it's unknown."
-				class="w-full"
+				name="date_{i}"
+			/>
+
+			<TimePicker
+				title=""
+				class="ml-2"
+				name="time_{i}"
 			/>
 
 			{#if !isSingleTimeRemaining}
@@ -56,8 +60,8 @@
 </ul>
 
 <button
-	class="underline mb-6 mt-4 text-sm"
+	class="text-sm underline mt-2 mb-6 text-indigo-700"
 	on:click|preventDefault={increaseNumber}
 >
-	Add another location
+	Add another time
 </button>

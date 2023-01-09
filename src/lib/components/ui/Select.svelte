@@ -15,8 +15,8 @@
 	</label>
 
 	<select
-		id=""
-		class="p-2"
+		{id}
+		class="p-4 w-full bg-white"
 	>
 		{#each options as value}
 			<option {value}>{value}</option>

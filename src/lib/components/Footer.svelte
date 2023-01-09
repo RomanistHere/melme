@@ -12,13 +12,13 @@
 			/>
 		</p>
 		<p class="py-0.5">
-			For
+			for
 			<TextLink
 				href="https://www.reddit.com/r/dubai/comments/z68pza/i_want_to_make_a_free_events_in_dubai_appsite_but/"
 				title="r/Dubai community"
 			/>
 		</p>
-		<p class="py-0.5">All rights reserved © 2022</p>
+		<p class="py-0.5">All rights reserved © 2022-2023</p>
 	</div>
 	<div class="text-right">
 		<TextLink

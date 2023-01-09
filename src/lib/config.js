@@ -1,18 +1,32 @@
 // don't use "-" in names or change implementing of filters
 export const categoryList = [
-	"food",
-	"music",
 	"movie",
 	"art & culture",
-	"tech",
-	"sports",
+	"socializing",
 	"wellbeing",
 	"national",
-	"performance",
-	"learning",
 	"with kids",
 	"with pets",
+	"sports",
+	"music",
+	"learning",
+	"food",
+	"performance",
+	"tech",
 	"volunteering",
+];
+
+export const attractionCategoryList = [
+	"public places",
+	"sights",
+	"nature",
+	"socializing",
+	"chill",
+	"animals",
+	"parks",
+	"beaches",
+	"with pets",
+	"with kids",
 ];
 
 export const timeOptions = [

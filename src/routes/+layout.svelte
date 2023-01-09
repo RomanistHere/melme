@@ -1,4 +1,6 @@
 <script>
+	import { afterNavigate } from "$app/navigation";
+
 	import "../app.css";
 
 	import Footer from "$lib/components/Footer.svelte";
@@ -17,6 +19,13 @@
 			showPwaInstall: true,
 		}));
 	};
+
+	afterNavigate(({ from }) => {
+		appState.update(state => ({
+			...state,
+			previousPage: from?.url.pathname || state.previousPage,
+		}));
+	});
 </script>
 
 <svelte:window on:beforeinstallprompt={beforePwaInstallHandle} />
@@ -25,8 +34,16 @@
 	<script
 		defer
 		data-domain="melme.io"
-		src="https://plausible.io/js/script.js"
+		data-api="/stats/api/event"
+		src="/stats/js/script.js"
 	></script>
+	<script>
+		window.plausible =
+			window.plausible ||
+			function () {
+				(window.plausible.q = window.plausible.q || []).push(arguments);
+			};
+	</script>
 </svelte:head>
 
 <div class="max-w-lg mx-auto min-h-screen flex flex-col">
