@@ -34,6 +34,7 @@
 	<script
 		defer
 		data-domain="melme.io"
+		data-api="/stats/api/event"
 		src="/stats/js/script.js"
 	></script>
 	<script>
