@@ -34,7 +34,7 @@
 	<script
 		defer
 		data-domain="melme.io"
-		src="/stats/script.js"
+		src="/stats/js/script.js"
 	></script>
 	<script>
 		window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }
