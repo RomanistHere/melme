@@ -8,12 +8,12 @@
 	import Seo from "$lib/components/Seo.svelte";
 	import Categories from "$lib/components/Categories.svelte";
 	import TextLink from "$lib/components/ui/TextLink.svelte";
+	import InstallApp from "$lib/components/InstallApp.svelte";
 
 	import { userState } from "$lib/stores/localStorage.js";
 	import { loadedEvents, appState } from "$lib/stores/index.js";
 	import { logError, sortByDateAndTime } from "$lib/utils/index.js";
 	import { appConfig } from "$lib/config.js";
-	import InstallApp from "$lib/components/InstallApp.svelte";
 
 	export let data;
 
@@ -106,9 +106,25 @@
 			<li>
 				<Card {...event} />
 			</li>
-			{#if i === 5}
+			<!--{#if i === 5}-->
+			<!--	<li>-->
+			<!--		<InstallApp />-->
+			<!--	</li>-->
+			<!--{/if}-->
+			{#if i === 10}
 				<li>
-					<InstallApp />
+
+					<div class="rounded-2xl my-6 bg-indigo-700 text-white p-4">
+						<p>Can't find interesting events? We collected popular free activities for you!</p>
+						<div class="flex justify-end mt-2">
+							<a
+								class="p-2 bg-white text-indigo-700 rounded-full px-4"
+								href="/attractions"
+							>
+								Check the activities
+							</a>
+						</div>
+					</div>
 				</li>
 			{/if}
 		{/each}

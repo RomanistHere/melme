@@ -27,7 +27,7 @@
 	export let hostName;
 	export let duration;
 	export let isRegistrationNeeded;
-	export let type;
+	export let type = "attraction";
 
 	$: isInstanceOfDate = times[0] instanceof Date;
 	$: date = getClosestDateToNow(times, isInstanceOfDate);

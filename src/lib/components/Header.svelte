@@ -87,6 +87,14 @@
 				<li>
 					<a
 						class="p-2 block"
+						href="attractions"
+					>
+						Attractions
+					</a>
+				</li>
+				<li>
+					<a
+						class="p-2 block"
 						href="articles/dubai-free-tips"
 					>
 						How to save money
@@ -98,14 +106,6 @@
 						href="articles/dubai-free-places"
 					>
 						What to visit every day
-					</a>
-				</li>
-				<li>
-					<a
-						class="p-2 block"
-						href="attractions"
-					>
-						See the list of attractions
 					</a>
 				</li>
 				<li>

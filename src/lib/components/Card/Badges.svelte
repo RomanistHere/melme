@@ -11,7 +11,7 @@
 	export let dateEnd;
 
 	const typesToCaption = {
-		"attraction": "Always open",
+		"attraction": "Everyday activities",
 		"one-time": "One-time opportunity",
 		"last-time": "Last chance",
 		"repeat": "On repeat",
