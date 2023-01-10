@@ -26,6 +26,28 @@
 			previousPage: from?.url.pathname || state.previousPage,
 		}));
 	});
+
+	const getUrlChanges = async () => {
+		const url = new URL(window.location.href);
+		const verifyToken = url.searchParams.get("verify_token");
+		if (verifyToken) {
+			url.searchParams.delete("verify_token");
+			const resp = await fetch("/api/user/verifyRegistration", {
+				method: "POST",
+				body: JSON.stringify({
+					token: verifyToken,
+				}),
+			});
+			const { error, data } = await resp.json();
+			// todo: show notification or popup here
+		}
+
+		window.history.replaceState(null, null, url);
+	};
+
+	if (typeof window !== "undefined") {
+		getUrlChanges();
+	}
 </script>
 
 <svelte:window on:beforeinstallprompt={beforePwaInstallHandle} />

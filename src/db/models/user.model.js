@@ -7,7 +7,10 @@ const schema = new Schema({
 		unique: true,
 		trim: true,
 	},
-	isVerified: Boolean,
+	isVerified: {
+		type: Boolean,
+		default: false,
+	},
 	createdAt: Date,
 }).index({
 	createdAt: 1,

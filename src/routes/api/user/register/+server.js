@@ -16,9 +16,11 @@ const prepareEmailMessage = (type, email, url) => {
 	const emailsByType = {
 		verification: {
 			subject: "Verify your email",
-			html: `Here's your email verification link:
+			html: `<p>Here's your email verification link:
 			<a href="${url}" target="_blank">${url}</a>
-			- click or copy and paste into address bar.`,
+			- click or copy and paste into address bar.</p>
+
+			<p>This link will expire in 3 days.</p>`,
 		},
 	};
 
@@ -50,7 +52,7 @@ export async function POST(event) {
 			return json({ error: "This address is already in our database" });
 
 		const token = generateRandomString();
-		const url = `${URL}?token=${token}`;
+		const url = `${URL}?verify_token=${token}`;
 		const msg = prepareEmailMessage("verification", email, url);
 		const output = await sgMail.send(msg);
 

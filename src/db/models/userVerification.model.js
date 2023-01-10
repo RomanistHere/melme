@@ -9,6 +9,7 @@ const schema = new Schema({
 	token: {
 		type: String,
 		required: true,
+		unique: true,
 	},
 	createdAt: Date,
 }).index(
@@ -16,7 +17,7 @@ const schema = new Schema({
 		createdAt: 1,
 	},
 	{
-		expireAfterSeconds: 3600000 * 24,
+		expireAfterSeconds: 3600000 * 24 * 3,
 	}
 );
 
