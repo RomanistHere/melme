@@ -7,6 +7,7 @@ const schema = new Schema({
 		unique: true,
 		trim: true,
 	},
+	isVerified: Boolean,
 	createdAt: Date,
 }).index({
 	createdAt: 1,

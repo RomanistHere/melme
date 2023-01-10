@@ -1,7 +1,7 @@
 import { writable as internal, get } from "svelte/store";
 import { browser } from "$app/environment";
 
-function writable(key, initialValue) {
+const writable = (key, initialValue) => {
 	const store = internal(initialValue);
 	const { subscribe, set } = store;
 	// check if in client
@@ -26,9 +26,9 @@ function writable(key, initialValue) {
 		},
 		subscribe,
 	};
-}
+};
 
-export const userState = writable({
+export const userState = writable("persistingAppStore", {
 	likedEvents: [],
 	comingEvents: [],
 	reminderEvents: [],

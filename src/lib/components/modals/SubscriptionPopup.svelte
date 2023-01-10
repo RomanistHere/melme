@@ -27,6 +27,10 @@
 		if (e.target === e.currentTarget) closePopup();
 	};
 
+	const retry = () => {
+		err = null;
+	};
+
 	const sendEmail = async () => {
 		err = null;
 		success = null;
@@ -43,10 +47,10 @@
 		}
 
 		try {
-			const resp = await fetch("/api/saveEmail", {
+			const resp = await fetch("/api/user/register", {
 				method: "POST",
 				body: JSON.stringify({
-					email: userEmail,
+					email: userEmail.toLowerCase(),
 				}),
 				headers: {
 					"Content-type": "application/json",
@@ -86,12 +90,12 @@
 				</p>
 
 				<p class="text-sm opacity-40 mb-6">
-					Something went wrong. Your address wasn't saved.
+					Your address wasn't saved this time.
 				</p>
 
 				<SecondaryButton
 					title="Try again"
-					on:click={sendEmail}
+					on:click={retry}
 				/>
 				<PrimaryButton
 					title="Understood"

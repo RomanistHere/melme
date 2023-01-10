@@ -14,7 +14,7 @@ const isUserRateLimited = rateLimitCheck(10, UserRateLimit);
 export const actions = {
 	default: async event => {
 		const { isError, isOverLimit, message } = await isUserRateLimited(
-			event.getClientAddress()
+			event.request.headers["cf-connecting-ip"] || event.getClientAddress()
 		);
 
 		if (isError) return { success: false, error: message };
