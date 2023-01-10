@@ -6,6 +6,7 @@
 
 <button
 	class="absolute flex justify-center items-center {customClass}"
+	aria-label="like button"
 	on:click
 >
 	<span

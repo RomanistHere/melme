@@ -37,6 +37,7 @@
 		<a href="/">Free events in Dubai</a>
 		<button
 			class="absolute w-10 h-10 p-2 right-0 top-1/2 -translate-y-1/2"
+			aria-label="open nav menu button"
 			on:click|preventDefault={openMenu}
 		>
 			<span class="relative w-6 h-6 block">
@@ -52,6 +53,7 @@
 	{#if viewButton}
 		<a
 			href={viewButton === "list" ? "/" : "/map"}
+			aria-label={viewButton === "list" ? "open list view" : "open map view"}
 			class="absolute right-4 bg-white w-12 h-12 flex justify-center items-center rounded-full top-20 z-10 border-indigo-700 border-2"
 		>
 			{#if viewButton === "list"}
