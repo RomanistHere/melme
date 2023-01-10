@@ -76,7 +76,10 @@
 	onMount(resetPaginationChanges);
 </script>
 
-<Seo />
+<Seo
+	title="melme | free attractions and activities"
+	description="Free touristic attractions and activities near you in Dubai. Entertainment that works every day. Learn working schedule and visit."
+/>
 
 <Header viewButton="map" />
 

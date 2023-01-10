@@ -30,7 +30,10 @@
 	};
 </script>
 
-<Seo title="melme | map view" />
+<Seo
+	title="melme | map view"
+	description="See free events, shows and activities on map in Dubai. Find out what's happening near you right now."
+/>
 
 <Header viewButton="list" />
 

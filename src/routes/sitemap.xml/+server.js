@@ -43,6 +43,11 @@ export async function GET() {
 		<changefreq>daily</changefreq>
 		<priority>0.7</priority>
 	</url>
+	<url>
+		<loc>https://melme.io/map</loc>
+		<changefreq>daily</changefreq>
+		<priority>0.7</priority>
+	</url>
 	
 	${!error && events
 		.map(

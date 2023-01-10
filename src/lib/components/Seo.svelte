@@ -2,7 +2,7 @@
 	export let title = "melme";
 	export let description =
 		// eslint-disable-next-line max-len
-		"Free events near me in Dubai. Find the perfect entertainment for tonight or see live events - learn what is happening right now in your city.";
+		"Free events, shows and activities near me in Dubai. Find the perfect entertainment for tonight or see live events - learn what is happening in your city now.";
 	export let image;
 </script>
 
