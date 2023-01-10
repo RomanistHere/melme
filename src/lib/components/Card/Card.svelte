@@ -103,6 +103,9 @@
 				href="{path}/{slug}"
 			>
 				<span class="mr-1">Learn more</span>
+				<span class="absolute w-px h-px -m-px overflow-hidden">
+					about {title}
+				</span>
 				<div class="rotate-180 scale-90">
 					<ArrowLeft
 						fill={null}
